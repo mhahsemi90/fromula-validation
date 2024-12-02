@@ -1,23 +1,24 @@
 import {Box} from "@mui/material";
 import AddNext from "../AddNext/index.jsx";
-import LineComponnentItem from "../LineComponnentItem/index.jsx";
+import Blocks from "../Blocks/index.jsx";
 import PropTypes from "prop-types";
 
-const LineComponnent = ({lineObjects}) => {
+const LineOfBlocks = ({blocks}) => {
+    const margin = blocks.lineLevel * 10 + 'px';
     return (
         <Box
             sx={{
-                marginX: '5px',
+                marginRight: margin,
                 display: 'flex',
                 flexDirection: 'row',
                 width: '100%',
             }}>
-            <LineComponnentItem lineObjects={lineObjects}/>
+            <Blocks blocks={blocks.blockList}/>
             <AddNext/>
         </Box>
     )
 }
-LineComponnent.propTypes = {
-    lineObjects: PropTypes.array.isRequired,
+LineOfBlocks.propTypes = {
+    blocks: PropTypes.object.isRequired,
 }
-export default LineComponnent;
+export default LineOfBlocks;

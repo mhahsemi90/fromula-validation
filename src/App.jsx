@@ -7,7 +7,7 @@ import {useState} from "react";
 import QueryResult from "./QueryResult/index.jsx";
 
 const App = () => {
-    const [lineObjectsList, setLineObjectsList] = useState([]);
+    const [lineOfBlocksList, setLineOfBlocksList] = useState([]);
     const [value, setValue] = useState('');
     return (<>
             <Box
@@ -53,7 +53,7 @@ const App = () => {
                             overflowX: 'hidden',
                         }}
                     >
-                        <FormulaComponent lineObjectsList={lineObjectsList}/>
+                        <FormulaComponent lineOfBlocksList={lineOfBlocksList}/>
                     </Box>
                     <Box
                         sx={{
@@ -70,7 +70,7 @@ const App = () => {
                         }}>
                             <InputLabel htmlFor="my-input">آدرس ایمیل</InputLabel>
                             <Input id="my-input" value={value} onChange={(e) => setValue(e.target.value)}/>
-                            <Button variant="outlined" onClick={() => QueryResult(value, setLineObjectsList)}>ارسال</Button>
+                            <Button variant="outlined" onClick={() => QueryResult(value, setLineOfBlocksList)}>ارسال</Button>
                         </FormControl>
                     </Box>
                 </Box>

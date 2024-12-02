@@ -1,5 +1,5 @@
 import {ApolloClient, gql, InMemoryCache} from "@apollo/client";
-import getLineObjectList from "../GetLineObject/getLineObjectList.js";
+import generateLineOfBlocksList from "../GenerateLineOfBlocksList/generateLineOfBlocksList.js";
 
 const client = new ApolloClient({
     uri: 'http://localhost:8080/graphql',
@@ -27,13 +27,15 @@ const QueryResult = (script, setLineObjectList) => {
         formulaValidation(formula: "${script}")  
                  }`,
         })
-        .then((result) => setLineObjectList(
-            result ?
-                getLineObjectList(
-                    parsingJson(result.data.formulaValidation)
-                ) :
-                []
-        ));
+        .then((result) =>
+            setLineObjectList(
+                result ?
+                    generateLineOfBlocksList(
+                        parsingJson(result.data.formulaValidation)
+                    ) :
+                    []
+            )
+        );
 }
 
 export default QueryResult
