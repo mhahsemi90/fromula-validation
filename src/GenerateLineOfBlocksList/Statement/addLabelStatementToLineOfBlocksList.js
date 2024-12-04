@@ -1,19 +1,19 @@
 import Block from "../../ProjectObject/Block.js";
-import BlockType from "../../Blocks/BlockType.js";
-import LineOfBlocks from "../../ProjectObject/LineOfBlocks.js";
+import BlockType from "../../ViewBlock/BlockType.js";
+import Line from "../../ProjectObject/Line.js";
 import addStatementToLineOfBlocksList from "../addStatementToLineOfBlocksList.js";
 import StatementType from "./StatementType.js";
 
 const addLabelStatementToLineOfBlocksList = (lineOfBlocksList, statement, row, lineLevel) => {
     const blocks = [];
     blocks.push(
-        new Block(BlockType.LABEL, statement.label, statement.label, row[0])
+        new Block(BlockType.LABEL, statement.label, statement.label)
     );
     blocks.push(
-        new Block(BlockType.LABEL_ASSIGN, ':', ':', row[0])
+        new Block(BlockType.LABEL_ASSIGN, ':', ':')
     );
     lineOfBlocksList.push(
-        new LineOfBlocks(lineLevel[0], blocks)
+        new Line(row[0],lineLevel[0], blocks)
     );
     row[0]++;
     switch (statement.body.type) {

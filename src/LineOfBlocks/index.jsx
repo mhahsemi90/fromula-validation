@@ -1,10 +1,10 @@
 import {Box} from "@mui/material";
 import AddNext from "../AddNext/index.jsx";
-import Blocks from "../Blocks/index.jsx";
+import ViewBlock from "../ViewBlock/index.jsx";
 import PropTypes from "prop-types";
 
-const LineOfBlocks = ({blocks}) => {
-    const margin = blocks.lineLevel * 10 + 'px';
+const LineOfBlocks = ({line,setEditBlocks}) => {
+    const margin = line.lineLevel * 10 + 'px';
     return (
         <Box
             sx={{
@@ -12,13 +12,15 @@ const LineOfBlocks = ({blocks}) => {
                 display: 'flex',
                 flexDirection: 'row',
                 width: '100%',
-            }}>
-            <Blocks blocks={blocks.blockList}/>
+            }}
+        onClick={()=>setEditBlocks(line)}>
+            <ViewBlock blocks={line.blockList}/>
             <AddNext/>
         </Box>
     )
 }
 LineOfBlocks.propTypes = {
-    blocks: PropTypes.object.isRequired,
+    line: PropTypes.object.isRequired,
+    setEditBlocks: PropTypes.func.isRequired,
 }
 export default LineOfBlocks;

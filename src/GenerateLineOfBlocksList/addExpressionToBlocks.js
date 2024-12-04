@@ -1,11 +1,21 @@
 import addVariableExpressionToBlocks from "./Expression/addVariableExpressionToBlocks.js";
 import ExpressionType from "./Expression/ExpressionType.js";
+import addBinaryExpressionToBlocks from "./Expression/addBinaryExpressionToBlocks.js";
+import Block from "../ProjectObject/Block.js";
+import BlockType from "../ViewBlock/BlockType.js";
+import addUnaryExpressionToBlocks from "./Expression/addUnaryExpressionToBlocks.js";
 
-const addExpressionToBlocks = (blocks, expression, row) => {
+const addExpressionToBlocks = (blocks, expression) => {
     switch (expression.type) {
         case ExpressionType.VARIABLE_EXPRESSION:
+            blocks.push(
+                new Block(BlockType.ID, expression.idName, expression.idName)
+            );
             break;
         case ExpressionType.LITERAL_EXPRESSION:
+            blocks.push(
+                new Block(BlockType.LITERAL, expression.value, expression.value)
+            );
             break;
         case ExpressionType.CALL_EXPRESSION:
             break;
@@ -14,8 +24,10 @@ const addExpressionToBlocks = (blocks, expression, row) => {
         case ExpressionType.ARRAY_PATTERN_EXPRESSION:
             break;
         case ExpressionType.UNARY_EXPRESSION:
+            addUnaryExpressionToBlocks(blocks, expression);
             break;
         case ExpressionType.BINARY_EXPRESSION:
+            addBinaryExpressionToBlocks(blocks, expression);
             break;
         case ExpressionType.CONDITIONAL_EXPRESSION:
             break;
@@ -26,7 +38,7 @@ const addExpressionToBlocks = (blocks, expression, row) => {
         case ExpressionType.LOGICAL_EXPRESSION:
             break;
         case ExpressionType.VARIABLE_DECLARATOR_EXPRESSION:
-            addVariableExpressionToBlocks(blocks, expression, row);
+            addVariableExpressionToBlocks(blocks, expression);
             break;
         case ExpressionType.PARENTHESIS_EXPRESSION:
             break;

@@ -1,9 +1,8 @@
 class Block {
-    constructor(type, title, code, row) {
+    constructor(type, title, code) {
         this.type = type;
         this.title = title;
         this.code = code;
-        this.row = row;
     }
 }
 export default Block;

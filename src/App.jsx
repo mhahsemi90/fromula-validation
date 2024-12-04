@@ -1,13 +1,26 @@
 import FormulaComponent from "./FormulaComponent/index.jsx";
-import {
-    Box, Button,
-    FormControl, Input, InputLabel
-} from "@mui/material";
+import {Box, Button, FormControl, Input, InputLabel} from "@mui/material";
 import {useState} from "react";
 import QueryResult from "./QueryResult/index.jsx";
+import EditBlock from "./EditBlock/index.jsx";
+import {v4 as uuidv4} from "uuid";
+import Line from "./ProjectObject/Line.js";
+import SendIcon from '@mui/icons-material/Send';
+
+function sendEditedLine(line, linesOfBlocks, setLinesOfBlocks) {
+    const newLinesOfBlocks = [];
+    linesOfBlocks.forEach((l, i) => {
+        if (i === line.row)
+            newLinesOfBlocks.push(line);
+        else
+            newLinesOfBlocks.push(l);
+    });
+    setLinesOfBlocks(newLinesOfBlocks);
+}
 
 const App = () => {
-    const [lineOfBlocksList, setLineOfBlocksList] = useState([]);
+    const [linesOfBlocks, setLinesOfBlocks] = useState([]);
+    const [line, setLine] = useState(new Line());
     const [value, setValue] = useState('');
     return (<>
             <Box
@@ -30,6 +43,14 @@ const App = () => {
                         boxSizing: 'border-box',
                     }}
                 >
+                    {line.blockList && line.blockList.map((block, index) =>
+                        (<EditBlock block={block} line={line} setLine={setLine} index={index} key={uuidv4()}/>)
+                    )}
+                    <Button
+                        variant={'contained'}
+                        endIcon={<SendIcon/>}
+                        onClick={() => sendEditedLine(line, linesOfBlocks, setLinesOfBlocks)}
+                    >ارسال</Button>
                 </Box>
                 <Box
                     sx={{
@@ -53,7 +74,7 @@ const App = () => {
                             overflowX: 'hidden',
                         }}
                     >
-                        <FormulaComponent lineOfBlocksList={lineOfBlocksList}/>
+                        <FormulaComponent linesOfBlocks={linesOfBlocks} setEditBlocks={setLine}/>
                     </Box>
                     <Box
                         sx={{
@@ -70,7 +91,8 @@ const App = () => {
                         }}>
                             <InputLabel htmlFor="my-input">آدرس ایمیل</InputLabel>
                             <Input id="my-input" value={value} onChange={(e) => setValue(e.target.value)}/>
-                            <Button variant="outlined" onClick={() => QueryResult(value, setLineOfBlocksList)}>ارسال</Button>
+                            <Button variant="outlined"
+                                    onClick={() => QueryResult(value, setLinesOfBlocks)}>ارسال</Button>
                         </FormControl>
                     </Box>
                 </Box>
