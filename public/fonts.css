@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'B-Titr';
+    src: url('Fonts/B-Titr.ttf') format('woff2'),
+    url('Fonts/B-Titr.ttf') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}

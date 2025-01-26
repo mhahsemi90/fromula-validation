@@ -1,8 +1,9 @@
 class Line {
-    constructor(row, lineLevel, blockList) {
+    constructor(row, lineLevel, blockList, statementType) {
         this.row = row;
         this.lineLevel = lineLevel;
         this.blockList = blockList;
+        this.statementType = statementType;
     }
 }
 
