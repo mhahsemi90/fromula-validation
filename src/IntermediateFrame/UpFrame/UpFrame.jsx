@@ -1,26 +1,13 @@
 import {Box} from "@mui/material";
-import PropTypes from "prop-types";
 import AllTabs from "./Tabs/AllTabs.jsx";
 import {CacheProvider} from "@emotion/react";
 import {ThemeProvider} from "@mui/material/styles";
+import {useContext} from "react";
+import {MainFrameContext} from "../../MainContext.jsx";
 
-const UpFrame = ({
-                     editLine,
-                     setEditLine,
-                     linesOfBlocks,
-                     setLinesOfBlocks,
-                     blinkIndex,
-                     setBlinkIndex,
-                     setActiveLineIndex,
-                     type,
-                     setType,
-                     operators,
-                     operands,
-                     t,
-                     lang,
-                     cache,
-                     theme
-                 }) => {
+const UpFrame = () => {
+    const {theme} = useContext(MainFrameContext);
+    const {cache} = useContext(MainFrameContext);
     return (
 
         <Box
@@ -35,47 +22,11 @@ const UpFrame = ({
         >
             <CacheProvider value={cache}>
                 <ThemeProvider theme={theme}>
-                    <AllTabs
-                        setLinesOfBlocks={setLinesOfBlocks}
-                        editLine={editLine}
-                        setEditLine={setEditLine}
-                        linesOfBlocks={linesOfBlocks}
-                        blinkIndex={blinkIndex}
-                        setBlinkIndex={setBlinkIndex}
-                        setActiveLineIndex={setActiveLineIndex}
-                        type={type}
-                        setType={setType}
-                        operators={operators}
-                        operands={operands}
-                        t={t}
-                        lang={lang}/>
+                    <AllTabs/>
                 </ThemeProvider>
             </CacheProvider>
         </Box>
 
     )
-}
-UpFrame.propTypes = {
-    editLine: PropTypes.object.isRequired,
-    setEditLine: PropTypes.func.isRequired,
-    linesOfBlocks: PropTypes.arrayOf(
-        PropTypes.object.isRequired
-    ).isRequired,
-    setLinesOfBlocks: PropTypes.func.isRequired,
-    setBlinkIndex: PropTypes.func.isRequired,
-    setActiveLineIndex: PropTypes.func.isRequired,
-    blinkIndex: PropTypes.number.isRequired,
-    setType: PropTypes.func.isRequired,
-    type: PropTypes.string.isRequired,
-    operators: PropTypes.arrayOf(
-        PropTypes.object.isRequired
-    ).isRequired,
-    operands: PropTypes.arrayOf(
-        PropTypes.object.isRequired
-    ).isRequired,
-    cache: PropTypes.object.isRequired,
-    theme: PropTypes.object.isRequired,
-    t: PropTypes.func.isRequired,
-    lang: PropTypes.string.isRequired,
 }
 export default UpFrame;

@@ -3,44 +3,41 @@ import PropTypes from "prop-types";
 import Line from "../../ProjectObject/Line.js";
 import '../../../public/keyFrame.css'
 import Blink from "./Tabs/Blink.jsx";
+import {useContext} from "react";
+import {IntermediateFrameContext, MainFrameContext} from "../../MainContext.jsx";
 
-function deleteEditBlock(editLine, setEditLine, setBlinkIndex, index) {
+function deleteEditBlock(lineToEdit, setLineToEdit, setBlinkIndex, index) {
     const blockList = [];
-    editLine.blockList.forEach((block, i) => {
+    lineToEdit.blockList.forEach((block, i) => {
         if (i !== index) blockList.push(block)
     })
-    setEditLine(new Line(editLine.row, editLine.lineLevel, blockList));
+    setLineToEdit(new Line(lineToEdit.row, lineToEdit.lineLevel, blockList));
     setBlinkIndex(index - 1);
 }
 
-const EditBlock = ({
-                       block, editLine, setEditLine, index, setBlinkIndex, blinkIndex, lang
-                   }) => {
+const EditBlock = ({block, index,}) => {
+    const {lang} = useContext(MainFrameContext);
+    const {lineToEdit, setLineToEdit, setBlinkIndex} = useContext(IntermediateFrameContext);
     return (<Box
+        sx={{
+            display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+        }}
+    >
+        {index === 0 ? <Blink index={-1}/> : null}
+        <Chip
+            label={lang === 'en' ? block.enTitle : block.title}
+            color="primary"
+            variant="outlined"
+            onClick={() => deleteEditBlock(lineToEdit, setLineToEdit, setBlinkIndex, index)}
             sx={{
-                display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                margin: '2px',
             }}
-        >
-            {index === 0 ? <Blink setBlinkIndex={setBlinkIndex}  blinkIndex={blinkIndex} index={-1}/> : null}
-            <Chip
-                label={lang === 'en' ? block.enTitle : block.title}
-                color="primary"
-                variant="outlined"
-                onClick={() => deleteEditBlock(editLine, setEditLine, setBlinkIndex, index)}
-                sx={{
-                    margin: '2px',
-                }}
-            />
-            <Blink setBlinkIndex={setBlinkIndex} blinkIndex={blinkIndex} index={index}/>
-        </Box>);
+        />
+        <Blink index={index}/>
+    </Box>);
 }
 EditBlock.propTypes = {
     block: PropTypes.object.isRequired,
-    editLine: PropTypes.object.isRequired,
-    blinkIndex: PropTypes.number.isRequired,
-    setEditLine: PropTypes.func.isRequired,
-    setBlinkIndex: PropTypes.func.isRequired,
     index: PropTypes.number.isRequired,
-    lang: PropTypes.string.isRequired,
 }
 export default EditBlock

@@ -1,7 +1,10 @@
 import {Box} from "@mui/material";
 import PropTypes from "prop-types";
+import {useContext} from "react";
+import {IntermediateFrameContext} from "../../../MainContext.jsx";
 
-const Blink = ({setBlinkIndex, blinkIndex, index}) => {
+const Blink = ({index}) => {
+    const {blinkIndex, setBlinkIndex} = useContext(IntermediateFrameContext);
     const blink = 'blink 1s step-end infinite';
     return (
         <Box
@@ -23,8 +26,6 @@ const Blink = ({setBlinkIndex, blinkIndex, index}) => {
     );
 }
 Blink.propTypes = {
-    blinkIndex: PropTypes.number.isRequired,
-    setBlinkIndex: PropTypes.func.isRequired,
     index: PropTypes.number.isRequired,
 }
 export default Blink;

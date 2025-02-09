@@ -1,58 +1,46 @@
 import {AppBar, Box, Paper, Tab, Tabs} from "@mui/material";
-import PropTypes from "prop-types";
 import TabPanel from "./TabPanel.jsx";
 import B from "../../../BundleConst/B.js";
 import '../../../i18n.js'
-import StatementType from "../../../GenerateLineOfBlocksListFromStatementList/Statement/StatementType.js";
+import LineType from "../../../CommonCode/LineType.js";
 import StatementTabPanel from "./StatementTabPanel.jsx";
 import Line from "../../../ProjectObject/Line.js";
+import {useContext} from "react";
+import {IntermediateFrameContext, MainFrameContext} from "../../../MainContext.jsx";
 
-
-const AllTabs = ({
-                     editLine,
-                     setEditLine,
-                     linesOfBlocks,
-                     setLinesOfBlocks,
-                     blinkIndex,
-                     setBlinkIndex,
-                     setActiveLineIndex,
-                     type,
-                     setType,
-                     operands,
-                     operators,
-                     t,
-                     lang
-                 }) => {
-    const setEditedLine = (editLine, linesOfBlocks, setLinesOfBlocks, statementType, setActiveLineIndex) => {
+const AllTabs = () => {
+    const {type, setType} = useContext(IntermediateFrameContext);
+    const {t} = useContext(MainFrameContext);
+    const confirmChangeLineToEdit = (lineToEdit, linesOfBlocks, setLinesOfBlocks, lineType, setActiveLineToEditRow) => {
         const newLinesOfBlocks = [];
-        let activeLineIndex;
-        setType(statementType);
-        editLine.statementType = statementType;
-        if (editLine.row === 0 || editLine.row) {
+        let activeLineToEditRow;
+        setType(lineType);
+        lineToEdit.lineType = lineType;
+        if (lineToEdit.row === 0 || lineToEdit.row) {
             linesOfBlocks.forEach((l, i) => {
-                if (i === editLine.row)
-                    newLinesOfBlocks.push(editLine);
+                if (i === lineToEdit.row)
+                    newLinesOfBlocks.push(lineToEdit);
                 else
                     newLinesOfBlocks.push(l);
             });
-            activeLineIndex = editLine.row;
+            activeLineToEditRow = lineToEdit.row;
         } else {
-            editLine.row = linesOfBlocks.length;
-            editLine.lineLevel = 0;
-            if (!editLine.blockList)
-                editLine.blockList = [];
+            lineToEdit.row = linesOfBlocks.length;
+            lineToEdit.lineLevel = 0;
+            if (!lineToEdit.blockList)
+                lineToEdit.blockList = [];
             newLinesOfBlocks.push(...linesOfBlocks);
-            newLinesOfBlocks.push(editLine);
-            activeLineIndex = linesOfBlocks.length;
+            newLinesOfBlocks.push(lineToEdit);
+            activeLineToEditRow = linesOfBlocks.length;
         }
         setLinesOfBlocks(newLinesOfBlocks);
-        setActiveLineIndex(activeLineIndex);
+        setActiveLineToEditRow(activeLineToEditRow);
     }
-    const clear = (setEditLine, statementType, setBlinkIndex) => {
-        setType(statementType);
-        setEditLine(new Line());
+    const clear = (setLineToEdit, lineType, setBlinkIndex, setActiveLineToEditRow) => {
+        setType(lineType);
+        setLineToEdit(new Line());
         setBlinkIndex(-1);
-        setActiveLineIndex(-1);
+        setActiveLineToEditRow(-1);
     }
     return (
         <Paper
@@ -81,88 +69,34 @@ const AllTabs = ({
                                 color: 'white !important',
                             },
                         }}>
-                        <Tab label={t(B.F_EXPRESSION_STATEMENT)} value={StatementType.EXPRESSION_STATEMENT}/>
-                        <Tab label={t(B.F_IF_STATEMENT)} value={StatementType.IF_STATEMENT}/>
-                        <Tab label={t(B.F_FOR_STATEMENT)} value={StatementType.FOR_STATEMENT}/>
+                        <Tab label={t(B.F_EXPRESSION_STATEMENT)} value={LineType.EXPRESSION_STATEMENT}/>
+                        <Tab label={t(B.F_IF_STATEMENT)} value={LineType.IF_STATEMENT}/>
+                        <Tab label={t(B.F_FOR_STATEMENT)} value={LineType.FOR_STATEMENT}/>
                     </Tabs>
                 </AppBar>
             </Box>
-            <TabPanel value={type} label={StatementType.EXPRESSION_STATEMENT}>
+            <TabPanel value={type} label={LineType.EXPRESSION_STATEMENT}>
                 <StatementTabPanel
-                    editLine={editLine}
-                    setEditLine={setEditLine}
-                    linesOfBlocks={linesOfBlocks}
-                    setLinesOfBlocks={setLinesOfBlocks}
-                    setEditedLine={setEditedLine}
+                    confirmChangeLineToEdit={confirmChangeLineToEdit}
                     clear={clear}
-                    blinkIndex={blinkIndex}
-                    setBlinkIndex={setBlinkIndex}
-                    setActiveLineIndex={setActiveLineIndex}
-                    statementType={StatementType.EXPRESSION_STATEMENT}
-                    operands={operands}
-                    operators={operators}
-                    t={t}
-                    lang={lang}
+                    lineType={LineType.EXPRESSION_STATEMENT}
                 />
             </TabPanel>
-            <TabPanel value={type} label={StatementType.IF_STATEMENT}>
+            <TabPanel value={type} label={LineType.IF_STATEMENT}>
                 <StatementTabPanel
-                    editLine={editLine}
-                    setEditLine={setEditLine}
-                    linesOfBlocks={linesOfBlocks}
-                    setLinesOfBlocks={setLinesOfBlocks}
-                    setEditedLine={setEditedLine}
+                    confirmChangeLineToEdit={confirmChangeLineToEdit}
                     clear={clear}
-                    blinkIndex={blinkIndex}
-                    setBlinkIndex={setBlinkIndex}
-                    setActiveLineIndex={setActiveLineIndex}
-                    statementType={StatementType.IF_STATEMENT}
-                    operands={operands}
-                    operators={operators}
-                    t={t}
-                    lang={lang}
+                    lineType={LineType.IF_STATEMENT}
                 />
             </TabPanel>
-            <TabPanel value={type} label={StatementType.FOR_STATEMENT}>
+            <TabPanel value={type} label={LineType.FOR_STATEMENT}>
                 <StatementTabPanel
-                    editLine={editLine}
-                    setEditLine={setEditLine}
-                    linesOfBlocks={linesOfBlocks}
-                    setLinesOfBlocks={setLinesOfBlocks}
-                    setEditedLine={setEditedLine}
+                    confirmChangeLineToEdit={confirmChangeLineToEdit}
                     clear={clear}
-                    blinkIndex={blinkIndex}
-                    setBlinkIndex={setBlinkIndex}
-                    setActiveLineIndex={setActiveLineIndex}
-                    statementType={StatementType.FOR_STATEMENT}
-                    operands={operands}
-                    operators={operators}
-                    t={t}
-                    lang={lang}
+                    lineType={LineType.FOR_STATEMENT}
                 />
             </TabPanel>
         </Paper>
     )
-}
-AllTabs.propTypes = {
-    editLine: PropTypes.object.isRequired,
-    setEditLine: PropTypes.func.isRequired,
-    type: PropTypes.string.isRequired,
-    setType: PropTypes.func.isRequired,
-    operators: PropTypes.arrayOf(
-        PropTypes.object.isRequired
-    ).isRequired,
-    operands: PropTypes.arrayOf(
-        PropTypes.object.isRequired
-    ).isRequired,
-    linesOfBlocks: PropTypes.arrayOf(
-        PropTypes.object.isRequired
-    ).isRequired,
-    setLinesOfBlocks: PropTypes.func.isRequired,
-    setActiveLineIndex: PropTypes.func.isRequired,
-    setBlinkIndex: PropTypes.func.isRequired,
-    blinkIndex: PropTypes.number.isRequired,
-    t: PropTypes.func.isRequired,
-    lang: PropTypes.string.isRequired,
 }
 export default AllTabs;

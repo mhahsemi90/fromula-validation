@@ -5,21 +5,12 @@ import * as Icons from "@mui/icons-material";
 import PropTypes from "prop-types";
 import B from "../../../../BundleConst/B.js";
 import '../../../../i18n.js'
+import {useContext} from "react";
+import {IntermediateFrameContext, MainFrameContext} from "../../../../MainContext.jsx";
 
-const DownSection = ({
-                         editLine,
-                         setEditLine,
-                         linesOfBlocks,
-                         setLinesOfBlocks,
-                         setEditedLine,
-                         clear,
-                         statementType,
-                         blinkIndex,
-                         setBlinkIndex,
-                         setActiveLineIndex,
-                         t,
-                         lang
-                     }) => {
+const DownSection = ({confirmChangeLineToEdit, clear, lineType,}) => {
+    const {linesOfBlocks, setLinesOfBlocks, t} = useContext(MainFrameContext);
+    const {lineToEdit, setLineToEdit, setActiveLineToEditRow, setBlinkIndex} = useContext(IntermediateFrameContext);
     return (
         <Box
             sx={{
@@ -52,22 +43,20 @@ const DownSection = ({
                         flexWrap: 'wrap',
                         overflowY: 'auto',
                     }}>
-                    {editLine.blockList && editLine.blockList.map((block, index) =>
-                        (<EditBlock block={block} editLine={editLine} setEditLine={setEditLine} index={index}
-                                    setBlinkIndex={setBlinkIndex} blinkIndex={blinkIndex} lang={lang}
-                                    key={uuidv4()}/>)
+                    {lineToEdit.blockList && lineToEdit.blockList.map((block, index) =>
+                        (<EditBlock block={block} index={index} key={uuidv4()}/>)
                     )}
                 </Box>
                 <Box sx={{boxSizing: 'border-box', display: 'flex', justifyContent: 'center'}}>
                     <Button
                         variant={'contained'}
                         endIcon={<Icons.Send/>}
-                        onClick={() => setEditedLine(editLine, linesOfBlocks, setLinesOfBlocks, statementType,setActiveLineIndex)}
+                        onClick={() => confirmChangeLineToEdit(lineToEdit, linesOfBlocks, setLinesOfBlocks, lineType, setActiveLineToEditRow)}
                     >{t(B.F_SEND)}</Button>
                     <Button
                         variant={'contained'}
                         endIcon={<Icons.Clear/>}
-                        onClick={() => clear(setEditLine, statementType, setBlinkIndex, setActiveLineIndex)}
+                        onClick={() => clear(setLineToEdit, lineType, setBlinkIndex, setActiveLineToEditRow)}
                     >{t(B.F_CLEAR)}</Button>
                 </Box>
             </Paper>
@@ -75,19 +64,8 @@ const DownSection = ({
     );
 }
 DownSection.propTypes = {
-    editLine: PropTypes.object.isRequired,
-    setEditLine: PropTypes.func.isRequired,
-    linesOfBlocks: PropTypes.arrayOf(
-        PropTypes.object.isRequired
-    ).isRequired,
-    blinkIndex: PropTypes.number.isRequired,
-    setLinesOfBlocks: PropTypes.func.isRequired,
-    setEditedLine: PropTypes.func.isRequired,
+    confirmChangeLineToEdit: PropTypes.func.isRequired,
     clear: PropTypes.func.isRequired,
-    statementType: PropTypes.string.isRequired,
-    setBlinkIndex: PropTypes.func.isRequired,
-    setActiveLineIndex: PropTypes.func.isRequired,
-    t: PropTypes.func.isRequired,
-    lang: PropTypes.string.isRequired,
+    lineType: PropTypes.string.isRequired,
 }
 export default DownSection;

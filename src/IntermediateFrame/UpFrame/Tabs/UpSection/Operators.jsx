@@ -1,30 +1,33 @@
 import {Box, Chip, Paper} from "@mui/material";
 import Line from "../../../../ProjectObject/Line.js";
 import Block from "../../../../ProjectObject/Block.js";
-import PropTypes from "prop-types";
+import {useContext} from "react";
+import {IntermediateFrameContext, MainFrameContext} from "../../../../MainContext.jsx";
 
-function addEditBlock(editLine, setEditLine, setBlinkIndex, blinkIndex, operator) {
+function addEditBlock(lineToEdit, setLineToEdit, setBlinkIndex, blinkIndex, operator) {
     const blockList =
-        editLine.blockList ?
+        lineToEdit.blockList ?
             [
-                ...editLine.blockList.slice(0, blinkIndex + 1),
+                ...lineToEdit.blockList.slice(0, blinkIndex + 1),
                 new Block(operator.type, operator.title, operator.code, operator.code),
-                ...editLine.blockList.slice(blinkIndex + 1)
+                ...lineToEdit.blockList.slice(blinkIndex + 1)
             ] :
             [
                 new Block(operator.type, operator.title, operator.code, operator.code)
             ];
-    setEditLine(
+    setLineToEdit(
         new Line(
-            editLine.row,
-            editLine.lineLevel,
+            lineToEdit.row,
+            lineToEdit.lineLevel,
             blockList
         )
     );
     setBlinkIndex(blinkIndex + 1);
 }
 
-const Operators = ({editLine, setEditLine, setBlinkIndex, blinkIndex, operators, lang}) => {
+const Operators = () => {
+    const {operators, lang} = useContext(MainFrameContext);
+    const {lineToEdit, setLineToEdit, blinkIndex, setBlinkIndex} = useContext(IntermediateFrameContext);
     return (
         <Paper
             elevation={2}
@@ -49,7 +52,7 @@ const Operators = ({editLine, setEditLine, setBlinkIndex, blinkIndex, operators,
                         label={lang === 'en' ? operator.code : operator.title}
                         color="primary"
                         variant="outlined"
-                        onClick={() => addEditBlock(editLine, setEditLine, setBlinkIndex, blinkIndex, operator)}
+                        onClick={() => addEditBlock(lineToEdit, setLineToEdit, setBlinkIndex, blinkIndex, operator)}
                         key={index}
                         sx={{
                             margin: '5px',
@@ -59,15 +62,5 @@ const Operators = ({editLine, setEditLine, setBlinkIndex, blinkIndex, operators,
             }</Box>
         </Paper>
     );
-}
-Operators.propTypes = {
-    editLine: PropTypes.object.isRequired,
-    blinkIndex: PropTypes.number.isRequired,
-    setEditLine: PropTypes.func.isRequired,
-    setBlinkIndex: PropTypes.func.isRequired,
-    operators: PropTypes.arrayOf(
-        PropTypes.object.isRequired
-    ).isRequired,
-    lang: PropTypes.string.isRequired,
 }
 export default Operators;

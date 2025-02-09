@@ -4,45 +4,45 @@ import generateBlock from "./GenerateBlock/generateBlock.jsx";
 import generateLine from "./GenerateBlock/generateLine.jsx";
 import {ArrowBack, ArrowDownward, ArrowForward, ArrowUpward, Delete} from "@mui/icons-material";
 import {handleAddAfter, handleAddBefore, handleChangeLevel, handleDelete} from "./ActionButtonHandleEvent.js";
+import {useContext} from "react";
+import {IntermediateFrameContext, MainFrameContext} from "../../../../MainContext.jsx";
 
-const handleLineClick = (line, setEditLine, setType, setBlinkIndex, setActiveLineIndex) => {
-    setEditLine(line);
-    setType(line.statementType);
+const handleLineClick = (line, setLineToEdit, setType, setBlinkIndex, setActiveLineToEditRow) => {
+    setLineToEdit(line);
+    setType(line.lineType);
     setBlinkIndex(line.blockList.length - 1);
-    setActiveLineIndex(line.row);
+    setActiveLineToEditRow(line.row);
 }
-const handleSpeedDialClick = (e, line, setEditLine, setType, setBlinkIndex, setActiveLineIndex) => {
+const handleSpeedDialClick = (e, line, setLineToEdit, setType, setBlinkIndex, setActiveLineToEditRow) => {
     if (e.target.classList.contains('MuiSpeedDial-fab')) {
-        handleLineClick(line, setEditLine, setType, setBlinkIndex, setActiveLineIndex);
+        handleLineClick(line, setLineToEdit, setType, setBlinkIndex, setActiveLineToEditRow);
     }
 }
 
-const LineOfViewBlocks = ({
-                              linesOfBlocks,
-                              setLinesOfBlocks,
-                              line,
-                              setEditLine,
-                              setType,
-                              setBlinkIndex,
-                              activeLineIndex,
-                              setActiveLineIndex,
-                              lang
-                          }) => {
-    const margin = `${100 - (line.lineLevel * 3)}%`;
-    const bgColor = line.row === activeLineIndex ? "#dddddd" : "white";
-    const elevationValue = line.row === activeLineIndex ? 4 : 2;
-    const marginTop = line.row === activeLineIndex ? '3px' : 0;
-    const marginBottom = line.row === activeLineIndex ? '3px' : 0;
+const LineOfViewBlocks = ({line}) => {
+    const {linesOfBlocks, setLinesOfBlocks, lang} = useContext(MainFrameContext);
+    const {
+        activeLineToEditRow,
+        setActiveLineToEditRow,
+        setLineToEdit,
+        setBlinkIndex,
+        setType
+    } = useContext(IntermediateFrameContext);
+    const width = `${100 - (line.lineLevel * 3)}%`;
+    const bgColor = line.row === activeLineToEditRow ? "#dddddd" : "white";
+    const elevationValue = line.row === activeLineToEditRow ? 4 : 2;
+    const marginTop = line.row === activeLineToEditRow ? '3px' : 0;
+    const marginBottom = line.row === activeLineToEditRow ? '3px' : 0;
     const actions = [
         {
             icon: <ArrowUpward/>,
             name: 'Add Before',
-            onClick: () => handleAddBefore(line, linesOfBlocks, setLinesOfBlocks, activeLineIndex, setActiveLineIndex),
+            onClick: () => handleAddBefore(line, linesOfBlocks, setLinesOfBlocks, activeLineToEditRow, setActiveLineToEditRow),
         },
         {
             icon: <ArrowDownward/>,
             name: 'Add After',
-            onClick: () => handleAddAfter(line, linesOfBlocks, setLinesOfBlocks, activeLineIndex, setActiveLineIndex)
+            onClick: () => handleAddAfter(line, linesOfBlocks, setLinesOfBlocks, activeLineToEditRow, setActiveLineToEditRow)
         },
         {
             icon: <ArrowForward/>,
@@ -57,7 +57,7 @@ const LineOfViewBlocks = ({
         {
             icon: <Delete/>,
             name: 'Delete line',
-            onClick: () => handleDelete(line, linesOfBlocks, setLinesOfBlocks, setEditLine, setType, setBlinkIndex, activeLineIndex, setActiveLineIndex)
+            onClick: () => handleDelete(line, linesOfBlocks, setLinesOfBlocks, setLineToEdit, setType, setBlinkIndex, activeLineToEditRow, setActiveLineToEditRow)
         },
     ]
     return (
@@ -68,7 +68,7 @@ const LineOfViewBlocks = ({
                 marginBottom: marginBottom,
                 display: 'flex',
                 flexWrap: 'wrap',
-                width: margin,
+                width: width,
                 bgcolor: bgColor,
             }}>
             <Box
@@ -78,9 +78,9 @@ const LineOfViewBlocks = ({
                     alignItems: 'center',
                     flexDirection: 'row',
                 }}
-                onClick={() => handleLineClick(line, setEditLine, setType, setBlinkIndex, setActiveLineIndex)}>
+                onClick={() => handleLineClick(line, setLineToEdit, setType, setBlinkIndex, setActiveLineToEditRow)}>
                 {generateLine(line).map((block) =>
-                    generateBlock(block,lang)
+                    generateBlock(block, lang)
                 )}
             </Box>
             <SpeedDial
@@ -108,7 +108,7 @@ const LineOfViewBlocks = ({
                         minHeight: 20,
                     }
                 }}
-                onClick={(e) => handleSpeedDialClick(e, line, setEditLine, setType, setBlinkIndex, setActiveLineIndex)}
+                onClick={(e) => handleSpeedDialClick(e, line, setLineToEdit, setType, setBlinkIndex, setActiveLineToEditRow)}
             >
                 {actions.map((action) => (
                     <SpeedDialAction
@@ -124,15 +124,5 @@ const LineOfViewBlocks = ({
 }
 LineOfViewBlocks.propTypes = {
     line: PropTypes.object.isRequired,
-    linesOfBlocks: PropTypes.arrayOf(
-        PropTypes.object.isRequired
-    ).isRequired,
-    setLinesOfBlocks: PropTypes.func.isRequired,
-    setEditLine: PropTypes.func.isRequired,
-    setType: PropTypes.func.isRequired,
-    setBlinkIndex: PropTypes.func.isRequired,
-    activeLineIndex: PropTypes.number.isRequired,
-    setActiveLineIndex: PropTypes.func.isRequired,
-    lang: PropTypes.string.isRequired,
 }
 export default LineOfViewBlocks;

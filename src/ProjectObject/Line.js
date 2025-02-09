@@ -1,9 +1,11 @@
 class Line {
-    constructor(row, lineLevel, blockList, statementType) {
+    constructor(row, lineLevel, blockList, lineType, id, parentId) {
         this.row = row;
         this.lineLevel = lineLevel;
         this.blockList = blockList;
-        this.statementType = statementType;
+        this.lineType = lineType;
+        this.id = id;
+        this.parentId = parentId
     }
 }
 

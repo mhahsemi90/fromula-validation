@@ -1,10 +1,11 @@
 import {Box, Paper, Tab, Tabs} from "@mui/material";
-import {useState} from "react";
-import PropTypes from "prop-types";
+import {useContext, useState} from "react";
 import OperandsTabPanel from "./OperandsTabPanel.jsx";
+import {MainFrameContext} from "../../../../MainContext.jsx";
 
 
-const Operands = ({editLine, setEditLine, setBlinkIndex, blinkIndex, operands, lang, t}) => {
+const Operands = () => {
+    const {operands, lang} = useContext(MainFrameContext);
     const [index, setIndex] = useState(0)
     return (
         <Paper
@@ -36,23 +37,10 @@ const Operands = ({editLine, setEditLine, setBlinkIndex, blinkIndex, operands, l
             >
                 {operands.map((object, i) => {
                     return (
-                        <OperandsTabPanel editLine={editLine} setEditLine={setEditLine} setBlinkIndex={setBlinkIndex}
-                                          blinkIndex={blinkIndex} object={object} index={index} lang={lang} i={i} t={t}
-                                          key={i}/>)
+                        <OperandsTabPanel object={object} index={index} i={i} key={i}/>)
                 })}
             </Paper>
         </Paper>
     );
-}
-Operands.propTypes = {
-    editLine: PropTypes.object.isRequired,
-    blinkIndex: PropTypes.number.isRequired,
-    setEditLine: PropTypes.func.isRequired,
-    setBlinkIndex: PropTypes.func.isRequired,
-    operands: PropTypes.arrayOf(
-        PropTypes.object.isRequired
-    ).isRequired,
-    lang: PropTypes.string.isRequired,
-    t: PropTypes.func.isRequired,
 }
 export default Operands;

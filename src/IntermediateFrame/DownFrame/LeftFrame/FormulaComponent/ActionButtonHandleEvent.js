@@ -1,29 +1,29 @@
 import Line from "../../../../ProjectObject/Line.js";
-import StatementType from "../../../../GenerateLineOfBlocksListFromStatementList/Statement/StatementType.js";
+import LineType from "../../../../CommonCode/LineType.js";
 
-const handleAddBefore = (line, linesOfBlocks, setLinesOfBlocks, activeLineIndex, setActiveLineIndex) => {
+const handleAddBefore = (line, linesOfBlocks, setLinesOfBlocks, activeLineToEditRow, setActiveLineToEditRow) => {
     const row = line.row;
     const newLinesOfBlocks = [
         ...linesOfBlocks.slice(0, line.row),
-        new Line(line.row, line.lineLevel, [], StatementType.EXPRESSION_STATEMENT),
+        new Line(line.row, line.lineLevel, [], LineType.EXPRESSION_STATEMENT),
         ...linesOfBlocks.slice(line.row)
     ];
     for (let i = 0; i < newLinesOfBlocks.length; i++) {
         newLinesOfBlocks[i].row = i;
     }
     setLinesOfBlocks(newLinesOfBlocks);
-    if (activeLineIndex >= row) {
+    if (activeLineToEditRow >= row) {
         console.log("change Active Index before");
-        setActiveLineIndex(activeLineIndex + 1);
+        setActiveLineToEditRow(activeLineToEditRow + 1);
     }
 };
 
-const handleAddAfter = (line, linesOfBlocks, setLinesOfBlocks, activeLineIndex, setActiveLineIndex) => {
+const handleAddAfter = (line, linesOfBlocks, setLinesOfBlocks, activeLineToEditRow, setActiveLineToEditRow) => {
     const row = line.row;
     if (line.row === linesOfBlocks.length - 1) {
         const newLinesOfBlocks = [
             ...linesOfBlocks,
-            new Line(line.row, line.lineLevel, [], StatementType.EXPRESSION_STATEMENT)
+            new Line(line.row, line.lineLevel, [], LineType.EXPRESSION_STATEMENT)
         ];
         for (let i = 0; i < newLinesOfBlocks.length; i++) {
             newLinesOfBlocks[i].row = i;
@@ -32,7 +32,7 @@ const handleAddAfter = (line, linesOfBlocks, setLinesOfBlocks, activeLineIndex, 
     } else {
         const newLinesOfBlocks = [
             ...linesOfBlocks.slice(0, line.row + 1),
-            new Line(line.row, line.lineLevel, [], StatementType.EXPRESSION_STATEMENT),
+            new Line(line.row, line.lineLevel, [], LineType.EXPRESSION_STATEMENT),
             ...linesOfBlocks.slice(line.row + 1)
         ];
         for (let i = 0; i < newLinesOfBlocks.length; i++) {
@@ -40,9 +40,9 @@ const handleAddAfter = (line, linesOfBlocks, setLinesOfBlocks, activeLineIndex, 
         }
         setLinesOfBlocks(newLinesOfBlocks);
     }
-    if (activeLineIndex > row) {
+    if (activeLineToEditRow > row) {
         console.log("change Active Index after");
-        setActiveLineIndex(activeLineIndex + 1);
+        setActiveLineToEditRow(activeLineToEditRow + 1);
     }
 };
 const handleChangeLevel = (line, number, linesOfBlocks, setLinesOfBlocks) => {
@@ -53,7 +53,7 @@ const handleChangeLevel = (line, number, linesOfBlocks, setLinesOfBlocks) => {
         setLinesOfBlocks(newLinesOfBlocks);
     }
 };
-const handleDelete = (line, linesOfBlocks, setLinesOfBlocks, setEditLine, setType, setBlinkIndex, activeLineIndex, setActiveLineIndex) => {
+const handleDelete = (line, linesOfBlocks, setLinesOfBlocks, setLineToEdit, setType, setBlinkIndex, activeLineToEditRow, setActiveLineToEditRow) => {
     const row = line.row;
     if (linesOfBlocks.length > 1) {
         linesOfBlocks.splice(line.row, 1);
@@ -65,13 +65,13 @@ const handleDelete = (line, linesOfBlocks, setLinesOfBlocks, setEditLine, setTyp
     } else {
         setLinesOfBlocks([]);
     }
-    if (activeLineIndex === row) {
-        setEditLine(new Line(null, 0, [], StatementType.EXPRESSION_STATEMENT));
+    if (activeLineToEditRow === row) {
+        setLineToEdit(new Line());
         setBlinkIndex(-1);
     }
-    if (activeLineIndex > row)
-        setActiveLineIndex(activeLineIndex - 1);
-    else if (activeLineIndex === row)
-        setActiveLineIndex(-1);
+    if (activeLineToEditRow > row)
+        setActiveLineToEditRow(activeLineToEditRow - 1);
+    else if (activeLineToEditRow === row)
+        setActiveLineToEditRow(-1);
 };
 export {handleDelete, handleAddBefore, handleAddAfter, handleChangeLevel}
