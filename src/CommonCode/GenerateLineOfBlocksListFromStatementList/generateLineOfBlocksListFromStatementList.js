@@ -7,7 +7,7 @@ const generateLineOfBlocksListFromStatementList = (data) => {
     const id = [0];
     const parentIdStack = [];
     data.forEach((statement) => {
-        addStatementToLineOfBlocksList(lineOfBlocksList, statement, row, lineLevel,id,parentIdStack)
+        addStatementToLineOfBlocksList(lineOfBlocksList, statement, row, lineLevel, id, parentIdStack)
         row[0]++;
     });
     return lineOfBlocksList;

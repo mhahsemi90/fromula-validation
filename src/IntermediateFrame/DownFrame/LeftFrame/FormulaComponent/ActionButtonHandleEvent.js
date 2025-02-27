@@ -5,7 +5,7 @@ const handleAddBefore = (line, linesOfBlocks, setLinesOfBlocks, activeLineToEdit
     const row = line.row;
     const newLinesOfBlocks = [
         ...linesOfBlocks.slice(0, line.row),
-        new Line(line.row, line.lineLevel, [], LineType.EXPRESSION_STATEMENT),
+        new Line(line.row, line.lineLevel, [], LineType.EXPRESSION_STATEMENT, line.id, line.parentId),
         ...linesOfBlocks.slice(line.row)
     ];
     for (let i = 0; i < newLinesOfBlocks.length; i++) {
@@ -23,7 +23,7 @@ const handleAddAfter = (line, linesOfBlocks, setLinesOfBlocks, activeLineToEditR
     if (line.row === linesOfBlocks.length - 1) {
         const newLinesOfBlocks = [
             ...linesOfBlocks,
-            new Line(line.row, line.lineLevel, [], LineType.EXPRESSION_STATEMENT)
+            new Line(line.row, line.lineLevel, [], LineType.EXPRESSION_STATEMENT, line.id, line.parentId)
         ];
         for (let i = 0; i < newLinesOfBlocks.length; i++) {
             newLinesOfBlocks[i].row = i;
@@ -32,7 +32,7 @@ const handleAddAfter = (line, linesOfBlocks, setLinesOfBlocks, activeLineToEditR
     } else {
         const newLinesOfBlocks = [
             ...linesOfBlocks.slice(0, line.row + 1),
-            new Line(line.row, line.lineLevel, [], LineType.EXPRESSION_STATEMENT),
+            new Line(line.row, line.lineLevel, [], LineType.EXPRESSION_STATEMENT, line.id, line.parentId),
             ...linesOfBlocks.slice(line.row + 1)
         ];
         for (let i = 0; i < newLinesOfBlocks.length; i++) {

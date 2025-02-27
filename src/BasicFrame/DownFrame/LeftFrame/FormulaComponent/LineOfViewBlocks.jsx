@@ -1,76 +1,70 @@
 import {Box, Paper, SpeedDial, SpeedDialAction} from "@mui/material";
-import {useContext} from "react";
+import {useContext, useId} from "react";
 import {BasicFrameContext, MainFrameContext} from "../../../../MainContext.jsx";
 import {ArrowDownward, ArrowUpward, Delete} from "@mui/icons-material";
 import {handleAddAfter, handleAddBefore, handleDelete} from "./ActionButtonHandleEvent.js";
-import generateLine
-    from "../../../../IntermediateFrame/DownFrame/LeftFrame/FormulaComponent/GenerateBlock/generateLine.jsx";
-import generateBlock
-    from "../../../../IntermediateFrame/DownFrame/LeftFrame/FormulaComponent/GenerateBlock/generateBlock.jsx";
+import generateBlock from "../../../../CommonCode/GenerateLine/generateBlock.jsx";
 import PropTypes from "prop-types";
+import generateLine from "../../../../CommonCode/GenerateLine/generateLine.jsx";
+import {selectBlockToEdit} from "../../../CommonBasicFrameMethod.js";
 
-const handleLineClick = (line, linesOfBlocks, setBlockToEdit, setType, setActiveLineToEditIdList) => {
-    setBlockToEdit(getBlockFromLine(line, linesOfBlocks));
-    setType(line.lineType);
-    setActiveLineToEditIdList(fillActiveLineToEditIdListFromLine(line, linesOfBlocks));
-}
-const handleSpeedDialClick = (e, line, linesOfBlocks, setBlockToEdit, setType, setActiveLineToEditIdList) => {
+const handleSpeedDialClick = (e, line, linesOfBlocks, setBlockToEdit, setActiveLineToEditIdList) => {
     if (e.target.classList.contains('MuiSpeedDial-fab')) {
-        handleLineClick(line, linesOfBlocks, setBlockToEdit, setType, setActiveLineToEditIdList);
+        selectBlockToEdit(line, linesOfBlocks, setBlockToEdit, setActiveLineToEditIdList);
     }
 }
 
-const getBgColor = (lineId, hoverBlockIdList, activeLineToEditIdList) => {
-    return hoverBlockIdList.indexOf(lineId) > -1 ?
-        "#f38d9f" :
-        activeLineToEditIdList.indexOf(lineId) > -1 ?
+const getBgColor = (lineRow, hoverBlockIdList, activeLineToEditIdList) => {
+    return hoverBlockIdList.indexOf(lineRow) > -1 ?
+        "#ffdddd" :
+        activeLineToEditIdList.indexOf(lineRow) > -1 ?
             "#dddddd" :
             "white";
 }
 
-function getElevationValue(lineId, activeLineToEditIdList) {
-    return activeLineToEditIdList.indexOf(lineId) > -1 ? 4 : 2;
+function getElevationValue(lineRow, activeLineToEditIdList) {
+    return activeLineToEditIdList.indexOf(lineRow) > -1 ? 4 : 2;
 }
 
-function getMarginTop(lineId,blockToEdit) {
-    return line.row === activeLineToEditRow ? '3px' : 0;
+function getMarginTop(lineRow, blockToEdit) {
+    return blockToEdit.topRow === lineRow ? '3px' : 0;
 }
 
-function getMarginBottom(lineId,blockToEdit) {
-    return line.row === activeLineToEditRow ? '3px' : 0;
+function getMarginBottom(lineRow, blockToEdit) {
+    return blockToEdit.bottomRow === lineRow ? '3px' : 0;
 }
 
 const LineOfViewBlocks = ({line}) => {
-    const {linesOfBlocks, setLinesOfBlocks, lang} = useContext(MainFrameContext);
+    const {linesOfBlocks, setLinesOfBlocks} = useContext(MainFrameContext);
     const {
         activeLineToEditIdList,
         setActiveLineToEditIdList,
         hoverBlockIdList,
         blockToEdit,
-        setBlockToEdit,
-        setType
+        setBlockToEdit
     } = useContext(BasicFrameContext);
-    const lineId = line.id;
+    const lineRow = line.row;
     const width = `${100 - (line.lineLevel * 3)}%`;
-    const bgColor = getBgColor( lineId, hoverBlockIdList, activeLineToEditIdList);
-    const elevationValue = getElevationValue(lineId, activeLineToEditIdList);
-    const marginTop = getMarginTop(lineId,blockToEdit);
-    const marginBottom = getMarginBottom(lineId,blockToEdit);
+    const bgColor = getBgColor(lineRow, hoverBlockIdList, activeLineToEditIdList);
+    const elevationValue = getElevationValue(lineRow, activeLineToEditIdList);
+    const marginTop = getMarginTop(lineRow, blockToEdit);
+    const marginBottom = getMarginBottom(lineRow, blockToEdit);
+    const id = useId();
     const actions = [
         {
             icon: <ArrowUpward/>,
             name: 'Add Before',
-            onClick: () => handleAddBefore(line, linesOfBlocks, setLinesOfBlocks, activeLineToEditIdList, setActiveLineToEditIdList),
+            onClick: () => handleAddBefore(line, linesOfBlocks, setLinesOfBlocks, setActiveLineToEditIdList),
         },
         {
             icon: <ArrowDownward/>,
             name: 'Add After',
-            onClick: () => handleAddAfter(line, linesOfBlocks, setLinesOfBlocks, activeLineToEditIdList, setActiveLineToEditIdList)
+            onClick: () => handleAddAfter(line, linesOfBlocks, setLinesOfBlocks, setActiveLineToEditIdList)
         },
         {
             icon: <Delete/>,
             name: 'Delete line',
-            onClick: () => handleDelete(line, linesOfBlocks, setLinesOfBlocks, setBlockToEdit, setType, activeLineToEditIdList, setActiveLineToEditIdList)
+            onClick: () => handleDelete(line, linesOfBlocks, setLinesOfBlocks, setBlockToEdit, activeLineToEditIdList, setActiveLineToEditIdList)
         },
     ]
     return (
@@ -82,7 +76,7 @@ const LineOfViewBlocks = ({line}) => {
                 display: 'flex',
                 flexWrap: 'wrap',
                 width: width,
-                bgcolor: bgColor,
+                backgroundColor: bgColor,
             }}>
             <Box
                 sx={{
@@ -91,9 +85,9 @@ const LineOfViewBlocks = ({line}) => {
                     alignItems: 'center',
                     flexDirection: 'row',
                 }}
-                onClick={() => handleLineClick(line, linesOfBlocks, setBlockToEdit, setType, setActiveLineToEditIdList)}>
-                {generateLine(line).map((block) =>
-                    generateBlock(block, lang)
+                onClick={() => selectBlockToEdit(line, linesOfBlocks, setBlockToEdit, setActiveLineToEditIdList)}>
+                {generateLine(line).map((block, index) =>
+                    generateBlock(block, `${id}-${index}`),
                 )}
             </Box>
             <SpeedDial
@@ -101,13 +95,15 @@ const LineOfViewBlocks = ({line}) => {
                 direction="right"
                 transitionDuration={0}
                 sx={{
+                    marginTop: line.parentId === null ? 0 : '8px',
+                    marginBottom: line.parentId === null ? 0 : '8px',
                     marginLeft: '10px',
                     '& .MuiSpeedDial-fab': {
                         width: 20,
                         minWidth: 20,
                         height: 20,
                         minHeight: 20,
-                        bgcolor: '#666666',
+                        backgroundColor: '#666666',
                         opacity: 0.5,
 
                     },
@@ -121,16 +117,17 @@ const LineOfViewBlocks = ({line}) => {
                         minHeight: 20,
                     }
                 }}
-                onClick={(e) => handleSpeedDialClick(e, line, linesOfBlocks, setBlockToEdit, setType, setActiveLineToEditIdList)}
+                onClick={(e) => handleSpeedDialClick(e, line, linesOfBlocks, setBlockToEdit, setActiveLineToEditIdList)}
             >
-                {actions.map((action) => (
-                    <SpeedDialAction
-                        key={action.name}
-                        icon={action.icon}
-                        tooltipTitle={action.name}
-                        onClick={action.onClick}
-                    />
-                ))}
+                {actions.filter(() => (line.parentId === null || line.parentId === undefined))
+                    .map((action) => (
+                        <SpeedDialAction
+                            key={action.name}
+                            icon={action.icon}
+                            tooltipTitle={action.name}
+                            onClick={action.onClick}
+                        />
+                    ))}
             </SpeedDial>
         </Paper>
     )

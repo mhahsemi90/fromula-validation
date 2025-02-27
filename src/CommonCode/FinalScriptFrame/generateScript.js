@@ -31,6 +31,12 @@ const generateScriptLine = (line) => {
     if (line.lineType === LineType.RETURN_STATEMENT) {
         finalScriptList.push('return ');
     }
+    if (line.lineType === LineType.CHANGE_VALUE_STATEMENT) {
+        finalScriptList.push(line.resultVar.code);
+        finalScriptList.push(' ');
+        finalScriptList.push(line.assignmentOperator.code);
+        finalScriptList.push(' ');
+    }
     if (line.blockList.length > 0) {
         line.blockList.forEach(block => {
             finalScriptList.push(block.code);
@@ -45,43 +51,80 @@ const generateScriptLine = (line) => {
     }
     if (line.lineType === LineType.EXPRESSION_STATEMENT ||
         line.lineType === LineType.RETURN_STATEMENT ||
+        line.lineType === LineType.CHANGE_VALUE_STATEMENT ||
         line.lineType === LineType.VARIABLE_DECLARATION_STATEMENT)
         finalScriptList.push(';');
     return finalScriptList;
 };
-const generateScript = async (lineLevel, linesOfBlocks) => {
+const removeNewBreak = (finalScriptList) => {
+    const newFinalScriptList = [];
+    let isNewBreak = false;
+    let removedItemList = [];
+    for (let item of finalScriptList) {
+        if (item === '_new_break') {
+            isNewBreak = true;
+            removedItemList = [];
+        } else {
+            if (isNewBreak) {
+                removedItemList.push(item);
+                if (item !== '\n' && item !== '\t') {
+                    if (item === ' {') {
+                        newFinalScriptList.push(item)
+                    } else if (item === '}') {
+                        newFinalScriptList.push('\n');
+                        newFinalScriptList.push(...removedItemList);
+                    } else {
+                        newFinalScriptList.push('\n');
+                        newFinalScriptList.push(...removedItemList);
+                    }
+                    isNewBreak = false;
+                    removedItemList = []
+                }
+            } else {
+                newFinalScriptList.push(item);
+            }
+        }
+    }
+    return newFinalScriptList;
+};
+const generateScript = (lineLevel, linesOfBlocks) => {
     const finalScriptList = [];
     const innerLevel = linesOfBlocks && linesOfBlocks[0] && linesOfBlocks[0].lineType;
     while (linesOfBlocks && linesOfBlocks.length > 0) {
         const type = linesOfBlocks[0].lineType
         if (linesOfBlocks[0].lineLevel === lineLevel) {
-            if (type === LineType.ELSE_STATEMENT ||
+            /*if (type === LineType.ELSE_STATEMENT ||
                 type === LineType.ELSE_IF_STATEMENT) {
                 finalScriptList.pop();
                 finalScriptList.push(' ');
-            }
+            }*/
             finalScriptList.push(...generateScriptLine(linesOfBlocks.shift()));
-            if (type === LineType.EXPRESSION_STATEMENT ||
-                type === LineType.RETURN_STATEMENT ||
-                type === LineType.VARIABLE_DECLARATION_STATEMENT)
+            if (type === LineType.IF_STATEMENT ||
+                type === LineType.ELSE_IF_STATEMENT ||
+                type === LineType.FOR_STATEMENT) {
+                finalScriptList.push('_new_break');
+            } else {
                 finalScriptList.push('\n');
+            }
+
         } else {
             const newLineLevel = lineLevel + 1;
-            if (innerLevel === LineType.EXPRESSION_STATEMENT ||
-                type === LineType.RETURN_STATEMENT ||
-                type === LineType.VARIABLE_DECLARATION_STATEMENT) {
-                for (let j = 0; j < lineLevel; j++) {
-                    finalScriptList.push('\t');
-                }
+            for (let j = 0; j < lineLevel; j++) {
+                finalScriptList.push('\t');
             }
             finalScriptList.push(' {');
             finalScriptList.push('\n');
-            finalScriptList.push(...await generateScript(newLineLevel, getSameLevel(linesOfBlocks, lineLevel)));
+            finalScriptList.push(...generateScript(newLineLevel, getSameLevel(linesOfBlocks, lineLevel)));
             for (let j = 0; j < lineLevel; j++) {
                 finalScriptList.push('\t');
             }
             finalScriptList.push('}');
             finalScriptList.push('\n');
+        }
+    }
+    if (lineLevel === 0) {
+        if (finalScriptList.indexOf('_new_break') > -1) {
+            return removeNewBreak(finalScriptList);
         }
     }
     return finalScriptList;

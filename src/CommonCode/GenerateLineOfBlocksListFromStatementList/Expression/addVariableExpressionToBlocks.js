@@ -4,21 +4,14 @@ import {getOperandFromMainList, getOperatorFromMainList} from "../../getElementF
 
 const addVariableExpressionToBlocks = (blocks, expression) => {
     const operand = getOperandFromMainList(expression.variable.idName)
-    if (operand.code)
-        blocks.push(
-            new Block(BlockType.VARIABLE, operand.title, operand.enTitle, operand.code)
-        );
-    else
-        blocks.push(
-            new Block(BlockType.VARIABLE, expression.variable.idName, expression.variable.idName, expression.variable.idName)
-        );
+    blocks.push(operand);
     if (expression.initiateValue) {
         const operator = getOperatorFromMainList('=');
         blocks.push(
-            new Block(BlockType.ASSIGNMENT, operator.title,operator.code,operator.code)
+            new Block(BlockType.Assignment_OPERATOR, operator.title, operator.code, operator.code)
         );
         blocks.push(
-            new Block(BlockType.LITERAL, expression.initiateValue.value,expression.initiateValue.value, expression.initiateValue.value)
+            new Block(BlockType.LITERAL, expression.initiateValue.value, expression.initiateValue.value, expression.initiateValue.value)
         );
     }
 }

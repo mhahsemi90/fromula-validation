@@ -5,5 +5,10 @@
   "F_SEND": "ارسال",
   "F_DELETE": "حذف کردن",
   "F_CLEAR": "پاک کردن",
-  "F_LANGUAGE": "EN"
+  "F_LANGUAGE": "EN",
+  "F_NOT_VERIFIED": "بررسی نشده",
+  "F_VERIFY": "بررسی",
+  "F_VERIFIED": "مورد تایید",
+  "F_ACCEPT": "قبول",
+  "F_CANCEL": "لغو"
 }

@@ -1,6 +1,9 @@
 class BlockOfLines {
-    constructor(lineType) {
+    constructor(lineType, parentList, topRow, bottomRow) {
         this.lineType = lineType;
+        this.parentList = parentList;
+        this.topRow = topRow;
+        this.bottomRow = bottomRow;
     }
 }
 

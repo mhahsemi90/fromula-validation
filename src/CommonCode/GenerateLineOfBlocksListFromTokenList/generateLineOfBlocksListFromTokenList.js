@@ -46,14 +46,7 @@ const generateLineOfBlocksListFromTokenList = (data) => {
                     break;
                 case TokenType.VARIABLE:
                     blockItem = getOperandFromMainList(token.value);
-                    if (blockItem.code)
-                        blocks.push(
-                            new Block(BlockType.VARIABLE, blockItem.title, blockItem.enTitle, blockItem.code)
-                        );
-                    else
-                        blocks.push(
-                            new Block(BlockType.VARIABLE, token.value, token.value, token.value)
-                        );
+                    blocks.push(blockItem);
                     break;
                 case TokenType.LITERAL:
                     blocks.push(

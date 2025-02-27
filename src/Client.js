@@ -2,17 +2,19 @@ import {ApolloClient, gql, InMemoryCache} from "@apollo/client";
 
 const typeDefs = gql`
     enum BlockType{
+        VARIABLE,
+        LITERAL,
+        ARITHMETIC_OPERATOR,
+        ASSIGNMENT_OPERATOR,
+        COMPARISON_OPERATOR,
+        LOGICAL_OPERATOR,
+        BITWISE_OPERATOR,
         KEYWORD,
         SEPARATOR,
-        ID,
-        ASSIGNMENT,
-        LITERAL,
-        VARIABLE,
         LABEL,
         LABEL_ASSIGN,
         OPEN_PARENTHESES,
         CLOSE_PARENTHESES,
-        OPERATOR,
         FUNCTION,
     }
     interface Block{
@@ -78,11 +80,15 @@ const typeDefs = gql`
         generatedFormula: [String]
         validationMessage: String
     }
+    type ReWritingResult{
+        reWritingLineList: [Line]
+        validationMessage: String
+    }
     type Query {
         formulaParsing(formula: String): [Line]
         generateFormula(lineList: [LineInput] ): ValidationResult
         formulaValidation(formula: String): String
-        formulaRewritingBaseOnBasicStructure(lineList: [LineInput]): [Line]
+        formulaRewritingBaseOnBasicStructure(lineList: [LineInput]): ReWritingResult
     }
     schema {
         query: Query

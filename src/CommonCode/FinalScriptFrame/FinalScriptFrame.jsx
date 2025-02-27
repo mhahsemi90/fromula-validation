@@ -1,16 +1,34 @@
-import {Box, Paper, Typography} from "@mui/material";
+import {Box, Button, Paper, Typography} from "@mui/material";
 import PropTypes from "prop-types";
-import {gql, useQuery} from "@apollo/client";
+import generateScript from "./generateScript.js";
+import Client from "../../Client.js";
+import {gql} from "@apollo/client";
+import {useContext, useEffect, useState} from "react";
+import {BasicFrameContext, MainFrameContext} from "../../MainContext.jsx";
+import B from "../../BundleConst/B.js";
+import Line from "../../ProjectObject/Line.js";
+import LineType from "../LineType.js";
+import {getKeywordFromMainList, getOperandFromMainList, getOperatorFromMainList} from "../getElementFromMainList.js";
+import Block from "../../ProjectObject/Block.js";
+import BlockType from "../BlockType.js";
 
-const creatReturnResult = (validationResult, result) => {
-    result = validationResult ? validationResult.validationMessage : result;
-    let content = '';
-    let lineNumber = 1;
-    let row = validationResult && validationResult.generatedFormula.length > 0 ? `${lineNumber++}  : ` : '';
-    validationResult && validationResult.generatedFormula.forEach((item) => {
-        content += item;
-        row += `\n${lineNumber++}${lineNumber < 11 ? '  ' : ''}: `;
+const verifyScript = (formulaString, setResult, t) => {
+    Client
+    .query({
+        query: gql`query FormulaValidation( $formula: String ) {
+            formulaValidation(formula: $formula)
+        }`,
+        variables: {
+            formula: formulaString
+        }
+    })
+    .then((result) => {
+        result ?
+            setResult(result.data.formulaValidation === "OK" ? t(B.F_VERIFIED) : result.data.formulaValidation)
+            : []
     });
+};
+const creatReturnResult = (formulaString, row, result, setResult, t) => {
     return (
         <Paper
             elevation={3}
@@ -24,19 +42,35 @@ const creatReturnResult = (validationResult, result) => {
                 padding: '5px',
             }}
         >
-            <Typography
+            <Box
                 sx={{
                     display: 'flex',
-                    whiteSpace: 'pre-wrap',
                     width: '100%',
                     height: '5%',
                     boxSizing: 'border-box',
                     justifyContent: 'center',
-                    bgcolor: result && result === "OK" ? '#99ff99' : '#ff9999',
                 }}
             >
-                {result}
-            </Typography>
+                <Typography
+                    sx={{
+                        display: 'flex',
+                        whiteSpace: 'pre-wrap',
+                        width: '100%',
+                        height: '100%',
+                        boxSizing: 'border-box',
+                        justifyContent: 'center',
+                        bgcolor: result === t(B.F_NOT_VERIFIED) ? '#ffff99' : result === t(B.F_VERIFIED) ? '#99ff99' : '#ff9999',
+                    }}
+                >
+                    {result}
+                </Typography>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => verifyScript(formulaString, setResult, t)}>
+                    {t(B.F_VERIFY)}
+                </Button>
+            </Box>
             <Box
                 sx={{
                     display: 'flex',
@@ -61,7 +95,7 @@ const creatReturnResult = (validationResult, result) => {
                             boxSizing: 'border-box',
                         }}
                     >
-                        {content}
+                        {formulaString}
                     </Typography>
                 </Box>
                 <Box
@@ -85,33 +119,73 @@ const creatReturnResult = (validationResult, result) => {
     )
 }
 
-function removeTypename(obj) {
-    if (Array.isArray(obj)) {
-        return obj.map(removeTypename);
-    } else if (obj !== null && typeof obj === 'object') {
-        const {__typename, ...rest} = obj;
-        Object.keys(rest).forEach((key) => {
-            rest[key] = removeTypename(rest[key]);
+const getDeclarationBlockList = (varName) => {
+    const blockList = [];
+    blockList.push(getKeywordFromMainList('let'));
+    blockList.push(getOperandFromMainList(varName.code));
+    blockList.push(getOperatorFromMainList('='));
+    blockList.push(
+        new Block(
+            BlockType.LITERAL,
+            varName.type === BlockType.STRING_VARIABLE ? '' : 0,
+            varName.type === BlockType.STRING_VARIABLE ? '' : 0,
+            varName.type === BlockType.STRING_VARIABLE ? '' : 0,
+        )
+    );
+    return blockList;
+};
+const getNewLinesOfBlocks = (linesOfBlocks, resultVarNameList) => {
+    const newLinesOfBlocks = [];
+    if (resultVarNameList && resultVarNameList.length > 0)
+        resultVarNameList.forEach(varName => {
+            newLinesOfBlocks.push(
+                new Line(
+                    1,
+                    0,
+                    getDeclarationBlockList(varName),
+                    LineType.VARIABLE_DECLARATION_STATEMENT,
+                    0,
+                    null
+                )
+            )
         });
-        return rest;
-    }
-    return obj;
+    newLinesOfBlocks.push(...linesOfBlocks);
+    if (resultVarNameList && resultVarNameList.length > 0)
+        newLinesOfBlocks.push(
+            new Line(
+                1,
+                0,
+                [getOperandFromMainList('_result')],
+                LineType.RETURN_STATEMENT,
+                0,
+                null
+            )
+        );
+    return newLinesOfBlocks;
 }
-
 const FinalScriptFrame = ({linesOfBlocks}) => {
-    const lineList =  removeTypename(linesOfBlocks);
-    const MAIN_QUERY = gql`
-        query GenerateFormula( $lineList: [LineInput] ) {
-            generateFormula(lineList: $lineList){
-                generatedFormula
-                validationMessage
+    const {t} = useContext(MainFrameContext);
+    const {resultVarNameList} = useContext(BasicFrameContext);
+    const [result, setResult] = useState(t(B.F_NOT_VERIFIED));
+    const [formulaString, setFormulaString] = useState('');
+    const [row, setRow] = useState('');
+    useEffect(() => {
+        setResult(t(B.F_NOT_VERIFIED));
+        const newLinesOfBlocks = getNewLinesOfBlocks(linesOfBlocks, resultVarNameList);
+        const formulaAllCharacter = generateScript(0, newLinesOfBlocks);
+        let lineNumber = 1;
+        let formula = '';
+        let countLine = formulaAllCharacter.length > 0 ? `${lineNumber++}  : ` : '';
+        formulaAllCharacter.forEach((item) => {
+            formula+= item;
+            if (item === '\n') {
+                countLine += `\n${lineNumber++}${lineNumber < 11 ? '  ' : ''}: `;
             }
-        }
-    `;
-    const {loading, error, data} = useQuery(MAIN_QUERY, {variables: {lineList: lineList},});
-    if (loading) return creatReturnResult(null, "Loading...");
-    if (error) return creatReturnResult(null, error.message);
-    return creatReturnResult(data.generateFormula, data.generateFormula ? "OK" : "ERROR");
+        });
+        setFormulaString(formula);
+        setRow(countLine);
+    }, [linesOfBlocks, resultVarNameList, setResult, t]);
+    return creatReturnResult(formulaString, row, result, setResult, t);
 }
 FinalScriptFrame.propTypes = {
     linesOfBlocks: PropTypes.arrayOf(

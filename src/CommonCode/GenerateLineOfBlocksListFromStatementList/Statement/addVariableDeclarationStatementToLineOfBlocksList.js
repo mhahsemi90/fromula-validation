@@ -24,7 +24,7 @@ const addVariableDeclarationStatementToLineOfBlocksList = (lineOfBlocksList, sta
         firstVariable = false;
     })
     lineOfBlocksList.push(
-        new Line(row[0], lineLevel[0], blocks, LineType.VARIABLE_DECLARATION_STATEMENT,id[0]++, parentId)
+        new Line(row[0], lineLevel[0], blocks, LineType.VARIABLE_DECLARATION_STATEMENT, id[0]++, parentId)
     );
 }
 export default addVariableDeclarationStatementToLineOfBlocksList;

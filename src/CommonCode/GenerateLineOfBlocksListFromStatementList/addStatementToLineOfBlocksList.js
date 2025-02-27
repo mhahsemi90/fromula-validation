@@ -10,25 +10,25 @@ import addReturnStatementToLineOfBlocksList from "./Statement/addReturnStatement
 const addStatementToLineOfBlocksList = (lineOfBlocksList, statement, row, lineLevel, id, parentIdStack) => {
     switch (statement.type) {
         case LineType.EXPRESSION_STATEMENT:
-            addExpressionStatementToLineOfBlocksList(lineOfBlocksList, statement, row, lineLevel,id,parentIdStack);
+            addExpressionStatementToLineOfBlocksList(lineOfBlocksList, statement, row, lineLevel, id, parentIdStack);
             break;
         case LineType.BLOCK_STATEMENT:
             lineLevel[0]++;
-            addBlockStatementToLineOfBlocksList(lineOfBlocksList, statement, row, lineLevel,id,parentIdStack);
+            addBlockStatementToLineOfBlocksList(lineOfBlocksList, statement, row, lineLevel, id, parentIdStack);
             lineLevel[0]--;
             row[0]--;
             break;
         case LineType.VARIABLE_DECLARATION_STATEMENT:
-            addVariableDeclarationStatementToLineOfBlocksList(lineOfBlocksList, statement, row, lineLevel,id,parentIdStack);
+            addVariableDeclarationStatementToLineOfBlocksList(lineOfBlocksList, statement, row, lineLevel, id, parentIdStack);
             break;
         case LineType.IF_STATEMENT:
-            addIfStatementToLineOfBlocksList(lineOfBlocksList, statement, row, lineLevel,id,parentIdStack);
+            addIfStatementToLineOfBlocksList(lineOfBlocksList, statement, row, lineLevel, id, parentIdStack);
             break;
         case LineType.LABEL_STATEMENT:
-            addLabelStatementToLineOfBlocksList(lineOfBlocksList, statement, row, lineLevel,id,parentIdStack);
+            addLabelStatementToLineOfBlocksList(lineOfBlocksList, statement, row, lineLevel, id, parentIdStack);
             break;
         case LineType.RETURN_STATEMENT:
-            addReturnStatementToLineOfBlocksList(lineOfBlocksList, statement, row, lineLevel,id,parentIdStack);
+            addReturnStatementToLineOfBlocksList(lineOfBlocksList, statement, row, lineLevel, id, parentIdStack);
             break;
     }
 

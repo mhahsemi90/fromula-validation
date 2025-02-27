@@ -1,29 +1,32 @@
 import Line from "../../../../ProjectObject/Line.js";
 import LineType from "../../../../CommonCode/LineType.js";
+import BlockOfLines from "../../../../ProjectObject/BlockOfLines.js";
+import {getAllChildRowList, getBlockFromLine, getLastIdFromList} from "../../../CommonBasicFrameMethod.js";
+import ExpressionLine from "../../../../ProjectObject/ExpressionLine.js";
+import ReturnValueLine from "../../../../ProjectObject/ReturnValueLine.js";
 
-const handleAddBefore = (line, linesOfBlocks, setLinesOfBlocks, activeLineToEditIdList, setActiveLineToEditIdList) => {
+const handleAddBefore = (line, linesOfBlocks, setLinesOfBlocks) => {
     const row = line.row;
+    const lastId = getLastIdFromList(linesOfBlocks);
     const newLinesOfBlocks = [
-        ...linesOfBlocks.slice(0, line.row),
-        new Line(line.row, line.lineLevel, [], LineType.EXPRESSION_STATEMENT),
+        ...linesOfBlocks.slice(0, row),
+        new ExpressionLine(row, line.lineLevel, [], lastId + 1, null),
         ...linesOfBlocks.slice(line.row)
     ];
     for (let i = 0; i < newLinesOfBlocks.length; i++) {
         newLinesOfBlocks[i].row = i;
     }
     setLinesOfBlocks(newLinesOfBlocks);
-    if (activeLineToEditRow >= row) {
-        console.log("change Active Index before");
-        setActiveLineToEditRow(activeLineToEditRow + 1);
-    }
 };
 
-const handleAddAfter = (line, linesOfBlocks, setLinesOfBlocks, activeLineToEditIdList, setActiveLineToEditIdList) => {
-    const row = line.row;
-    if (line.row === linesOfBlocks.length - 1) {
+const handleAddAfter = (line, linesOfBlocks, setLinesOfBlocks) => {
+    const blockFromLine = getBlockFromLine(line, linesOfBlocks);
+    const row = blockFromLine.bottomRow;
+    const lastId = getLastIdFromList(linesOfBlocks);
+    if (row === linesOfBlocks.length - 1) {
         const newLinesOfBlocks = [
             ...linesOfBlocks,
-            new Line(line.row, line.lineLevel, [], LineType.EXPRESSION_STATEMENT)
+            new ReturnValueLine(row, line.lineLevel, [], lastId + 1, null)
         ];
         for (let i = 0; i < newLinesOfBlocks.length; i++) {
             newLinesOfBlocks[i].row = i;
@@ -31,25 +34,26 @@ const handleAddAfter = (line, linesOfBlocks, setLinesOfBlocks, activeLineToEditI
         setLinesOfBlocks(newLinesOfBlocks);
     } else {
         const newLinesOfBlocks = [
-            ...linesOfBlocks.slice(0, line.row + 1),
-            new Line(line.row, line.lineLevel, [], LineType.EXPRESSION_STATEMENT),
-            ...linesOfBlocks.slice(line.row + 1)
+            ...linesOfBlocks.slice(0, row + 1),
+            new ReturnValueLine(row, line.lineLevel, [], lastId + 1, null),
+            ...linesOfBlocks.slice(row + 1)
         ];
         for (let i = 0; i < newLinesOfBlocks.length; i++) {
             newLinesOfBlocks[i].row = i;
         }
         setLinesOfBlocks(newLinesOfBlocks);
     }
-    if (activeLineToEditRow > row) {
-        console.log("change Active Index after");
-        setActiveLineToEditRow(activeLineToEditRow + 1);
-    }
 };
-const handleDelete = (line, linesOfBlocks, setLinesOfBlocks, setBlockToEdit, setType, activeLineToEditIdList, setActiveLineToEditIdList) => {
+
+const handleDelete = (line, linesOfBlocks, setLinesOfBlocks, setBlockToEdit, activeLineToEditIdList, setActiveLineToEditIdList) => {
+    const allChildRowList = getAllChildRowList(line, linesOfBlocks);
     const row = line.row;
-    if (linesOfBlocks.length > 1) {
-        linesOfBlocks.splice(line.row, 1);
-        const newLinesOfBlocks = [...linesOfBlocks];
+    if (allChildRowList.length > 0) {
+        const newLinesOfBlocks = [];
+        linesOfBlocks.forEach((l) => {
+            if (allChildRowList.indexOf(l.row) === -1)
+                newLinesOfBlocks.push(l)
+        })
         for (let i = 0; i < newLinesOfBlocks.length; i++) {
             newLinesOfBlocks[i].row = i;
         }
@@ -57,13 +61,9 @@ const handleDelete = (line, linesOfBlocks, setLinesOfBlocks, setBlockToEdit, set
     } else {
         setLinesOfBlocks([]);
     }
-    if (activeLineToEditRow === row) {
-        setLineToEdit(new Line());
-        setBlinkIndex(-1);
+    if (activeLineToEditIdList.indexOf(row) > -1) {
+        setActiveLineToEditIdList([]);
+        setBlockToEdit(new BlockOfLines());
     }
-    if (activeLineToEditRow > row)
-        setActiveLineToEditRow(activeLineToEditRow - 1);
-    else if (activeLineToEditRow === row)
-        setActiveLineToEditRow(-1);
 };
-export {handleDelete, handleAddBefore, handleAddAfter}
+export {handleAddBefore, handleAddAfter, handleDelete}

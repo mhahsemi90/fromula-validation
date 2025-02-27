@@ -7,7 +7,7 @@ const addExpressionStatementToLineOfBlocksList = (lineOfBlocksList, statement, r
     const parentId = parentIdStack.length > 0 ? parentIdStack[0] : null;
     addExpressionToBlocks(blocks, statement.expression)
     lineOfBlocksList.push(
-        new Line(row[0], lineLevel[0], blocks, LineType.EXPRESSION_STATEMENT,id[0]++, parentId)
+        new Line(row[0], lineLevel[0], blocks, LineType.EXPRESSION_STATEMENT, id[0]++, parentId)
     );
 }
 export default addExpressionStatementToLineOfBlocksList;

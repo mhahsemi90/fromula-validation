@@ -14,35 +14,40 @@ function removeTypename(obj) {
     return obj;
 }
 
-const QueryResultRewritingLinesOfBlockListBaseOnBasicStructure = (linesOfBlocks, setLinesOfBlocks) => {
-    const lineList = removeTypename(linesOfBlocks);
+const QueryResultRewritingLinesOfBlockListBaseOnBasicStructure = (linesOfBlocks, setLinesOfBlocks, setFrame) => {
+    //const lineList = removeTypename(linesOfBlocks);
     Client
     .query({
-        query: gql`query FormulaRewritingBaseOnBasicStructure($lineList: [LineInput]) {
+        query: gql`query FormulaRewritingBaseOnBasicStructure( $lineList: [LineInput] ) {
             formulaRewritingBaseOnBasicStructure(lineList: $lineList){
-                id
-                parentId
-                row
-                lineLevel
-                blockList{
-                    type
-                    code
-                    title
-                    enTitle
+                reWritingLineList{
+                    id
+                    parentId
+                    row
+                    lineLevel
+                    blockList{
+                        type
+                        code
+                        title
+                        enTitle
+                    }
+                    lineType
                 }
-                lineType
+                validationMessage
             }
         }`,
         variables: {
-            lineList: lineList
+            lineList: linesOfBlocks
         }
     })
-    .then((result) =>
-        setLinesOfBlocks(
-            result ?
-                result.data.formulaRewritingBaseOnBasicStructure :
-                []
-        )
-    );
+    .then((result) => {
+        if (result && result.data.formulaRewritingBaseOnBasicStructure.validationMessage === 'OK') {
+            console.log(result.data.formulaRewritingBaseOnBasicStructure.reWritingLineList)
+            setLinesOfBlocks(
+                removeTypename(result.data.formulaRewritingBaseOnBasicStructure.reWritingLineList)
+            );
+            setFrame('Basic');
+        }
+    });
 }
 export {QueryResultRewritingLinesOfBlockListBaseOnBasicStructure};

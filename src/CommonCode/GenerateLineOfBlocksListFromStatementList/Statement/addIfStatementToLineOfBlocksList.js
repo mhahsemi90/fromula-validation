@@ -13,7 +13,7 @@ const addIfStatementToLineOfBlocksList = (lineOfBlocksList, statement, row, line
         lineOfBlocksList[lineOfBlocksList.length - 1].lineType = LineType.ELSE_IF_STATEMENT;
         lineOfBlocksList[lineOfBlocksList.length - 1].blockList = blocks;
         row[0]--;
-    }else{
+    } else {
         parentIdStack.unshift(id[0]);
         lineOfBlocksList.push(
             new Line(row[0], lineLevel[0], blocks, type, id[0]++, parentId)

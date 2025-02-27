@@ -1,11 +1,11 @@
 import {Box, Paper, SpeedDial, SpeedDialAction} from "@mui/material";
 import PropTypes from "prop-types";
-import generateBlock from "./GenerateBlock/generateBlock.jsx";
-import generateLine from "./GenerateBlock/generateLine.jsx";
+import generateBlock from "../../../../CommonCode/GenerateLine/generateBlock.jsx";
 import {ArrowBack, ArrowDownward, ArrowForward, ArrowUpward, Delete} from "@mui/icons-material";
 import {handleAddAfter, handleAddBefore, handleChangeLevel, handleDelete} from "./ActionButtonHandleEvent.js";
-import {useContext} from "react";
+import {useContext, useId} from "react";
 import {IntermediateFrameContext, MainFrameContext} from "../../../../MainContext.jsx";
+import generateLine from "../../../../CommonCode/GenerateLine/generateLine.jsx";
 
 const handleLineClick = (line, setLineToEdit, setType, setBlinkIndex, setActiveLineToEditRow) => {
     setLineToEdit(line);
@@ -20,7 +20,7 @@ const handleSpeedDialClick = (e, line, setLineToEdit, setType, setBlinkIndex, se
 }
 
 const LineOfViewBlocks = ({line}) => {
-    const {linesOfBlocks, setLinesOfBlocks, lang} = useContext(MainFrameContext);
+    const {linesOfBlocks, setLinesOfBlocks} = useContext(MainFrameContext);
     const {
         activeLineToEditRow,
         setActiveLineToEditRow,
@@ -33,6 +33,7 @@ const LineOfViewBlocks = ({line}) => {
     const elevationValue = line.row === activeLineToEditRow ? 4 : 2;
     const marginTop = line.row === activeLineToEditRow ? '3px' : 0;
     const marginBottom = line.row === activeLineToEditRow ? '3px' : 0;
+    const id = useId()
     const actions = [
         {
             icon: <ArrowUpward/>,
@@ -79,8 +80,8 @@ const LineOfViewBlocks = ({line}) => {
                     flexDirection: 'row',
                 }}
                 onClick={() => handleLineClick(line, setLineToEdit, setType, setBlinkIndex, setActiveLineToEditRow)}>
-                {generateLine(line).map((block) =>
-                    generateBlock(block, lang)
+                {generateLine(line).map((block, index) =>
+                    generateBlock(block, `${id}-${index}`)
                 )}
             </Box>
             <SpeedDial

@@ -7,6 +7,7 @@ class Line {
         this.id = id;
         this.parentId = parentId
     }
+
 }
 
 export default Line;

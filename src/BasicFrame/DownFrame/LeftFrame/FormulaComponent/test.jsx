@@ -97,5 +97,3 @@ const MyComponent = ({line}) => {
 MyComponent.propTypes = {
     line: PropTypes.object.isRequired,
 }
-
-export default MyComponent;

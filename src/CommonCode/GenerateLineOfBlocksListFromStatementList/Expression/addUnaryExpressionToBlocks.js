@@ -6,7 +6,7 @@ import {getOperatorFromMainList} from "../../getElementFromMainList.js";
 const addUnaryExpressionToBlocks = (blocks, expression) => {
     const operator = getOperatorFromMainList(expression.operator)
     blocks.push(
-        new Block(BlockType.UNARY_OPERATOR ,operator.title,operator.code,operator.code)
+        new Block(BlockType.UNARY_OPERATOR, operator.title, operator.code, operator.code)
     );
     addExpressionToBlocks(blocks, expression.argument);
 }

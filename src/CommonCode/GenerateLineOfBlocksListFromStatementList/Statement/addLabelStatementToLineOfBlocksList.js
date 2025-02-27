@@ -18,7 +18,7 @@ const addLabelStatementToLineOfBlocksList = (lineOfBlocksList, statement, row, l
     );
     parentIdStack.unshift(id[0]);
     lineOfBlocksList.push(
-        new Line(row[0], lineLevel[0], blocks, LineType.LABEL_STATEMENT,id[0]++, parentId)
+        new Line(row[0], lineLevel[0], blocks, LineType.LABEL_STATEMENT, id[0]++, parentId)
     );
     row[0]++;
     switch (statement.body.type) {

@@ -1,19 +1,14 @@
 import {useState} from "react";
 import UpFrame from "./UpFrame/UpFrame.jsx";
 import DownFrame from "./DownFrame/DownFrame.jsx";
-import LineType from "../CommonCode/LineType.js";
 import {BasicFrameContext} from "../MainContext.jsx";
-import BlockOfLines from "../ProjectObject/BlockOfLines.js";
+import ExpressionBlockOfLines from "../ProjectObject/ExpressionBlockOfLines.js";
 
 const BasicFrame = () => {
-    const [blockToEdit, setBlockToEdit] = useState(new BlockOfLines());
+    const [blockToEdit, setBlockToEdit] = useState(new ExpressionBlockOfLines());
     const [activeLineToEditIdList, setActiveLineToEditIdList] = useState([]);
     const [hoverBlockIdList, setHoverBlockIdList] = useState([]);
-    const [type, setType] = useState(
-        blockToEdit.lineType && blockToEdit.lineType ?
-            blockToEdit.lineType :
-            LineType.EXPRESSION_STATEMENT
-    );
+    const [resultVarNameList, setResultVarNameList] = useState([]);
     return (
         <BasicFrameContext.Provider value={{
             blockToEdit,
@@ -22,8 +17,8 @@ const BasicFrame = () => {
             setActiveLineToEditIdList,
             hoverBlockIdList,
             setHoverBlockIdList,
-            type,
-            setType,
+            resultVarNameList,
+            setResultVarNameList,
         }}>
             <UpFrame/>
             <DownFrame/>

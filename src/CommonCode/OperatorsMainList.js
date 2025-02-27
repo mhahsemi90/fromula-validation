@@ -1,66 +1,227 @@
 import BlockType from "./BlockType.js";
 
-const OperatorsMainList = [
+const ArithmeticOperatorList = [
     {
-        type: BlockType.OPERATOR,
+        type: BlockType.ARITHMETIC_OPERATOR,
         code: "+",
         title: "+",
+        enTitle: "+",
     },
     {
-        type: BlockType.OPERATOR,
+        type: BlockType.ARITHMETIC_OPERATOR,
         code: "-",
         title: "-",
+        enTitle: "-",
     },
     {
-        type: BlockType.OPERATOR,
+        type: BlockType.ARITHMETIC_OPERATOR,
         code: "*",
         title: "×",
+        enTitle: "*",
     },
     {
-        type: BlockType.OPERATOR,
+        type: BlockType.ARITHMETIC_OPERATOR,
         code: "/",
         title: "÷",
+        enTitle: "/",
     },
     {
-        type: BlockType.OPERATOR,
+        type: BlockType.ARITHMETIC_OPERATOR,
         code: "%",
         title: "%",
+        enTitle: "%",
     },
     {
-        type: BlockType.ASSIGNMENT,
+        type: BlockType.ARITHMETIC_OPERATOR,
+        code: "++",
+        title: "++",
+        enTitle: "++",
+    },
+    {
+        type: BlockType.ARITHMETIC_OPERATOR,
+        code: "--",
+        title: "--",
+        enTitle: "--",
+    },
+    {
+        type: BlockType.ARITHMETIC_OPERATOR,
+        code: "**",
+        title: "××",
+        enTitle: "**",
+    },
+]
+const AssignmentOperatorList = [
+    {
+        type: BlockType.ASSIGNMENT_OPERATOR,
         code: "=",
         title: "=",
+        enTitle: "=",
     },
     {
-        type: BlockType.OPERATOR,
+        type: BlockType.ASSIGNMENT_OPERATOR,
+        code: "+=",
+        title: "+=",
+        enTitle: "+=",
+    },
+    {
+        type: BlockType.ASSIGNMENT_OPERATOR,
+        code: "-=",
+        title: "-=",
+        enTitle: "-=",
+    },
+    {
+        type: BlockType.ASSIGNMENT_OPERATOR,
+        code: "*=",
+        title: "×=",
+        enTitle: "*=",
+    },
+    {
+        type: BlockType.ASSIGNMENT_OPERATOR,
+        code: "/=",
+        title: "÷=",
+        enTitle: "/=",
+    },
+    {
+        type: BlockType.ASSIGNMENT_OPERATOR,
+        code: "%=",
+        title: "%=",
+        enTitle: "%=",
+    },
+    {
+        type: BlockType.ASSIGNMENT_OPERATOR,
+        code: "**=",
+        title: "**=",
+        enTitle: "**=",
+    }
+]
+const ComparisonOperatorList = [
+    {
+        type: BlockType.COMPARISON_OPERATOR,
         code: "==",
         title: "==",
+        enTitle: "==",
     },
     {
-        type: BlockType.OPERATOR,
+        type: BlockType.COMPARISON_OPERATOR,
+        code: "===",
+        title: "===",
+        enTitle: "===",
+    },
+    {
+        type: BlockType.COMPARISON_OPERATOR,
         code: "!=",
         title: "!=",
+        enTitle: "!=",
     },
     {
-        type: BlockType.OPERATOR,
+        type: BlockType.COMPARISON_OPERATOR,
+        code: "!==",
+        title: "!==",
+        enTitle: "!==",
+    },
+    {
+        type: BlockType.COMPARISON_OPERATOR,
         code: ">",
         title: ">",
+        enTitle: ">",
     },
     {
-        type: BlockType.OPERATOR,
+        type: BlockType.COMPARISON_OPERATOR,
         code: "<",
         title: "<",
+        enTitle: "<",
     },
     {
-        type: BlockType.OPERATOR,
-        code: "&&",
-        title: "&&",
+        type: BlockType.COMPARISON_OPERATOR,
+        code: ">=",
+        title: ">=",
+        enTitle: ">=",
     },
     {
-        type: BlockType.OPERATOR,
+        type: BlockType.COMPARISON_OPERATOR,
+        code: "<=",
+        title: "<=",
+        enTitle: "<=",
+    },
+    {
+        type: BlockType.COMPARISON_OPERATOR,
+        code: "?",
+        title: "?",
+        enTitle: "?",
+    },
+]
+const LogicalOperatorList = [
+    {
+        type: BlockType.LOGICAL_OPERATOR,
+        code: "!",
+        title: "!",
+        enTitle: "!",
+    },
+    {
+        type: BlockType.LOGICAL_OPERATOR,
         code: "||",
         title: "||",
+        enTitle: "||",
     },
+    {
+        type: BlockType.LOGICAL_OPERATOR,
+        code: "&&",
+        title: "&&",
+        enTitle: "&&",
+    },
+
+]
+const BitwiseOperatorList = [
+    {
+        type: BlockType.BITWISE_OPERATOR,
+        code: "&",
+        title: "&",
+        enTitle: "&",
+    },
+    {
+        type: BlockType.BITWISE_OPERATOR,
+        code: "|",
+        title: "|",
+        enTitle: "|",
+    },
+    {
+        type: BlockType.BITWISE_OPERATOR,
+        code: "~",
+        title: "~",
+        enTitle: "~",
+    },
+    {
+        type: BlockType.BITWISE_OPERATOR,
+        code: "^",
+        title: "^",
+        enTitle: "^",
+    },
+    {
+        type: BlockType.BITWISE_OPERATOR,
+        code: ">",
+        title: ">",
+        enTitle: ">",
+    },
+    {
+        type: BlockType.BITWISE_OPERATOR,
+        code: "<<",
+        title: "<<",
+        enTitle: "<<",
+    },
+    {
+        type: BlockType.BITWISE_OPERATOR,
+        code: ">>",
+        title: ">>",
+        enTitle: ">>",
+    },
+    {
+        type: BlockType.BITWISE_OPERATOR,
+        code: ">>>",
+        title: ">>>",
+        enTitle: ">>>",
+    },
+]
+const NotOperatorList = [
     {
         type: BlockType.OPEN_PARENTHESES,
         code: "(",
@@ -76,10 +237,21 @@ const OperatorsMainList = [
         code: ",",
         title: "و",
     },
-    {
-        type: BlockType.SEPARATOR,
-        code: "+=",
-        title: "+=",
-    },
 ];
-export default OperatorsMainList;
+const OperatorsMainList = [
+    ...ArithmeticOperatorList,
+    ...AssignmentOperatorList,
+    ...ComparisonOperatorList,
+    ...LogicalOperatorList,
+    //...BitwiseOperatorList,
+    ...NotOperatorList
+];
+export {
+    OperatorsMainList,
+    ArithmeticOperatorList,
+    AssignmentOperatorList,
+    ComparisonOperatorList,
+    LogicalOperatorList,
+    BitwiseOperatorList,
+    NotOperatorList
+};

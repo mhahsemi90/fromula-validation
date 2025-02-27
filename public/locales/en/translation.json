@@ -5,5 +5,10 @@
   "F_SEND": "Send",
   "F_DELETE": "Delete",
   "F_CLEAR": "Clear",
-  "F_LANGUAGE": "فا"
+  "F_LANGUAGE": "فا",
+  "F_NOT_VERIFIED": "Not Verified",
+  "F_VERIFY": "Verify",
+  "F_VERIFIED": "Verified",
+  "F_ACCEPT": "Accept",
+  "F_CANCEL": "Cancel"
 }

@@ -25,7 +25,7 @@ const addBinaryExpressionToBlocks = (blocks, expression) => {
             let firstExpression = valueStack.pop();
             let result = [
                 ...firstExpression,
-                new Block(BlockType.OPERATOR,operator.title,operator.code,operator.code),
+                new Block(BlockType.ARITHMETIC_OPERATOR, operator.title, operator.code, operator.code),
                 ...secondExpression
             ];
             valueStack.push(result);

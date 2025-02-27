@@ -12,13 +12,10 @@ const IntermediateFrame = () => {
         lineToEdit.lineType ?
             lineToEdit.lineType :
             LineType.EXPRESSION_STATEMENT);
-    const [blinkIndex, setBlinkIndex] = useState(-1);
     return (
         <IntermediateFrameContext.Provider value={{
             lineToEdit,
             setLineToEdit,
-            blinkIndex,
-            setBlinkIndex,
             activeLineToEditRow,
             setActiveLineToEditRow,
             type,

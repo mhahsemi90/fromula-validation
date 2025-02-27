@@ -1,8 +1,6 @@
 import {useState} from "react";
 import {ltrCache, ltrTheme} from "./CommonCode/Theme.js";
 import {useTranslation} from "react-i18next";
-import OperandsMainList from "./CommonCode/OperandsMainList.js";
-import OperatorsMainList from "./CommonCode/OperatorsMainList.js";
 import {Box, Button, Input, InputLabel} from "@mui/material";
 import B from "./BundleConst/B.js";
 import * as Icons from "@mui/icons-material";
@@ -14,15 +12,14 @@ import QueryResultFromStatementList from "./CommonCode/QueryResult/QueryResultFr
 import {
     QueryResultRewritingLinesOfBlockListBaseOnBasicStructure
 } from "./CommonCode/QueryResult/QueryResultRewritingLinesOfBlockListBaseOnBasicStructure.js";
+import "./i18n.js";
+import {OperandsMainList} from "./CommonCode/OperandsMainList.js";
 
 const changeFrame = (frame, setFrame, linesOfBlocks, setLinesOfBlocks) => {
-    const generate = async (linesOfBlocks, setLinesOfBlocks) => {
-        await QueryResultRewritingLinesOfBlockListBaseOnBasicStructure(linesOfBlocks, setLinesOfBlocks);
-    }
     if (frame === 'Intermediate')
-        generate([...linesOfBlocks], setLinesOfBlocks).then(() => {
-        });
-    setFrame(frame === 'Basic' ? 'Intermediate' : 'Basic');
+        QueryResultRewritingLinesOfBlockListBaseOnBasicStructure(linesOfBlocks, setLinesOfBlocks, setFrame);
+    else
+        setFrame('Intermediate');
 };
 
 const getFrame = (frame) => {
@@ -39,7 +36,6 @@ const MainFrame = () => {
     const [lang, setLang] = useState('en');
     const {t, i18n} = useTranslation();
     const [operands, setOperands] = useState(OperandsMainList);
-    const [operators, setOperators] = useState(OperatorsMainList);
     const [value, setValue] = useState('');
     const [linesOfBlocks, setLinesOfBlocks] = useState([]);
     const [frame, setFrame] = useState("Intermediate");
@@ -73,11 +69,11 @@ const MainFrame = () => {
                 <Button
                     variant='contained'
                     endIcon={<Icons.Language/>}
-                    onClick={() => changeLanguage(lang, setLang, i18n, setCache, setTheme, setFrame)}
+                    onClick={() => changeLanguage(lang, setLang, i18n, setCache, setTheme)}
                 >{t(B.F_LANGUAGE)}</Button>
                 <Button
                     variant='contained'
-                    endIcon={<Icons.Abc/>}
+                    endIcon={<Icons.ChangeCircle/>}
                     onClick={() => changeFrame(frame, setFrame, linesOfBlocks, setLinesOfBlocks)}
                 ></Button>
             </Box>
@@ -87,7 +83,6 @@ const MainFrame = () => {
                 lang,
                 t,
                 operands,
-                operators,
                 linesOfBlocks,
                 setLinesOfBlocks,
             }}>

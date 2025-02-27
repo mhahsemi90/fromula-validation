@@ -1,11 +1,11 @@
 import LineOfViewBlocks from "./LineOfViewBlocks.jsx";
-import {v4 as uuidv4} from 'uuid';
 import {Box} from "@mui/material";
 import {MainFrameContext} from "../../../../MainContext.jsx";
-import {useContext} from "react";
+import {useContext, useId} from "react";
 
 const FormulaComponent = () => {
     const {linesOfBlocks} = useContext(MainFrameContext);
+    const id = useId();
     return (
         <Box
             sx={{
@@ -16,8 +16,8 @@ const FormulaComponent = () => {
                 width: '100%',
             }}
         >
-            {linesOfBlocks.map((line) =>
-                (<LineOfViewBlocks line={line} key={uuidv4()}/>)
+            {linesOfBlocks.map((line, index) =>
+                (<LineOfViewBlocks line={line} key={`${id}-${index}`}/>)
             )}
         </Box>
     );

@@ -12,14 +12,7 @@ const addExpressionToBlocks = (blocks, expression) => {
     switch (expression.type) {
         case ExpressionType.VARIABLE_EXPRESSION:
             operand = getOperandFromMainList(expression.idName);
-            if (operand.code)
-                blocks.push(
-                    new Block(BlockType.VARIABLE, operand.title, operand.enTitle, operand.code)
-                );
-            else
-                blocks.push(
-                    new Block(BlockType.VARIABLE, expression.idName, expression.idName, expression.idName)
-                );
+            blocks.push(operand);
             break;
         case ExpressionType.LITERAL_EXPRESSION:
             blocks.push(

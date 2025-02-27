@@ -1,9 +1,18 @@
 import BlockType from "./BlockType.js";
 
+const ResultVarNameList = [
+    {
+        type: BlockType.NUMBER_VARIABLE,
+        code: '_result',
+        enTitle: 'result',
+        title: 'مقدار بازگشتی'
+    }
+]
 const OperandsMainList = [
     {
         code: "Personnel Info",
         title: "اطلاعات پرسنلی",
+        enTitle: "Personnel Info",
         items: [
             {
                 type: BlockType.VARIABLE,
@@ -34,6 +43,7 @@ const OperandsMainList = [
     {
         code: "Payroll Info",
         title: "اطلاعات حقوقی",
+        enTitle: "Payroll Info",
         items: [
             {
                 type: BlockType.VARIABLE,
@@ -64,6 +74,7 @@ const OperandsMainList = [
     {
         code: "Finance Info",
         title: "اطلاعات مالی",
+        enTitle: "Finance Info",
         items: [
             {
                 type: BlockType.VARIABLE,
@@ -88,6 +99,7 @@ const OperandsMainList = [
     {
         code: "TimeSheet Info",
         title: "اطلاعات تردد",
+        enTitle: "TimeSheet Info",
         items: [
             {
                 type: BlockType.FUNCTION,
@@ -136,6 +148,7 @@ const OperandsMainList = [
     {
         code: "Education Info",
         title: "اطلاعات آموزشی",
+        enTitle: "Education Info",
         items: [
             {
                 type: BlockType.VARIABLE,
@@ -166,6 +179,7 @@ const OperandsMainList = [
     {
         code: "Functional Info",
         title: "اطلاعات کارکردی",
+        enTitle: "Functional Info",
         items: [
             {
                 type: BlockType.VARIABLE,
@@ -190,6 +204,7 @@ const OperandsMainList = [
     {
         code: "Functions",
         title: "توابع",
+        enTitle: "Functions",
         items: [
             {
                 type: BlockType.FUNCTION,
@@ -218,4 +233,4 @@ const OperandsMainList = [
         ]
     },
 ]
-export default OperandsMainList;
+export {OperandsMainList, ResultVarNameList};

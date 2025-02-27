@@ -1,17 +1,23 @@
 import {AppBar, Box, Paper, Tab, Tabs} from "@mui/material";
-import TabPanel from "./TabPanel.jsx";
 import B from "../../../BundleConst/B.js";
-import '../../../i18n.js'
 import LineType from "../../../CommonCode/LineType.js";
-import StatementTabPanel from "./StatementTabPanel.jsx";
 import Line from "../../../ProjectObject/Line.js";
 import {useContext} from "react";
 import {IntermediateFrameContext, MainFrameContext} from "../../../MainContext.jsx";
+import TabPanel from "../../../CommonCode/TabPanel/TabPanel.jsx";
+import {OperatorsMainList} from "../../../CommonCode/OperatorsMainList.js";
+import StatementTabPanel from "../../../CommonCode/StatementTabPanel/StatementTabPanel.jsx";
 
 const AllTabs = () => {
-    const {type, setType} = useContext(IntermediateFrameContext);
-    const {t} = useContext(MainFrameContext);
-    const confirmChangeLineToEdit = (lineToEdit, linesOfBlocks, setLinesOfBlocks, lineType, setActiveLineToEditRow) => {
+    const {linesOfBlocks, setLinesOfBlocks, t} = useContext(MainFrameContext);
+    const {
+        type,
+        setType,
+        lineToEdit,
+        setLineToEdit,
+        setActiveLineToEditRow
+    } = useContext(IntermediateFrameContext);
+    const sendChange = (lineType) => {
         const newLinesOfBlocks = [];
         let activeLineToEditRow;
         setType(lineType);
@@ -36,10 +42,9 @@ const AllTabs = () => {
         setLinesOfBlocks(newLinesOfBlocks);
         setActiveLineToEditRow(activeLineToEditRow);
     }
-    const clear = (setLineToEdit, lineType, setBlinkIndex, setActiveLineToEditRow) => {
+    const cancel = (lineType) => {
         setType(lineType);
         setLineToEdit(new Line());
-        setBlinkIndex(-1);
         setActiveLineToEditRow(-1);
     }
     return (
@@ -77,23 +82,29 @@ const AllTabs = () => {
             </Box>
             <TabPanel value={type} label={LineType.EXPRESSION_STATEMENT}>
                 <StatementTabPanel
-                    confirmChangeLineToEdit={confirmChangeLineToEdit}
-                    clear={clear}
-                    lineType={LineType.EXPRESSION_STATEMENT}
+                    sendChange={() => sendChange(LineType.EXPRESSION_STATEMENT)}
+                    cancel={() => cancel(LineType.EXPRESSION_STATEMENT)}
+                    editLine={lineToEdit}
+                    setEditLine={setLineToEdit}
+                    operators={OperatorsMainList}
                 />
             </TabPanel>
             <TabPanel value={type} label={LineType.IF_STATEMENT}>
                 <StatementTabPanel
-                    confirmChangeLineToEdit={confirmChangeLineToEdit}
-                    clear={clear}
-                    lineType={LineType.IF_STATEMENT}
+                    sendChange={() => sendChange(LineType.IF_STATEMENT)}
+                    cancel={() => cancel(LineType.IF_STATEMENT)}
+                    editLine={lineToEdit}
+                    setEditLine={setLineToEdit}
+                    operators={OperatorsMainList}
                 />
             </TabPanel>
             <TabPanel value={type} label={LineType.FOR_STATEMENT}>
                 <StatementTabPanel
-                    confirmChangeLineToEdit={confirmChangeLineToEdit}
-                    clear={clear}
-                    lineType={LineType.FOR_STATEMENT}
+                    sendChange={() => sendChange(LineType.FOR_STATEMENT)}
+                    cancel={() => cancel(LineType.FOR_STATEMENT)}
+                    editLine={lineToEdit}
+                    setEditLine={setLineToEdit}
+                    operators={OperatorsMainList}
                 />
             </TabPanel>
         </Paper>

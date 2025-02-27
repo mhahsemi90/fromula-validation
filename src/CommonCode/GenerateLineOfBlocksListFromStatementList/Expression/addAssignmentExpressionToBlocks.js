@@ -7,7 +7,7 @@ const addAssignmentExpressionToBlocks = (blocks, expression) => {
     const operator = getOperatorFromMainList(expression.operator);
     addExpressionToBlocks(blocks, expression.leftChild)
     blocks.push(
-        new Block (BlockType.OPERATOR,operator.title,operator.code,operator.code)
+        new Block(BlockType.ASSIGNMENT_OPERATOR, operator.title, operator.code, operator.code)
     );
     addExpressionToBlocks(blocks, expression.rightChild)
 }

@@ -6,8 +6,7 @@ import {useContext} from "react";
 import {MainFrameContext} from "../../MainContext.jsx";
 
 const UpFrame = () => {
-    const {theme} = useContext(MainFrameContext);
-    const {cache} = useContext(MainFrameContext);
+    const {cache, theme} = useContext(MainFrameContext);
     return (
         <Box
             sx={{
