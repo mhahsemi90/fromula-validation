@@ -20,19 +20,18 @@ const deleteTestLine = (testLineToEdit, setTestLineToEdit) => {
     }
 };
 const TestBox = ({testLineToEdit, setTestLineToEdit}) => {
-    const {linesOfBlocks, t} = useContext(MainFrameContext);
+    const {linesOfBlocks, getOperandFromMainList, t} = useContext(MainFrameContext);
     const {blockToEdit, setHoverBlockIdList} = useContext(BasicFrameContext);
     const [open, setOpen] = useState(false);
     const [visualTestLine, setVisualTestLine] = useState([]);
     const id = useId()
     useEffect(() => {
         testLineToEdit.blockList ? setVisualTestLine(
-            generateLine(testLineToEdit).map((block, index) =>
-                    generateBlock(block, `${id}-${index}`)
-                /*<GenerateBlock block={block} key={`${id}-${index}`}/>*/
+            generateLine(testLineToEdit, getOperandFromMainList).map((block, index) =>
+                generateBlock(block, `${id}-${index}`)
             )
         ) : setVisualTestLine([]);
-    }, [testLineToEdit, id]);
+    }, [testLineToEdit, id, getOperandFromMainList]);
     return (
         <Box
             sx={{

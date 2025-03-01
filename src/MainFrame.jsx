@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {ltrCache, ltrTheme} from "./CommonCode/Theme.js";
 import {useTranslation} from "react-i18next";
 import {Box, Button, Input, InputLabel} from "@mui/material";
@@ -13,7 +13,8 @@ import {
     QueryResultRewritingLinesOfBlockListBaseOnBasicStructure
 } from "./CommonCode/QueryResult/QueryResultRewritingLinesOfBlockListBaseOnBasicStructure.js";
 import "./i18n.js";
-import {OperandsMainList} from "./CommonCode/OperandsMainList.js";
+import GetOperandForTest from "./CommonCode/QueryResult/GetOperandForTest.js";
+import BlockType from "./CommonCode/BlockType.js";
 
 const changeFrame = (frame, setFrame, linesOfBlocks, setLinesOfBlocks) => {
     if (frame === 'Intermediate')
@@ -35,10 +36,47 @@ const MainFrame = () => {
     const [theme, setTheme] = useState(ltrTheme);
     const [lang, setLang] = useState('en');
     const {t, i18n} = useTranslation();
-    const [operands, setOperands] = useState(OperandsMainList);
+    const [mainOperands, setMainOperands] = useState([]);
+    const [localOperands, setLocalOperands] = useState([]);
     const [value, setValue] = useState('');
     const [linesOfBlocks, setLinesOfBlocks] = useState([]);
     const [frame, setFrame] = useState("Intermediate");
+    const getOperandFromMainList = (element) => {
+        let operator = {};
+        mainOperands
+            .forEach((group) => {
+                group.blockList
+                    .forEach((item) => {
+                        if (item.code === element)
+                            operator = item;
+                    });
+            });
+        if (!operator.code)
+            localOperands
+                .forEach((item) => {
+                    if (item.code === element)
+                        operator = item;
+                });
+        if (!operator.code)
+            operator = {
+                type: BlockType.VARIABLE,
+                code: element,
+                enTitle: element,
+                title: element
+            }
+        return operator;
+    }
+    useEffect(() => {
+        GetOperandForTest(setMainOperands);
+        setLocalOperands([
+            {
+                type: BlockType.NUMBER_VARIABLE,
+                code: '_result',
+                enTitle: 'result',
+                title: 'مقدار بازگشتی'
+            }
+        ])
+    }, [])
     return (
         <Box
             sx={{
@@ -82,9 +120,11 @@ const MainFrame = () => {
                 theme,
                 lang,
                 t,
-                operands,
+                mainOperands,
+                localOperands,
                 linesOfBlocks,
                 setLinesOfBlocks,
+                getOperandFromMainList,
             }}>
                 {getFrame(frame)}
             </MainFrameContext.Provider>

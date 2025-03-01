@@ -11,7 +11,7 @@ const handleClick = (acceptChange, line, linesOfBlocks, setBlockToEdit, setActiv
     clickForSelectBlockToEdit(line, linesOfBlocks, setBlockToEdit, setActiveLineToEditIdList, setHoverBlockIdList);
 }
 const ParentList = ({parentList, acceptChange}) => {
-    const {linesOfBlocks} = useContext(MainFrameContext);
+    const {linesOfBlocks, getOperandFromMainList} = useContext(MainFrameContext);
     const {setBlockToEdit, setActiveLineToEditIdList, setHoverBlockIdList} = useContext(BasicFrameContext);
     const id = useId()
     return (
@@ -33,9 +33,8 @@ const ParentList = ({parentList, acceptChange}) => {
                         }}
                         variant={'h6'}
                     >
-                        {generateLine(line).map((block, index) =>
-                                generateBlock(block, `${id}-${index}`)
-                            /*<GenerateBlock block={block} key={`${id}-${index}-${block.id}`}/>*/
+                        {generateLine(line, getOperandFromMainList).map((block, index) =>
+                            generateBlock(block, `${id}-${index}`)
                         )}
                     </Link>
                 )

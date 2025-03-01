@@ -110,7 +110,7 @@ const clearChange = (setBlockToEdit, setActiveLineToEditIdList) => {
     setActiveLineToEditIdList([]);
 }
 const IfStatementTabPanel = () => {
-    const {linesOfBlocks, setLinesOfBlocks} = useContext(MainFrameContext);
+    const {linesOfBlocks, setLinesOfBlocks, getOperandFromMainList} = useContext(MainFrameContext);
     const {blockToEdit, setBlockToEdit, setActiveLineToEditIdList} = useContext(BasicFrameContext);
     const [testLineToEdit, setTestLineToEdit] = useState(new Line());
     const [consequentEditLine, setConsequentEditLine] = useState([]);
@@ -121,15 +121,13 @@ const IfStatementTabPanel = () => {
         if (!test.lineType) test.lineType = LineType.IF_STATEMENT;
         setTestLineToEdit(test);
         blockToEdit.consequent && blockToEdit.consequent.blockList ? setConsequentEditLine(
-            generateLine(blockToEdit.consequent).map((block, index) =>
+            generateLine(blockToEdit.consequent, getOperandFromMainList).map((block, index) =>
                     generateBlock(block, `${id}-${index}`)
-                /*<GenerateBlock block={block} key={`${id}-${index}`}/>*/
             )
         ) : setConsequentEditLine([]);
         blockToEdit.alternate && blockToEdit.alternate.blockList ? setAlternateEditLine(
-            generateLine(blockToEdit.alternate).map((block, index) =>
+            generateLine(blockToEdit.alternate, getOperandFromMainList).map((block, index) =>
                     generateBlock(block, `${id}-${index}`)
-                /*<GenerateBlock block={block} key={`${id}-${index}`}/>*/
             )
         ) : setAlternateEditLine([]);
     }, [blockToEdit, id]);

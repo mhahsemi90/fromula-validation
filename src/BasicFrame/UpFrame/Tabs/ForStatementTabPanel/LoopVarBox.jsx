@@ -20,19 +20,19 @@ const deleteLoopVarLine = (loopVarToEdit, setLoopVarToEdit) => {
 };
 
 const LoopVarBox = ({loopVarToEdit, setLoopVarToEdit}) => {
-    const {linesOfBlocks, t} = useContext(MainFrameContext);
+    const {linesOfBlocks, getOperandFromMainList, t} = useContext(MainFrameContext);
     const {blockToEdit, setHoverBlockIdList} = useContext(BasicFrameContext);
     const [open, setOpen] = useState(false);
     const [visualLoopVarLine, setVisualLoopVarLine] = useState([]);
     const id = useId()
     useEffect(() => {
         loopVarToEdit.blockList ? setVisualLoopVarLine(
-            generateLine(loopVarToEdit).map((block, index) =>
+            generateLine(loopVarToEdit, getOperandFromMainList).map((block, index) =>
                     generateBlock(block, `${id}-${index}`)
                 /*<GenerateBlock block={block} key={`${id}-${index}`}/>*/
             )
         ) : setVisualLoopVarLine([]);
-    }, [loopVarToEdit, id]);
+    }, [loopVarToEdit, id, getOperandFromMainList]);
     return (
         <Box
             sx={{

@@ -2,7 +2,6 @@ import {Button, FormControlLabel, Radio, RadioGroup} from "@mui/material";
 import * as Icons from "@mui/icons-material";
 import PropTypes from "prop-types";
 import {useContext, useState} from "react";
-import {getOperandFromMainList} from "../../getElementFromMainList.js";
 import Block from "../../../ProjectObject/Block.js";
 import BlockType from "../../BlockType.js";
 import Line from "../../../ProjectObject/Line.js";
@@ -10,7 +9,7 @@ import {MainFrameContext, StatementTabPanelContext} from "../../../MainContext.j
 import TabPanel from "../../TabPanel/TabPanel.jsx";
 import B from "../../../BundleConst/B.js";
 
-function addOperand(editLine, setEditLine, blinkIndex, setBlinkIndex, value) {
+function addOperand(editLine, setEditLine, blinkIndex, setBlinkIndex, value, getOperandFromMainList) {
     const item = getOperandFromMainList(value);
     const blockList =
         editLine.blockList ?
@@ -36,9 +35,9 @@ function addOperand(editLine, setEditLine, blinkIndex, setBlinkIndex, value) {
 }
 
 const OperandsTabPanel = ({object, index, i}) => {
-    const {lang, t} = useContext(MainFrameContext);
+    const {getOperandFromMainList, lang, t} = useContext(MainFrameContext);
     const {editLine, setEditLine, blinkIndex, setBlinkIndex,} = useContext(StatementTabPanelContext);
-    const [value, setValue] = useState(object.items ? object.items[0].code : '');
+    const [value, setValue] = useState(object.blockList && object.blockList.length ? object.blockList[0].code : '');
     return (
         <TabPanel label={i} value={index} key={i}>
             <RadioGroup
@@ -46,7 +45,7 @@ const OperandsTabPanel = ({object, index, i}) => {
                 onChange={(e) => setValue(e.target.value)}
                 sx={{display: 'flex', flexDirection: 'column'}}
             >
-                {object.items.map((item, s) => {
+                {object.blockList.map((item, s) => {
                     return (
                         <FormControlLabel
                             control={<Radio/>}
@@ -68,7 +67,7 @@ const OperandsTabPanel = ({object, index, i}) => {
                         bottom: '0px',
                         right: '5px',
                     }}
-                    onClick={() => addOperand(editLine, setEditLine, blinkIndex, setBlinkIndex, value)}
+                    onClick={() => addOperand(editLine, setEditLine, blinkIndex, setBlinkIndex, value, getOperandFromMainList)}
                 >{t(B.F_SEND)}</Button>
             </RadioGroup>
         </TabPanel>

@@ -20,7 +20,7 @@ const handleSpeedDialClick = (e, line, setLineToEdit, setType, setBlinkIndex, se
 }
 
 const LineOfViewBlocks = ({line}) => {
-    const {linesOfBlocks, setLinesOfBlocks} = useContext(MainFrameContext);
+    const {linesOfBlocks, setLinesOfBlocks, getOperandFromMainList} = useContext(MainFrameContext);
     const {
         activeLineToEditRow,
         setActiveLineToEditRow,
@@ -80,7 +80,7 @@ const LineOfViewBlocks = ({line}) => {
                     flexDirection: 'row',
                 }}
                 onClick={() => handleLineClick(line, setLineToEdit, setType, setBlinkIndex, setActiveLineToEditRow)}>
-                {generateLine(line).map((block, index) =>
+                {generateLine(line, getOperandFromMainList).map((block, index) =>
                     generateBlock(block, `${id}-${index}`)
                 )}
             </Box>

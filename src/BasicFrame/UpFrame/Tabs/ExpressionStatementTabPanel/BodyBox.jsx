@@ -21,19 +21,19 @@ const deleteBodyLine = (bodyLineToEdit, setBodyLineToEdit) => {
     }
 };
 const BodyBox = ({bodyLineToEdit, setBodyLineToEdit}) => {
-    const {linesOfBlocks, t} = useContext(MainFrameContext);
+    const {linesOfBlocks,getOperandFromMainList, t} = useContext(MainFrameContext);
     const {blockToEdit, setHoverBlockIdList} = useContext(BasicFrameContext);
     const [open, setOpen] = useState(false);
     const [visualBodyLine, setVisualBodyLine] = useState([]);
     const id = useId()
     useEffect(() => {
         bodyLineToEdit.blockList ? setVisualBodyLine(
-            generateLine(bodyLineToEdit).map((block, index) =>
+            generateLine(bodyLineToEdit,getOperandFromMainList).map((block, index) =>
                     generateBlock(block, `${id}-${index}`)
                 /*<GenerateBlock block={block} key={`${id}-${index}`}/>*/
             )
         ) : setVisualBodyLine([]);
-    }, [bodyLineToEdit, id]);
+    }, [bodyLineToEdit, getOperandFromMainList, id]);
     return (
         <Box
             sx={{

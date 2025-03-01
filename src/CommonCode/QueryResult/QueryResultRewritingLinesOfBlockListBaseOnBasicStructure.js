@@ -1,18 +1,6 @@
 import Client from "../../Client.js";
 import {gql} from "@apollo/client";
-
-function removeTypename(obj) {
-    if (Array.isArray(obj)) {
-        return obj.map(removeTypename);
-    } else if (obj !== null && typeof obj === 'object') {
-        const {__typename, ...rest} = obj;
-        Object.keys(rest).forEach((key) => {
-            rest[key] = removeTypename(rest[key]);
-        });
-        return rest;
-    }
-    return obj;
-}
+import removeTypename from "./removeTypename.js";
 
 const QueryResultRewritingLinesOfBlockListBaseOnBasicStructure = (linesOfBlocks, setLinesOfBlocks, setFrame) => {
     //const lineList = removeTypename(linesOfBlocks);

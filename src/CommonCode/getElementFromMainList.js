@@ -5,8 +5,6 @@ import {
     LogicalOperatorList,
     OperatorsMainList
 } from "./OperatorsMainList.js";
-import {OperandsMainList, ResultVarNameList} from "./OperandsMainList.js";
-import BlockType from "./BlockType.js";
 
 const getArithmeticOperatorFromMainList = (element) => {
     let operator = {};
@@ -36,31 +34,6 @@ const getOperatorFromMainList = (element) => {
         });
     return operator;
 }
-const getOperandFromMainList = (element) => {
-    let operator = {};
-    OperandsMainList
-        .forEach((group) => {
-            group.items
-                .forEach((item) => {
-                    if (item.code === element)
-                        operator = item;
-                });
-        });
-    if (!operator.code)
-        ResultVarNameList
-            .forEach((item) => {
-                if (item.code === element)
-                    operator = item;
-            });
-    if (!operator.code)
-        operator = {
-            type: BlockType.VARIABLE,
-            code: element,
-            enTitle: element,
-            title: element
-        }
-    return operator;
-}
 const getKeywordFromMainList = (element) => {
     let operator = {};
     KeywordMainList
@@ -70,4 +43,4 @@ const getKeywordFromMainList = (element) => {
         });
     return operator;
 }
-export {getOperatorFromMainList, getOperandFromMainList, getKeywordFromMainList};
+export {getOperatorFromMainList, getKeywordFromMainList};

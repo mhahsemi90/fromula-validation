@@ -4,7 +4,6 @@ import addBinaryExpressionToBlocks from "./Expression/addBinaryExpressionToBlock
 import Block from "../../ProjectObject/Block.js";
 import BlockType from "../BlockType.js";
 import addUnaryExpressionToBlocks from "./Expression/addUnaryExpressionToBlocks.js";
-import {getOperandFromMainList} from "../getElementFromMainList.js";
 import addAssignmentExpressionToBlocks from "./Expression/addAssignmentExpressionToBlocks.js";
 
 const addExpressionToBlocks = (blocks, expression) => {

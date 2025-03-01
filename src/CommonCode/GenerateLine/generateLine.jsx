@@ -1,9 +1,9 @@
 import LineType from "../LineType.js";
 import Block from "../../ProjectObject/Block.js";
 import BlockType from "../BlockType.js";
-import {getKeywordFromMainList, getOperandFromMainList, getOperatorFromMainList} from "../getElementFromMainList.js";
+import {getKeywordFromMainList, getOperatorFromMainList} from "../getElementFromMainList.js";
 
-const generateLine = (line) => {
+const generateLine = (line, getOperandFromMainList) => {
     const blocks = [];
     if (line.lineType === LineType.IF_STATEMENT) {
         const keyword = getKeywordFromMainList('if')

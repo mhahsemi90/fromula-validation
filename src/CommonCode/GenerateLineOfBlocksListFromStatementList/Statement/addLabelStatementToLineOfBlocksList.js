@@ -3,7 +3,7 @@ import BlockType from "../../BlockType.js";
 import Line from "../../../ProjectObject/Line.js";
 import addStatementToLineOfBlocksList from "../addStatementToLineOfBlocksList.js";
 import LineType from "../../LineType.js";
-import {getOperandFromMainList, getOperatorFromMainList} from "../../getElementFromMainList.js";
+import { getOperatorFromMainList} from "../../getElementFromMainList.js";
 
 const addLabelStatementToLineOfBlocksList = (lineOfBlocksList, statement, row, lineLevel, id, parentIdStack) => {
     const blocks = [];

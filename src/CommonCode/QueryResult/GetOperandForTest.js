@@ -1,33 +1,31 @@
-import {gql} from "@apollo/client";
 import Client from "../../Client.js";
+import {gql} from "@apollo/client";
 import removeTypename from "./removeTypename.js";
 
-const QueryResultFromStatementList = (script, setLinesOfBlocks) => {
+const GetOperandForTest = (setOperands) => {
     Client
     .query({
         query: gql`query {
-            formulaParsing(formula: "${script}"){
-                id
-                parentId
-                row
-                lineLevel
+            loadOperandForTest{
+                type
+                code
+                title
+                enTitle
                 blockList{
                     type
                     code
                     title
                     enTitle
                 }
-                lineType
             }
         }`,
     })
     .then((result) =>
-        setLinesOfBlocks(
+        setOperands(
             result ?
-                removeTypename(result.data.formulaParsing) :
+                removeTypename(result.data.loadOperandForTest) :
                 []
         )
     );
 }
-
-export default QueryResultFromStatementList;
+export default GetOperandForTest;

@@ -1,6 +1,6 @@
 import Block from "../../../ProjectObject/Block.js";
 import BlockType from "../../BlockType.js";
-import {getOperandFromMainList, getOperatorFromMainList} from "../../getElementFromMainList.js";
+import {getOperatorFromMainList} from "../../getElementFromMainList.js";
 
 const addVariableExpressionToBlocks = (blocks, expression) => {
     const operand = getOperandFromMainList(expression.variable.idName)

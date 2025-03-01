@@ -2,8 +2,7 @@ import {Box, FormControl, FormControlLabel, InputLabel, MenuItem, Radio, RadioGr
 import {useContext, useEffect, useId, useState} from "react";
 import {MainFrameContext} from "../../../../MainContext.jsx";
 import PropTypes from "prop-types";
-import {ResultVarNameList} from "../../../../CommonCode/OperandsMainList.js";
-import {getOperandFromMainList, getOperatorFromMainList} from "../../../../CommonCode/getElementFromMainList.js";
+import {getOperatorFromMainList} from "../../../../CommonCode/getElementFromMainList.js";
 import LineType from "../../../../CommonCode/LineType.js";
 
 
@@ -17,7 +16,7 @@ const ExpressionTypeBox = ({
                                bodyLineToEdit,
                                setBodyLineToEdit,
                            }) => {
-    const {lang} = useContext(MainFrameContext);
+    const {localOperands, getOperandFromMainList, lang} = useContext(MainFrameContext);
     const [disable, setDisabled] = useState(true);
     const id = useId();
     const handleAssignmentChange = (e) => {
@@ -165,7 +164,7 @@ const ExpressionTypeBox = ({
                                     label="Age"
                                     onChange={handleVariableChange}
                                     variant={'standard'}>
-                                    {ResultVarNameList.map((item, index) =>
+                                    {localOperands.map((item, index) =>
                                         <MenuItem value={item.code} key={`${id}-${index}`}>
                                             {lang === 'en' ? item.enTitle : item.title}
                                         </MenuItem>

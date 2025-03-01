@@ -8,7 +8,7 @@ import {BasicFrameContext, MainFrameContext} from "../../MainContext.jsx";
 import B from "../../BundleConst/B.js";
 import Line from "../../ProjectObject/Line.js";
 import LineType from "../LineType.js";
-import {getKeywordFromMainList, getOperandFromMainList, getOperatorFromMainList} from "../getElementFromMainList.js";
+import {getKeywordFromMainList, getOperatorFromMainList} from "../getElementFromMainList.js";
 import Block from "../../ProjectObject/Block.js";
 import BlockType from "../BlockType.js";
 
@@ -119,7 +119,7 @@ const creatReturnResult = (formulaString, row, result, setResult, t) => {
     )
 }
 
-const getDeclarationBlockList = (varName) => {
+const getDeclarationBlockList = (varName, getOperandFromMainList) => {
     const blockList = [];
     blockList.push(getKeywordFromMainList('let'));
     blockList.push(getOperandFromMainList(varName.code));
@@ -134,7 +134,7 @@ const getDeclarationBlockList = (varName) => {
     );
     return blockList;
 };
-const getNewLinesOfBlocks = (linesOfBlocks, resultVarNameList) => {
+const getNewLinesOfBlocks = (linesOfBlocks, resultVarNameList, getOperandFromMainList) => {
     const newLinesOfBlocks = [];
     if (resultVarNameList && resultVarNameList.length > 0)
         resultVarNameList.forEach(varName => {
@@ -142,7 +142,7 @@ const getNewLinesOfBlocks = (linesOfBlocks, resultVarNameList) => {
                 new Line(
                     1,
                     0,
-                    getDeclarationBlockList(varName),
+                    getDeclarationBlockList(varName, getOperandFromMainList),
                     LineType.VARIABLE_DECLARATION_STATEMENT,
                     0,
                     null
@@ -164,20 +164,20 @@ const getNewLinesOfBlocks = (linesOfBlocks, resultVarNameList) => {
     return newLinesOfBlocks;
 }
 const FinalScriptFrame = ({linesOfBlocks}) => {
-    const {t} = useContext(MainFrameContext);
+    const {getOperandFromMainList, t} = useContext(MainFrameContext);
     const {resultVarNameList} = useContext(BasicFrameContext);
     const [result, setResult] = useState(t(B.F_NOT_VERIFIED));
     const [formulaString, setFormulaString] = useState('');
     const [row, setRow] = useState('');
     useEffect(() => {
         setResult(t(B.F_NOT_VERIFIED));
-        const newLinesOfBlocks = getNewLinesOfBlocks(linesOfBlocks, resultVarNameList);
+        const newLinesOfBlocks = getNewLinesOfBlocks(linesOfBlocks, resultVarNameList, getOperandFromMainList);
         const formulaAllCharacter = generateScript(0, newLinesOfBlocks);
         let lineNumber = 1;
         let formula = '';
         let countLine = formulaAllCharacter.length > 0 ? `${lineNumber++}  : ` : '';
         formulaAllCharacter.forEach((item) => {
-            formula+= item;
+            formula += item;
             if (item === '\n') {
                 countLine += `\n${lineNumber++}${lineNumber < 11 ? '  ' : ''}: `;
             }

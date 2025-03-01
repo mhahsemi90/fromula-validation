@@ -35,7 +35,7 @@ function getMarginBottom(lineRow, blockToEdit) {
 }
 
 const LineOfViewBlocks = ({line}) => {
-    const {linesOfBlocks, setLinesOfBlocks} = useContext(MainFrameContext);
+    const {linesOfBlocks, setLinesOfBlocks,getOperandFromMainList} = useContext(MainFrameContext);
     const {
         activeLineToEditIdList,
         setActiveLineToEditIdList,
@@ -86,7 +86,7 @@ const LineOfViewBlocks = ({line}) => {
                     flexDirection: 'row',
                 }}
                 onClick={() => selectBlockToEdit(line, linesOfBlocks, setBlockToEdit, setActiveLineToEditIdList)}>
-                {generateLine(line).map((block, index) =>
+                {generateLine(line,getOperandFromMainList).map((block, index) =>
                     generateBlock(block, `${id}-${index}`),
                 )}
             </Box>

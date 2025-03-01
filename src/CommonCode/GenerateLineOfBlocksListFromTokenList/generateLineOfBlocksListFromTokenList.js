@@ -1,7 +1,6 @@
 import TokenType from "./TokenType.js";
 import Line from "../../ProjectObject/Line.js";
 import LineType from "../LineType.js";
-import {getOperandFromMainList, getOperatorFromMainList} from "../getElementFromMainList.js";
 import Block from "../../ProjectObject/Block.js";
 import BlockType from "../BlockType.js";
 

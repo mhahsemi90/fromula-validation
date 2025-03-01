@@ -3,6 +3,9 @@ import {ApolloClient, gql, InMemoryCache} from "@apollo/client";
 const typeDefs = gql`
     enum BlockType{
         VARIABLE,
+        STRING_VARIABLE,
+        NUMBER_VARIABLE,
+        OBJECT,
         LITERAL,
         ARITHMETIC_OPERATOR,
         ASSIGNMENT_OPERATOR,
@@ -16,36 +19,21 @@ const typeDefs = gql`
         OPEN_PARENTHESES,
         CLOSE_PARENTHESES,
         FUNCTION,
+        GROUP,
     }
-    interface Block{
+    type Block{
         type: BlockType
         code: String
         title: String
         enTitle: String
+        blockList: [Block]
     }
     input BlockInput{
         type: BlockType
         code: String
         title: String
         enTitle: String
-    }
-    type BlockOutput implements Block{
-        type: BlockType
-        code: String
-        title: String
-        enTitle: String
-    }
-    type Operator implements Block{
-        type: BlockType
-        code: String
-        title: String
-        enTitle: String
-    }
-    type Operand implements Block{
-        type: BlockType
-        code: String
-        title: String
-        enTitle: String
+        blockList: [BlockInput]
     }
     enum LineType{
         EXPRESSION,
@@ -64,7 +52,7 @@ const typeDefs = gql`
         parentId: Int
         row: Int
         lineLevel: Int
-        blockList: [BlockOutput]
+        blockList: [Block]
         lineType: LineType
     }
 
@@ -89,6 +77,7 @@ const typeDefs = gql`
         generateFormula(lineList: [LineInput] ): ValidationResult
         formulaValidation(formula: String): String
         formulaRewritingBaseOnBasicStructure(lineList: [LineInput]): ReWritingResult
+        loadOperandForTest: [Block]
     }
     schema {
         query: Query
@@ -96,7 +85,7 @@ const typeDefs = gql`
 `;
 
 const Client = new ApolloClient({
-    uri: 'http://localhost:8080/graphql',
+    uri: 'http://localhost:8086/graphql',
     fetchOptions: {
         mode: 'no-cors'
     },

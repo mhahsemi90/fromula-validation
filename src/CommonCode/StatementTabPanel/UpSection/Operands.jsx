@@ -5,7 +5,7 @@ import {MainFrameContext} from "../../../MainContext.jsx";
 
 
 const Operands = () => {
-    const {operands, lang} = useContext(MainFrameContext);
+    const {mainOperands, lang} = useContext(MainFrameContext);
     const [index, setIndex] = useState(0)
     return (
         <Paper
@@ -22,7 +22,7 @@ const Operands = () => {
                     onChange={(event, newValue) => setIndex(newValue)}
                     orientation="vertical"
                     variant="scrollable">
-                    {operands.map((object, i) => {
+                    {mainOperands.map((object, i) => {
                         return (<Tab label={lang === 'en' ? object.enTitle : object.title} value={i} key={i}/>)
                     })}
                 </Tabs>
@@ -35,7 +35,7 @@ const Operands = () => {
                     width: '100%',
                 }}
             >
-                {operands.map((object, i) => {
+                {mainOperands.map((object, i) => {
                     return (
                         <OperandsTabPanel object={object} index={index} i={i} key={i}/>)
                 })}
