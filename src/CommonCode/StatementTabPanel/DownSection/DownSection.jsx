@@ -1,9 +1,10 @@
-import {Box, Button, Paper} from "@mui/material";
-import * as Icons from "@mui/icons-material";
+import {Box, Paper} from "@mui/material";
+import {Button} from "antd";
 import {useContext, useId} from "react";
 import EditBlock from "./EditBlock.jsx";
 import {MainFrameContext, StatementTabPanelContext} from "../../../MainContext.jsx";
 import B from "../../../BundleConst/B.js";
+import {CloseOutlined, SendOutlined} from "@ant-design/icons";
 
 const DownSection = () => {
     const {t} = useContext(MainFrameContext);
@@ -48,13 +49,13 @@ const DownSection = () => {
                 </Box>
                 <Box sx={{boxSizing: 'border-box', display: 'flex', justifyContent: 'center'}}>
                     <Button
-                        variant={'contained'}
-                        endIcon={<Icons.Send/>}
+                        type={'primary'}
+                        icon={<SendOutlined/>}
                         onClick={sendChange}
                     >{t(B.F_SEND)}</Button>
                     <Button
-                        variant={'contained'}
-                        endIcon={<Icons.Cancel/>}
+                        type={'primary'}
+                        icon={<CloseOutlined/>}
                         onClick={cancel}
                     >{t(B.F_CANCEL)}</Button>
                 </Box>

@@ -1,4 +1,5 @@
-import {Box, Button, Typography} from "@mui/material";
+import {Box, Typography} from "@mui/material";
+import {Button} from "antd";
 import PropTypes from "prop-types";
 import {
     clickForSelectBlockToEdit,
@@ -129,7 +130,7 @@ const ConsequentBox = ({consequentEditLine, setConsequentEditLine, saveChange}) 
                 }}
             >
                 <Button
-                    variant="contained"
+                    type={'primary'}
                     onClick={() => setConsequentEditLine([])}
                 >{t(B.F_DELETE)}
                 </Button>

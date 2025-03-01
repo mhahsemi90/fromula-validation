@@ -1,4 +1,5 @@
-import {Box, Button, Typography} from "@mui/material";
+import {Box, Typography} from "@mui/material";
+import {Button} from "antd";
 import EditLineDialog from "../EditLineDialog/EditLineDialog.jsx";
 import {useContext, useEffect, useId, useState} from "react";
 import generateLine from "../../../../CommonCode/GenerateLine/generateLine.jsx";
@@ -21,14 +22,14 @@ const deleteBodyLine = (bodyLineToEdit, setBodyLineToEdit) => {
     }
 };
 const BodyBox = ({bodyLineToEdit, setBodyLineToEdit}) => {
-    const {linesOfBlocks,getOperandFromMainList, t} = useContext(MainFrameContext);
+    const {linesOfBlocks, getOperandFromMainList, t} = useContext(MainFrameContext);
     const {blockToEdit, setHoverBlockIdList} = useContext(BasicFrameContext);
     const [open, setOpen] = useState(false);
     const [visualBodyLine, setVisualBodyLine] = useState([]);
     const id = useId()
     useEffect(() => {
         bodyLineToEdit.blockList ? setVisualBodyLine(
-            generateLine(bodyLineToEdit,getOperandFromMainList).map((block, index) =>
+            generateLine(bodyLineToEdit, getOperandFromMainList).map((block, index) =>
                     generateBlock(block, `${id}-${index}`)
                 /*<GenerateBlock block={block} key={`${id}-${index}`}/>*/
             )
@@ -108,7 +109,7 @@ const BodyBox = ({bodyLineToEdit, setBodyLineToEdit}) => {
                 }}
             >
                 <Button
-                    variant="contained"
+                    type={'primary'}
                     onClick={() => deleteBodyLine(bodyLineToEdit, setBodyLineToEdit)}
                 >{t(B.F_DELETE)}
                 </Button>

@@ -70,7 +70,7 @@ const LineOfViewBlocks = ({line}) => {
                 display: 'flex',
                 flexWrap: 'wrap',
                 width: width,
-                bgcolor: bgColor,
+                backgroundColor: bgColor,
             }}>
             <Box
                 sx={{
@@ -95,7 +95,7 @@ const LineOfViewBlocks = ({line}) => {
                         minWidth: 20,
                         height: 20,
                         minHeight: 20,
-                        bgcolor: '#666666',
+                        backgroundColor: '#666666',
                         opacity: 0.5,
 
                     },

@@ -1,4 +1,5 @@
-import {Box, Button, Typography} from "@mui/material";
+import {Box, Typography} from "@mui/material";
+import {Button} from "antd";
 import EditLineDialog from "../EditLineDialog/EditLineDialog.jsx";
 import {useContext, useEffect, useId, useState} from "react";
 import {BasicFrameContext, MainFrameContext} from "../../../../MainContext.jsx";
@@ -103,7 +104,7 @@ const TestBox = ({testLineToEdit, setTestLineToEdit}) => {
                 }}
             >
                 <Button
-                    variant="contained"
+                    type={'primary'}
                     onClick={() => deleteTestLine(testLineToEdit, setTestLineToEdit)}
                 >{t(B.F_DELETE)}
                 </Button>

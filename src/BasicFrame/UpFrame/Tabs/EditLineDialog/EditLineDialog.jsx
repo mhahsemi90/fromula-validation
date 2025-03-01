@@ -29,9 +29,6 @@ const EditLineDialog = ({
                 <StatementTabPanel cancel={cancel} sendChange={sendChange} editLine={editLine}
                                    setEditLine={setEditLine} operators={operators}/>
             </DialogContent>
-            {/*<DialogActions>
-                <Button onClick={() => setOpen(false)}>Cancel</Button>
-            </DialogActions>*/}
         </Dialog>
     )
 }

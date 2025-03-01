@@ -1,9 +1,9 @@
 import {useEffect, useState} from "react";
 import {ltrCache, ltrTheme} from "./CommonCode/Theme.js";
 import {useTranslation} from "react-i18next";
-import {Box, Button, Input, InputLabel} from "@mui/material";
+import {Box, Input, InputLabel} from "@mui/material";
+import {Button} from "antd";
 import B from "./BundleConst/B.js";
-import * as Icons from "@mui/icons-material";
 import {changeLanguage} from "./CommonCode/Language.js";
 import {MainFrameContext} from "./MainContext.jsx";
 import IntermediateFrame from "./IntermediateFrame/IntermediateFrame.jsx";
@@ -15,6 +15,7 @@ import {
 import "./i18n.js";
 import GetOperandForTest from "./CommonCode/QueryResult/GetOperandForTest.js";
 import BlockType from "./CommonCode/BlockType.js";
+import {GlobalOutlined, SwapOutlined} from "@ant-design/icons";
 
 const changeFrame = (frame, setFrame, linesOfBlocks, setLinesOfBlocks) => {
     if (frame === 'Intermediate')
@@ -101,17 +102,18 @@ const MainFrame = () => {
             >
                 <InputLabel htmlFor="my-input">تست</InputLabel>
                 <Input id="my-input" value={value} onChange={(e) => setValue(e.target.value)}/>
-                <Button variant='outlined'
-                        onClick={() => QueryResultFromStatementList(value, setLinesOfBlocks)}
+                <Button
+                    type={'primary'}
+                    onClick={() => QueryResultFromStatementList(value, setLinesOfBlocks)}
                 >{t(B.F_SEND)}</Button>
                 <Button
-                    variant='contained'
-                    endIcon={<Icons.Language/>}
+                    type={'primary'}
+                    icon={<GlobalOutlined/>}
                     onClick={() => changeLanguage(lang, setLang, i18n, setCache, setTheme)}
                 >{t(B.F_LANGUAGE)}</Button>
                 <Button
-                    variant='contained'
-                    endIcon={<Icons.ChangeCircle/>}
+                    type={'primary'}
+                    icon={<SwapOutlined/>}
                     onClick={() => changeFrame(frame, setFrame, linesOfBlocks, setLinesOfBlocks)}
                 ></Button>
             </Box>

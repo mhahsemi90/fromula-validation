@@ -1,11 +1,12 @@
-import {Box, Button, Typography} from "@mui/material";
+import {Box, Typography} from "@mui/material";
+import {Button} from "antd";
 import PropTypes from "prop-types";
 import {useContext, useState} from "react";
 import {BasicFrameContext, MainFrameContext} from "../../../../MainContext.jsx";
 import {
+    clickForSelectBlockToEdit,
     getBlockFromLine,
     getLastIdFromList,
-    clickForSelectBlockToEdit,
     highlightParentAndChild,
     reformatLineRow,
     selectBlockToEdit
@@ -132,7 +133,7 @@ const AlternateBox = ({alternateEditLine, setAlternateEditLine, saveChange}) => 
                 }}
             >
                 <Button
-                    variant="contained"
+                    type={'primary'}
                     onClick={() => setAlternateEditLine([])}
                 >{t(B.F_DELETE)}
                 </Button>

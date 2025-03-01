@@ -1,5 +1,3 @@
-import Line from "../../../../ProjectObject/Line.js";
-import LineType from "../../../../CommonCode/LineType.js";
 import BlockOfLines from "../../../../ProjectObject/BlockOfLines.js";
 import {getAllChildRowList, getBlockFromLine, getLastIdFromList} from "../../../CommonBasicFrameMethod.js";
 import ExpressionLine from "../../../../ProjectObject/ExpressionLine.js";

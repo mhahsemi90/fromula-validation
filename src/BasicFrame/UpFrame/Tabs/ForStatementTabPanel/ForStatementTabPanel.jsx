@@ -97,7 +97,7 @@ const clearChange = (setBlockToEdit, setActiveLineToEditIdList) => {
     setActiveLineToEditIdList([]);
 };
 const ForStatementTabPanel = () => {
-    const {linesOfBlocks, setLinesOfBlocks,getOperandFromMainList} = useContext(MainFrameContext);
+    const {linesOfBlocks, setLinesOfBlocks, getOperandFromMainList} = useContext(MainFrameContext);
     const {blockToEdit, setBlockToEdit, setActiveLineToEditIdList} = useContext(BasicFrameContext);
     const [loopVarToEdit, setLoopVarToEdit] = useState(new Line());
     const [loopBodyEditLine, setLoopBodyEditLine] = useState([]);
@@ -107,7 +107,7 @@ const ForStatementTabPanel = () => {
         if (!loopVar.lineType) loopVar.lineType = LineType.FOR_STATEMENT;
         setLoopVarToEdit(loopVar);
         blockToEdit.loopBody && blockToEdit.loopBody.blockList ? setLoopBodyEditLine(
-            generateLine(blockToEdit.loopBody,getOperandFromMainList).map((block, index) =>
+            generateLine(blockToEdit.loopBody, getOperandFromMainList).map((block, index) =>
                     generateBlock(block, `${id}-${index}`)
                 /*<GenerateBlock block={block} key={`${id}-${index}`}/>*/
             )

@@ -1,5 +1,6 @@
 import {useContext, useEffect, useId, useState} from "react";
-import {Box, Button, Typography} from "@mui/material";
+import {Box, Typography} from "@mui/material";
+import {Button} from "antd";
 import EditLineDialog from "../EditLineDialog/EditLineDialog.jsx";
 import {BasicFrameContext, MainFrameContext} from "../../../../MainContext.jsx";
 import generateLine from "../../../../CommonCode/GenerateLine/generateLine.jsx";
@@ -104,7 +105,7 @@ const LoopVarBox = ({loopVarToEdit, setLoopVarToEdit}) => {
                 }}
             >
                 <Button
-                    variant="contained"
+                    type={'primary'}
                     onClick={() => deleteLoopVarLine(loopVarToEdit, setLoopVarToEdit)}
                 >{t(B.F_DELETE)}
                 </Button>

@@ -1,5 +1,5 @@
-import {Button, FormControlLabel, Radio, RadioGroup} from "@mui/material";
-import * as Icons from "@mui/icons-material";
+import {FormControlLabel, Radio, RadioGroup} from "@mui/material";
+import {Button} from "antd";
 import PropTypes from "prop-types";
 import {useContext, useState} from "react";
 import Block from "../../../ProjectObject/Block.js";
@@ -8,6 +8,7 @@ import Line from "../../../ProjectObject/Line.js";
 import {MainFrameContext, StatementTabPanelContext} from "../../../MainContext.jsx";
 import TabPanel from "../../TabPanel/TabPanel.jsx";
 import B from "../../../BundleConst/B.js";
+import {SendOutlined} from "@ant-design/icons";
 
 function addOperand(editLine, setEditLine, blinkIndex, setBlinkIndex, value, getOperandFromMainList) {
     const item = getOperandFromMainList(value);
@@ -59,8 +60,8 @@ const OperandsTabPanel = ({object, index, i}) => {
                     )
                 })}
                 <Button
-                    variant={'outlined'}
-                    endIcon={<Icons.Send/>}
+                    type={'primary'}
+                    icon={<SendOutlined/>}
                     sx={{
                         alignSelf: 'flex-end',
                         position: 'sticky',

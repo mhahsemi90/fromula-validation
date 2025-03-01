@@ -122,12 +122,12 @@ const IfStatementTabPanel = () => {
         setTestLineToEdit(test);
         blockToEdit.consequent && blockToEdit.consequent.blockList ? setConsequentEditLine(
             generateLine(blockToEdit.consequent, getOperandFromMainList).map((block, index) =>
-                    generateBlock(block, `${id}-${index}`)
+                generateBlock(block, `${id}-${index}`)
             )
         ) : setConsequentEditLine([]);
         blockToEdit.alternate && blockToEdit.alternate.blockList ? setAlternateEditLine(
             generateLine(blockToEdit.alternate, getOperandFromMainList).map((block, index) =>
-                    generateBlock(block, `${id}-${index}`)
+                generateBlock(block, `${id}-${index}`)
             )
         ) : setAlternateEditLine([]);
     }, [blockToEdit, id]);

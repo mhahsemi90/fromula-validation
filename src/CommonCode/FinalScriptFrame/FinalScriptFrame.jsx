@@ -1,4 +1,5 @@
-import {Box, Button, Paper, Typography} from "@mui/material";
+import {Box, Paper, Typography} from "@mui/material";
+import {Button} from "antd";
 import PropTypes from "prop-types";
 import generateScript from "./generateScript.js";
 import Client from "../../Client.js";
@@ -59,14 +60,13 @@ const creatReturnResult = (formulaString, row, result, setResult, t) => {
                         height: '100%',
                         boxSizing: 'border-box',
                         justifyContent: 'center',
-                        bgcolor: result === t(B.F_NOT_VERIFIED) ? '#ffff99' : result === t(B.F_VERIFIED) ? '#99ff99' : '#ff9999',
+                        backgroundColor: result === t(B.F_NOT_VERIFIED) ? '#ffff99' : result === t(B.F_VERIFIED) ? '#99ff99' : '#ff9999',
                     }}
                 >
                     {result}
                 </Typography>
                 <Button
-                    variant="contained"
-                    color="primary"
+                    type={'primary'}
                     onClick={() => verifyScript(formulaString, setResult, t)}>
                     {t(B.F_VERIFY)}
                 </Button>
