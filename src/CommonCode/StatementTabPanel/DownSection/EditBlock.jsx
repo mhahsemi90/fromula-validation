@@ -1,4 +1,4 @@
-import {Box, Chip} from "@mui/material";
+import {Chip} from "@mui/material";
 import PropTypes from "prop-types";
 import '../../../../public/keyFrame.css'
 import {useContext} from "react";
@@ -18,25 +18,26 @@ function deleteEditBlock(editLine, setEditLine, setBlinkIndex, index) {
 const EditBlock = ({block, index}) => {
     const {lang} = useContext(MainFrameContext);
     const {editLine, setEditLine, blinkIndex, setBlinkIndex,} = useContext(StatementTabPanelContext);
-    return (<Box
-        sx={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-        }}
-    >
-        {index === 0 ? <Blink setBlinkIndex={setBlinkIndex} blinkIndex={blinkIndex} index={-1}/> : null}
-        <Chip
-            label={lang === 'en' ? block.enTitle : block.title}
-            color="primary"
-            variant="outlined"
-            onClick={() => deleteEditBlock(editLine, setEditLine, setBlinkIndex, index)}
-            sx={{
-                margin: '2px',
+    return (
+        <div
+            style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
             }}
-        />
-        <Blink setBlinkIndex={setBlinkIndex} blinkIndex={blinkIndex} index={index}/>
-    </Box>);
+        >
+            {index === 0 ? <Blink setBlinkIndex={setBlinkIndex} blinkIndex={blinkIndex} index={-1}/> : null}
+            <Chip
+                label={lang === 'en' ? block.enTitle : block.title}
+                color="primary"
+                variant="outlined"
+                onClick={() => deleteEditBlock(editLine, setEditLine, setBlinkIndex, index)}
+                sx={{
+                    margin: '2px',
+                }}
+            />
+            <Blink setBlinkIndex={setBlinkIndex} blinkIndex={blinkIndex} index={index}/>
+        </div>);
 }
 EditBlock.propTypes = {
     block: PropTypes.object.isRequired,

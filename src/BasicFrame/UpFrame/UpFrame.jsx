@@ -1,4 +1,3 @@
-import {Box} from "@mui/material";
 import AllTabs from "./Tabs/AllTabs.jsx";
 import {CacheProvider} from "@emotion/react";
 import {ThemeProvider} from "@mui/material/styles";
@@ -8,8 +7,8 @@ import {MainFrameContext} from "../../MainContext.jsx";
 const UpFrame = () => {
     const {cache, theme} = useContext(MainFrameContext);
     return (
-        <Box
-            sx={{
+        <div
+            style={{
                 display: 'flex',
                 width: '100%',
                 height: '47%',
@@ -23,7 +22,7 @@ const UpFrame = () => {
                     <AllTabs/>
                 </ThemeProvider>
             </CacheProvider>
-        </Box>
+        </div>
 
     )
 }

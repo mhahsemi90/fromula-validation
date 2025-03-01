@@ -1,4 +1,4 @@
-import {Box, Typography} from "@mui/material";
+import {Typography} from "@mui/material";
 import {Button} from "antd";
 import EditLineDialog from "../EditLineDialog/EditLineDialog.jsx";
 import {useContext, useEffect, useId, useState} from "react";
@@ -36,8 +36,8 @@ const BodyBox = ({bodyLineToEdit, setBodyLineToEdit}) => {
         ) : setVisualBodyLine([]);
     }, [bodyLineToEdit, getOperandFromMainList, id]);
     return (
-        <Box
-            sx={{
+        <div
+            style={{
                 boxSizing: 'border-box',
                 display: 'flex',
                 width: '100%',
@@ -45,11 +45,11 @@ const BodyBox = ({bodyLineToEdit, setBodyLineToEdit}) => {
                 alignItems: 'center',
             }}
         >
-            <Box
+            <div
                 onClick={() => handleClickForEditLine(setOpen, setHoverBlockIdList)}
                 onMouseEnter={() => highlightChild(bodyLineToEdit, linesOfBlocks, setHoverBlockIdList)}
                 onMouseLeave={() => setHoverBlockIdList([])}
-                sx={{
+                style={{
                     boxSizing: 'border-box',
                     display: 'flex',
                     width: '85%',
@@ -57,8 +57,8 @@ const BodyBox = ({bodyLineToEdit, setBodyLineToEdit}) => {
                     alignItems: 'center',
                 }}
             >
-                <Box
-                    sx={{
+                <div
+                    style={{
                         boxSizing: 'border-box',
                         display: 'flex',
                         width: '15%',
@@ -67,17 +67,18 @@ const BodyBox = ({bodyLineToEdit, setBodyLineToEdit}) => {
                     }}
                 >
                     <label>BODY</label>
-                </Box>
-                <Box sx={{
-                    boxSizing: 'border-box',
-                    display: 'flex',
-                    width: '80%',
-                    height: '20%',
-                    alignItems: 'center',
-                    border: '1px solid',
-                    padding: 2,
-                    boxShadow: '1px 1px 2px inset',
-                }}
+                </div>
+                <div
+                    style={{
+                        boxSizing: 'border-box',
+                        display: 'flex',
+                        width: '80%',
+                        height: '20%',
+                        alignItems: 'center',
+                        border: '1px solid',
+                        padding: '20px',
+                        boxShadow: '1px 1px 2px inset',
+                    }}
                 >
                     <Typography
                         sx={{
@@ -91,16 +92,16 @@ const BodyBox = ({bodyLineToEdit, setBodyLineToEdit}) => {
                     >
                         {visualBodyLine}
                     </Typography>
-                </Box>
-                <Box
-                    sx={{
+                </div>
+                <div
+                    style={{
                         width: '5%',
                         height: '20%',
                     }}
-                ></Box>
-            </Box>
-            <Box
-                sx={{
+                ></div>
+            </div>
+            <div
+                style={{
                     boxSizing: 'border-box',
                     display: 'flex',
                     width: '15%',
@@ -113,7 +114,7 @@ const BodyBox = ({bodyLineToEdit, setBodyLineToEdit}) => {
                     onClick={() => deleteBodyLine(bodyLineToEdit, setBodyLineToEdit)}
                 >{t(B.F_DELETE)}
                 </Button>
-            </Box>
+            </div>
             <EditLineDialog
                 open={open}
                 setOpen={setOpen}
@@ -123,7 +124,7 @@ const BodyBox = ({bodyLineToEdit, setBodyLineToEdit}) => {
                 setEditLine={setBodyLineToEdit}
                 operators={ArithmeticOperatorList}
             />
-        </Box>
+        </div>
     )
 }
 BodyBox.propTypes = {

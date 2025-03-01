@@ -1,4 +1,4 @@
-import {Box, Paper, Tab, Tabs} from "@mui/material";
+import {Paper, Tab, Tabs} from "@mui/material";
 import {useContext, useState} from "react";
 import OperandsTabPanel from "./OperandsTabPanel.jsx";
 import {MainFrameContext} from "../../../MainContext.jsx";
@@ -16,7 +16,7 @@ const Operands = () => {
                 width: '50%',
             }}
         >
-            <Box sx={{display: 'flex', borderRight: 1, borderColor: 'divider', height: '100%'}}>
+            <div style={{display: 'flex', borderRight: 1, borderColor: 'divider', height: '100%'}}>
                 <Tabs
                     value={index}
                     onChange={(event, newValue) => setIndex(newValue)}
@@ -26,7 +26,7 @@ const Operands = () => {
                         return (<Tab label={lang === 'en' ? object.enTitle : object.title} value={i} key={i}/>)
                     })}
                 </Tabs>
-            </Box>
+            </div>
             <Paper
                 elevation={3}
                 sx={{

@@ -1,4 +1,4 @@
-import {Box, Paper} from "@mui/material";
+import {Paper} from "@mui/material";
 import {useContext, useEffect, useId, useState} from "react";
 import {BasicFrameContext, MainFrameContext} from "../../../../MainContext.jsx";
 import generateLine from "../../../../CommonCode/GenerateLine/generateLine.jsx";
@@ -114,8 +114,8 @@ const ForStatementTabPanel = () => {
         ) : setLoopBodyEditLine([]);
     }, [blockToEdit, getOperandFromMainList, id]);
     return (
-        <Box
-            sx={{
+        <div
+            style={{
                 boxSizing: 'border-box',
                 display: 'flex',
                 flexDirection: 'column',
@@ -167,7 +167,7 @@ const ForStatementTabPanel = () => {
                     cancelChange={() => clearChange(setBlockToEdit, setActiveLineToEditIdList)}
                 />
             </Paper>
-        </Box>
+        </div>
     );
 }
 export default ForStatementTabPanel;

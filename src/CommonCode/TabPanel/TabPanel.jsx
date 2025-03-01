@@ -1,12 +1,11 @@
-import {Box} from "@mui/material";
 import PropTypes from "prop-types";
 
 const TabPanel = ({children, value, label}) => {
     return (
-        <Box
+        <div
             role="tabpanel"
             hidden={value !== label}
-            sx={{
+            style={{
                 boxSizing: 'border-box',
                 width: '100%',
                 height: '100%',
@@ -14,7 +13,7 @@ const TabPanel = ({children, value, label}) => {
                 padding: '2px',
             }}>
             {value === label && children}
-        </Box>
+        </div>
     );
 }
 TabPanel.propTypes = {

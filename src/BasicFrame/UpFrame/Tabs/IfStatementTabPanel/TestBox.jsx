@@ -1,4 +1,4 @@
-import {Box, Typography} from "@mui/material";
+import {Typography} from "@mui/material";
 import {Button} from "antd";
 import EditLineDialog from "../EditLineDialog/EditLineDialog.jsx";
 import {useContext, useEffect, useId, useState} from "react";
@@ -34,8 +34,8 @@ const TestBox = ({testLineToEdit, setTestLineToEdit}) => {
         ) : setVisualTestLine([]);
     }, [testLineToEdit, id, getOperandFromMainList]);
     return (
-        <Box
-            sx={{
+        <div
+            style={{
                 boxSizing: 'border-box',
                 display: 'flex',
                 width: '100%',
@@ -43,11 +43,11 @@ const TestBox = ({testLineToEdit, setTestLineToEdit}) => {
                 alignItems: 'center',
             }}
         >
-            <Box
+            <div
                 onClick={() => handleClickForEditLine(setOpen, setHoverBlockIdList)}
                 onMouseEnter={() => highlightChild(testLineToEdit, linesOfBlocks, setHoverBlockIdList)}
                 onMouseLeave={() => setHoverBlockIdList([])}
-                sx={{
+                style={{
                     boxSizing: 'border-box',
                     display: 'flex',
                     width: '85%',
@@ -55,8 +55,8 @@ const TestBox = ({testLineToEdit, setTestLineToEdit}) => {
                     alignItems: 'center',
                 }}
             >
-                <Box
-                    sx={{
+                <div
+                    style={{
                         boxSizing: 'border-box',
                         display: 'flex',
                         width: '15%',
@@ -65,17 +65,18 @@ const TestBox = ({testLineToEdit, setTestLineToEdit}) => {
                     }}
                 >
                     <label>TEST</label>
-                </Box>
-                <Box sx={{
-                    boxSizing: 'border-box',
-                    display: 'flex',
-                    width: '80%',
-                    height: '20%',
-                    alignItems: 'center',
-                    border: '1px solid',
-                    padding: 2,
-                    boxShadow: '1px 1px 2px inset',
-                }}
+                </div>
+                <div
+                    style={{
+                        boxSizing: 'border-box',
+                        display: 'flex',
+                        width: '80%',
+                        height: '20%',
+                        alignItems: 'center',
+                        border: '1px solid',
+                        padding: '20px',
+                        boxShadow: '1px 1px 2px inset',
+                    }}
                 >
                     <Typography
                         sx={{
@@ -86,16 +87,16 @@ const TestBox = ({testLineToEdit, setTestLineToEdit}) => {
                     >
                         {visualTestLine}
                     </Typography>
-                </Box>
-                <Box
-                    sx={{
+                </div>
+                <div
+                    style={{
                         width: '5%',
                         height: '20%',
                     }}
-                ></Box>
-            </Box>
-            <Box
-                sx={{
+                ></div>
+            </div>
+            <div
+                style={{
                     boxSizing: 'border-box',
                     display: 'flex',
                     width: '15%',
@@ -108,7 +109,7 @@ const TestBox = ({testLineToEdit, setTestLineToEdit}) => {
                     onClick={() => deleteTestLine(testLineToEdit, setTestLineToEdit)}
                 >{t(B.F_DELETE)}
                 </Button>
-            </Box>
+            </div>
             <EditLineDialog
                 open={open}
                 setOpen={setOpen}
@@ -118,7 +119,7 @@ const TestBox = ({testLineToEdit, setTestLineToEdit}) => {
                 setEditLine={setTestLineToEdit}
                 operators={[...ComparisonOperatorList, ...LogicalOperatorList]}
             />
-        </Box>
+        </div>
     );
 }
 TestBox.propTypes = {

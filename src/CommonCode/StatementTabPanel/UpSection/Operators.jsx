@@ -1,4 +1,4 @@
-import {Box, Chip, Paper} from "@mui/material";
+import {Chip, Paper} from "@mui/material";
 import {useContext, useId} from "react";
 import {MainFrameContext, StatementTabPanelContext} from "../../../MainContext.jsx";
 import Line from "../../../ProjectObject/Line.js";
@@ -44,8 +44,8 @@ const Operators = () => {
                 height: '100%',
             }}
         >
-            <Box
-                sx={{
+            <div
+                style={{
                     boxSizing: 'border-box',
                     padding: '10px',
                     width: '100%',
@@ -65,7 +65,7 @@ const Operators = () => {
                         }}
                     />
                 ))
-            }</Box>
+            }</div>
         </Paper>
     );
 }

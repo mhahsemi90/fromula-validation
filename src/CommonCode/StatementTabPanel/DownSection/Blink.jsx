@@ -1,12 +1,11 @@
-import {Box} from "@mui/material";
 import PropTypes from "prop-types";
 
 const Blink = ({setBlinkIndex, blinkIndex, index}) => {
     const blink = 'blink 1s step-end infinite';
     return (
-        <Box
+        <div
             onClick={() => setBlinkIndex(index)}
-            sx={{
+            style={{
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -19,7 +18,7 @@ const Blink = ({setBlinkIndex, blinkIndex, index}) => {
                 color: '#666666',
             }}
         >I
-        </Box>
+        </div>
     );
 }
 Blink.propTypes = {

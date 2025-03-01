@@ -1,4 +1,4 @@
-import {Box, Paper} from "@mui/material";
+import {Paper} from "@mui/material";
 import {useContext, useEffect, useState} from "react";
 import {BasicFrameContext, MainFrameContext} from "../../../../MainContext.jsx";
 import ParentBox from "../ParentBox/ParentBox.jsx";
@@ -97,8 +97,8 @@ const ExpressionStatementTabPanel = () => {
         }
     }, [blockToEdit]);
     return (
-        <Box
-            sx={{
+        <div
+            style={{
                 boxSizing: 'border-box',
                 display: 'flex',
                 flexDirection: 'column',
@@ -160,7 +160,7 @@ const ExpressionStatementTabPanel = () => {
                     cancelChange={() => cancelChange(setBlockToEdit, setActiveLineToEditIdList)}
                 />
             </Paper>
-        </Box>
+        </div>
     );
 }
 export default ExpressionStatementTabPanel;

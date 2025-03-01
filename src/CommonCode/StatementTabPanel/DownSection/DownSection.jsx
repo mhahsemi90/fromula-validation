@@ -1,4 +1,4 @@
-import {Box, Paper} from "@mui/material";
+import {Paper} from "@mui/material";
 import {Button} from "antd";
 import {useContext, useId} from "react";
 import EditBlock from "./EditBlock.jsx";
@@ -12,8 +12,8 @@ const DownSection = () => {
     const blockList = editLine && editLine.blockList;
     const id = useId();
     return (
-        <Box
-            sx={{
+        <div
+            style={{
                 boxSizing: 'border-box',
                 display: 'flex',
                 width: '100%',
@@ -34,8 +34,8 @@ const DownSection = () => {
                     margin: '5px',
                 }}
             >
-                <Box
-                    sx={{
+                <div
+                    style={{
                         boxSizing: 'border-box',
                         display: 'flex',
                         justifyContent: "center",
@@ -46,8 +46,8 @@ const DownSection = () => {
                     {blockList && blockList.map((block, index) =>
                         (<EditBlock block={block} index={index} key={`${id}-${index}`}/>)
                     )}
-                </Box>
-                <Box sx={{boxSizing: 'border-box', display: 'flex', justifyContent: 'center'}}>
+                </div>
+                <div style={{boxSizing: 'border-box', display: 'flex', justifyContent: 'center'}}>
                     <Button
                         type={'primary'}
                         icon={<SendOutlined/>}
@@ -58,9 +58,9 @@ const DownSection = () => {
                         icon={<CloseOutlined/>}
                         onClick={cancel}
                     >{t(B.F_CANCEL)}</Button>
-                </Box>
+                </div>
             </Paper>
-        </Box>
+        </div>
     );
 }
 export default DownSection;

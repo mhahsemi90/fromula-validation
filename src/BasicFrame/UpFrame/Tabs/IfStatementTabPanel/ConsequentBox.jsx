@@ -1,4 +1,4 @@
-import {Box, Typography} from "@mui/material";
+import {Typography} from "@mui/material";
 import {Button} from "antd";
 import PropTypes from "prop-types";
 import {
@@ -52,8 +52,8 @@ const ConsequentBox = ({consequentEditLine, setConsequentEditLine, saveChange}) 
     const [open, setOpen] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
     return (
-        <Box
-            sx={{
+        <div
+            style={{
                 boxSizing: 'border-box',
                 display: 'flex',
                 width: '100%',
@@ -61,10 +61,10 @@ const ConsequentBox = ({consequentEditLine, setConsequentEditLine, saveChange}) 
                 alignItems: 'center',
             }}
         >
-            <Box
+            <div
                 onMouseEnter={() => highlightParentAndChild(blockToEdit.consequent, linesOfBlocks, setHoverBlockIdList)}
                 onMouseLeave={() => setHoverBlockIdList([])}
-                sx={{
+                style={{
                     boxSizing: 'border-box',
                     display: 'flex',
                     width: '85%',
@@ -72,8 +72,8 @@ const ConsequentBox = ({consequentEditLine, setConsequentEditLine, saveChange}) 
                     alignItems: 'center',
                 }}
             >
-                <Box
-                    sx={{
+                <div
+                    style={{
                         boxSizing: 'border-box',
                         display: 'flex',
                         width: '15%',
@@ -82,17 +82,17 @@ const ConsequentBox = ({consequentEditLine, setConsequentEditLine, saveChange}) 
                     }}
                 >
                     <label>CONSEQUENT</label>
-                </Box>
-                <Box
+                </div>
+                <div
                     onClick={(e) => clickForSelectBlockToEdit(blockToEdit.consequent, linesOfBlocks, setBlockToEdit, setActiveLineToEditIdList, setHoverBlockIdList, e, setAnchorEl, setOpen)}
-                    sx={{
+                    style={{
                         boxSizing: 'border-box',
                         display: 'flex',
                         width: '80%',
                         height: '20%',
                         alignItems: 'center',
                         border: '1px solid',
-                        padding: 2,
+                        padding: '20px',
                         boxShadow: '1px 1px 2px inset',
                     }}
                 >
@@ -105,14 +105,14 @@ const ConsequentBox = ({consequentEditLine, setConsequentEditLine, saveChange}) 
                     >
                         {consequentEditLine}
                     </Typography>
-                </Box>
-                <Box
-                    sx={{
+                </div>
+                <div
+                    style={{
                         width: '5%',
                         height: '20%',
                     }}
-                ></Box>
-            </Box>
+                ></div>
+            </div>
             <PopperForSelectStatementType
                 anchorEl={anchorEl}
                 setAnchorEl={setAnchorEl}
@@ -120,8 +120,8 @@ const ConsequentBox = ({consequentEditLine, setConsequentEditLine, saveChange}) 
                 setOpen={setOpen}
                 createStatement={(type) => createConsequent(type, setLinesOfBlocks, saveChange, setOpen, setBlockToEdit, setActiveLineToEditIdList)}
             />
-            <Box
-                sx={{
+            <div
+                style={{
                     boxSizing: 'border-box',
                     display: 'flex',
                     width: '15%',
@@ -134,8 +134,8 @@ const ConsequentBox = ({consequentEditLine, setConsequentEditLine, saveChange}) 
                     onClick={() => setConsequentEditLine([])}
                 >{t(B.F_DELETE)}
                 </Button>
-            </Box>
-        </Box>
+            </div>
+        </div>
     )
 }
 ConsequentBox.propTypes = {

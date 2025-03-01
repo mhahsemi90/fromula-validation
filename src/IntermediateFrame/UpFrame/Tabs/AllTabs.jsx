@@ -1,4 +1,4 @@
-import {AppBar, Box, Paper, Tab, Tabs} from "@mui/material";
+import {AppBar, Paper, Tab, Tabs} from "@mui/material";
 import B from "../../../BundleConst/B.js";
 import LineType from "../../../CommonCode/LineType.js";
 import Line from "../../../ProjectObject/Line.js";
@@ -56,7 +56,7 @@ const AllTabs = () => {
                 direction: 'ltr',
                 padding: '5px'
             }}>
-            <Box sx={{borderRight: 1, borderColor: 'divider', height: '100%'}} position="relative">
+            <div style={{borderRight: 1, borderColor: 'divider', height: '100%'}} position="relative">
                 <AppBar position="static"
                         sx={{height: '100%'}}>
                     <Tabs
@@ -79,7 +79,7 @@ const AllTabs = () => {
                         <Tab label={t(B.F_FOR_STATEMENT)} value={LineType.FOR_STATEMENT}/>
                     </Tabs>
                 </AppBar>
-            </Box>
+            </div>
             <TabPanel value={type} label={LineType.EXPRESSION_STATEMENT}>
                 <StatementTabPanel
                     sendChange={() => sendChange(LineType.EXPRESSION_STATEMENT)}

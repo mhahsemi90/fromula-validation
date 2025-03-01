@@ -1,4 +1,4 @@
-import {Box, Paper, Typography} from "@mui/material";
+import {Paper, Typography} from "@mui/material";
 import {Button} from "antd";
 import PropTypes from "prop-types";
 import generateScript from "./generateScript.js";
@@ -43,8 +43,8 @@ const creatReturnResult = (formulaString, row, result, setResult, t) => {
                 padding: '5px',
             }}
         >
-            <Box
-                sx={{
+            <div
+                style={{
                     display: 'flex',
                     width: '100%',
                     height: '5%',
@@ -70,9 +70,9 @@ const creatReturnResult = (formulaString, row, result, setResult, t) => {
                     onClick={() => verifyScript(formulaString, setResult, t)}>
                     {t(B.F_VERIFY)}
                 </Button>
-            </Box>
-            <Box
-                sx={{
+            </div>
+            <div
+                style={{
                     display: 'flex',
                     flexDirection: 'row-reverse',
                     width: '100%',
@@ -80,8 +80,8 @@ const creatReturnResult = (formulaString, row, result, setResult, t) => {
                     overflow: 'auto',
                 }}
             >
-                <Box
-                    sx={{
+                <div
+                    style={{
                         width: '95%',
                         whiteSpace: 'pre',
                     }}
@@ -97,9 +97,9 @@ const creatReturnResult = (formulaString, row, result, setResult, t) => {
                     >
                         {formulaString}
                     </Typography>
-                </Box>
-                <Box
-                    sx={{
+                </div>
+                <div
+                    style={{
                         width: '5%',
                         whiteSpace: 'pre',
                     }}
@@ -113,8 +113,8 @@ const creatReturnResult = (formulaString, row, result, setResult, t) => {
                             boxSizing: 'border-box',
                         }}
                     >{row}</Typography>
-                </Box>
-            </Box>
+                </div>
+            </div>
         </Paper>
     )
 }

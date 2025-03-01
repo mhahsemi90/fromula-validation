@@ -1,4 +1,4 @@
-import {Box, FormControl, FormControlLabel, InputLabel, MenuItem, Radio, RadioGroup, Select} from "@mui/material";
+import {FormControl, FormControlLabel, InputLabel, MenuItem, Radio, RadioGroup, Select} from "@mui/material";
 import {useContext, useEffect, useId, useState} from "react";
 import {MainFrameContext} from "../../../../MainContext.jsx";
 import PropTypes from "prop-types";
@@ -50,8 +50,8 @@ const ExpressionTypeBox = ({
         }
     }, [assignmentOperator, bodyLineToEdit, expressionType, resultVarName, setBodyLineToEdit]);
     return (
-        <Box
-            sx={{
+        <div
+            style={{
                 display: "flex",
                 boxSizing: 'border-box',
                 width: '100%',
@@ -59,16 +59,16 @@ const ExpressionTypeBox = ({
                 flexDirection: 'row',
             }}
         >
-            <Box
-                sx={{
+            <div
+                style={{
                     boxSizing: 'border-box',
                     width: '12%',
                     height: '100%',
                 }}
             >
-            </Box>
-            <Box
-                sx={{
+            </div>
+            <div
+                style={{
                     boxSizing: 'border-box',
                     width: '70%',
                     height: '100%',
@@ -76,8 +76,8 @@ const ExpressionTypeBox = ({
             >
 
 
-                <Box
-                    sx={{
+                <div
+                    style={{
                         display: "flex",
                         boxSizing: 'border-box',
                         width: '100%',
@@ -85,8 +85,8 @@ const ExpressionTypeBox = ({
                         flexDirection: 'row',
                     }}
                 >
-                    <Box
-                        sx={{
+                    <div
+                        style={{
                             display: "flex",
                             boxSizing: 'border-box',
                             width: '30%',
@@ -98,9 +98,9 @@ const ExpressionTypeBox = ({
                             <FormControlLabel label={'Return value'} control={<Radio/>} value={'return'}/>
                             <FormControlLabel label={'Change value'} control={<Radio/>} value={'change'}/>
                         </RadioGroup>
-                    </Box>
-                    <Box
-                        sx={{
+                    </div>
+                    <div
+                        style={{
                             display: "flex",
                             boxSizing: 'border-box',
                             width: '70%',
@@ -108,8 +108,8 @@ const ExpressionTypeBox = ({
                             flexDirection: 'row',
                         }}
                     >
-                        <Box
-                            sx={{
+                        <div
+                            style={{
                                 display: "flex",
                                 boxSizing: 'border-box',
                                 width: '50%',
@@ -139,9 +139,9 @@ const ExpressionTypeBox = ({
                                     <MenuItem value={'%='}> %= </MenuItem>
                                 </Select>
                             </FormControl>
-                        </Box>
-                        <Box
-                            sx={{
+                        </div>
+                        <div
+                            style={{
                                 display: "flex",
                                 boxSizing: 'border-box',
                                 width: '50%',
@@ -171,21 +171,21 @@ const ExpressionTypeBox = ({
                                     )}
                                 </Select>
                             </FormControl>
-                        </Box>
-                    </Box>
-                </Box>
+                        </div>
+                    </div>
+                </div>
 
 
-            </Box>
-            <Box
-                sx={{
+            </div>
+            <div
+                style={{
                     boxSizing: 'border-box',
                     width: '18%',
                     height: '100%',
                 }}
             >
-            </Box>
-        </Box>
+            </div>
+        </div>
     )
         ;
 }

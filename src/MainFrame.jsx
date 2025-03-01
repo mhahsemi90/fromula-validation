@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {ltrCache, ltrTheme} from "./CommonCode/Theme.js";
 import {useTranslation} from "react-i18next";
-import {Box, Input, InputLabel} from "@mui/material";
+import {Input, InputLabel} from "@mui/material";
 import {Button} from "antd";
 import B from "./BundleConst/B.js";
 import {changeLanguage} from "./CommonCode/Language.js";
@@ -79,8 +79,8 @@ const MainFrame = () => {
         ])
     }, [])
     return (
-        <Box
-            sx={{
+        <div
+            style={{
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
@@ -90,8 +90,8 @@ const MainFrame = () => {
                 boxSizing: 'border-box'
             }}
         >
-            <Box
-                sx={{
+            <div
+                style={{
                     display: 'flex',
                     flexDirection: 'row',
                     justifyContent: 'center',
@@ -116,7 +116,7 @@ const MainFrame = () => {
                     icon={<SwapOutlined/>}
                     onClick={() => changeFrame(frame, setFrame, linesOfBlocks, setLinesOfBlocks)}
                 ></Button>
-            </Box>
+            </div>
             <MainFrameContext.Provider value={{
                 cache,
                 theme,
@@ -130,7 +130,7 @@ const MainFrame = () => {
             }}>
                 {getFrame(frame)}
             </MainFrameContext.Provider>
-        </Box>
+        </div>
     )
 }
 export default MainFrame;

@@ -1,4 +1,3 @@
-import {Box} from "@mui/material";
 import {Button} from "antd";
 import B from "../../../../BundleConst/B.js";
 import PropTypes from "prop-types";
@@ -9,8 +8,8 @@ import {CheckOutlined, CloseOutlined} from "@ant-design/icons";
 const ConfirmBox = ({acceptChange, cancelChange}) => {
     const {t} = useContext(MainFrameContext);
     return (
-        <Box
-            sx={{
+        <div
+            style={{
                 boxSizing: 'border-box',
                 display: 'flex',
                 justifyContent: 'center',
@@ -27,7 +26,7 @@ const ConfirmBox = ({acceptChange, cancelChange}) => {
                 icon={<CloseOutlined/>}
                 onClick={cancelChange}
             >{t(B.F_CANCEL)}</Button>
-        </Box>
+        </div>
     );
 }
 ConfirmBox.propTypes = {

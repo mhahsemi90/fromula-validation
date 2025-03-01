@@ -1,4 +1,3 @@
-import {Box} from "@mui/material";
 import LeftFrame from "./LeftFrame/LeftFrame.jsx";
 import {ApolloProvider} from "@apollo/client";
 import Client from "../../Client.js";
@@ -9,8 +8,8 @@ import {MainFrameContext} from "../../MainContext.jsx";
 const DownFrame = () => {
     const {linesOfBlocks} = useContext(MainFrameContext);
     return (
-        <Box
-            sx={{
+        <div
+            style={{
                 display: 'flex',
                 flexDirection: 'row',
                 width: '100%',
@@ -24,7 +23,7 @@ const DownFrame = () => {
             <ApolloProvider client={Client}>
                 <FinalScriptFrame linesOfBlocks={linesOfBlocks}/>
             </ApolloProvider>
-        </Box>
+        </div>
     )
 }
 export default DownFrame;

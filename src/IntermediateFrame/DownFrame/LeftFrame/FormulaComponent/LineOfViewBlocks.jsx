@@ -1,4 +1,4 @@
-import {Box, Paper, SpeedDial, SpeedDialAction} from "@mui/material";
+import {Paper, SpeedDial, SpeedDialAction} from "@mui/material";
 import PropTypes from "prop-types";
 import generateBlock from "../../../../CommonCode/GenerateLine/generateBlock.jsx";
 import {ArrowBack, ArrowDownward, ArrowForward, ArrowUpward, Delete} from "@mui/icons-material";
@@ -72,8 +72,8 @@ const LineOfViewBlocks = ({line}) => {
                 width: width,
                 backgroundColor: bgColor,
             }}>
-            <Box
-                sx={{
+            <div
+                style={{
                     display: 'flex',
                     flexWrap: 'wrap',
                     alignItems: 'center',
@@ -83,7 +83,7 @@ const LineOfViewBlocks = ({line}) => {
                 {generateLine(line, getOperandFromMainList).map((block, index) =>
                     generateBlock(block, `${id}-${index}`)
                 )}
-            </Box>
+            </div>
             <SpeedDial
                 ariaLabel="SpeedDial example"
                 direction="right"

@@ -1,4 +1,3 @@
-import {Box} from "@mui/material";
 import UpSection from "./UpSection/UpSection.jsx";
 import DownSection from "./DownSection/DownSection.jsx";
 import PropTypes from "prop-types";
@@ -9,8 +8,8 @@ const StatementTabPanel = ({sendChange, cancel, editLine, setEditLine, operators
     const blockList = editLine && editLine.blockList;
     const [blinkIndex, setBlinkIndex] = useState(blockList ? blockList.length - 1 : -1);
     return (
-        <Box
-            sx={{
+        <div
+            style={{
                 boxSizing: 'border-box',
                 display: 'flex',
                 flexDirection: 'column',
@@ -30,7 +29,7 @@ const StatementTabPanel = ({sendChange, cancel, editLine, setEditLine, operators
                 <UpSection/>
                 <DownSection/>
             </StatementTabPanelContext.Provider>
-        </Box>
+        </div>
     );
 }
 StatementTabPanel.propTypes = {

@@ -1,4 +1,4 @@
-import {Box, Typography} from "@mui/material";
+import {Typography} from "@mui/material";
 import {Button} from "antd";
 import PropTypes from "prop-types";
 import {useContext, useState} from "react";
@@ -55,8 +55,8 @@ const AlternateBox = ({alternateEditLine, setAlternateEditLine, saveChange}) => 
     const [open, setOpen] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
     return (
-        <Box
-            sx={{
+        <div
+            style={{
                 boxSizing: 'border-box',
                 display: 'flex',
                 width: '100%',
@@ -64,10 +64,10 @@ const AlternateBox = ({alternateEditLine, setAlternateEditLine, saveChange}) => 
                 alignItems: 'center',
             }}
         >
-            <Box
+            <div
                 onMouseEnter={() => highlightParentAndChild(blockToEdit.alternate, linesOfBlocks, setHoverBlockIdList)}
                 onMouseLeave={() => setHoverBlockIdList([])}
-                sx={{
+                style={{
                     boxSizing: 'border-box',
                     display: 'flex',
                     width: '85%',
@@ -75,8 +75,8 @@ const AlternateBox = ({alternateEditLine, setAlternateEditLine, saveChange}) => 
                     alignItems: 'center',
                 }}
             >
-                <Box
-                    sx={{
+                <div
+                    style={{
                         boxSizing: 'border-box',
                         display: 'flex',
                         width: '15%',
@@ -85,17 +85,17 @@ const AlternateBox = ({alternateEditLine, setAlternateEditLine, saveChange}) => 
                     }}
                 >
                     <label>ALTERNATE</label>
-                </Box>
-                <Box
+                </div>
+                <div
                     onClick={(e) => clickForSelectBlockToEdit(blockToEdit.alternate, linesOfBlocks, setBlockToEdit, setActiveLineToEditIdList, setHoverBlockIdList, e, setAnchorEl, setOpen)}
-                    sx={{
+                    style={{
                         boxSizing: 'border-box',
                         display: 'flex',
                         width: '80%',
                         height: '20%',
                         alignItems: 'center',
                         border: '1px solid',
-                        padding: 2,
+                        padding: '20px',
                         boxShadow: '1px 1px 2px inset',
                     }}
                 >
@@ -108,14 +108,14 @@ const AlternateBox = ({alternateEditLine, setAlternateEditLine, saveChange}) => 
                     >
                         {alternateEditLine}
                     </Typography>
-                </Box>
-                <Box
-                    sx={{
+                </div>
+                <div
+                    style={{
                         width: '5%',
                         height: '20%',
                     }}
-                ></Box>
-            </Box>
+                ></div>
+            </div>
             <PopperForSelectStatementType
                 anchorEl={anchorEl}
                 setAnchorEl={setAnchorEl}
@@ -123,8 +123,8 @@ const AlternateBox = ({alternateEditLine, setAlternateEditLine, saveChange}) => 
                 setOpen={setOpen}
                 createStatement={(type) => createAlternate(type, setLinesOfBlocks, saveChange, setOpen, setBlockToEdit, setActiveLineToEditIdList)}
             />
-            <Box
-                sx={{
+            <div
+                style={{
                     boxSizing: 'border-box',
                     display: 'flex',
                     width: '15%',
@@ -137,8 +137,8 @@ const AlternateBox = ({alternateEditLine, setAlternateEditLine, saveChange}) => 
                     onClick={() => setAlternateEditLine([])}
                 >{t(B.F_DELETE)}
                 </Button>
-            </Box>
-        </Box>
+            </div>
+        </div>
     );
 }
 AlternateBox.propTypes = {

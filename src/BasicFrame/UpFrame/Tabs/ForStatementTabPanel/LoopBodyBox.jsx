@@ -1,4 +1,4 @@
-import {Box, Typography} from "@mui/material";
+import {Typography} from "@mui/material";
 import {Button} from "antd";
 import PropTypes from "prop-types";
 import {
@@ -52,8 +52,8 @@ const LoopBodyBox = ({loopBodyEditLine, setLoopBodyEditLine, saveChange}) => {
     const [open, setOpen] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
     return (
-        <Box
-            sx={{
+        <div
+            style={{
                 boxSizing: 'border-box',
                 display: 'flex',
                 width: '100%',
@@ -61,10 +61,10 @@ const LoopBodyBox = ({loopBodyEditLine, setLoopBodyEditLine, saveChange}) => {
                 alignItems: 'center',
             }}
         >
-            <Box
+            <div
                 onMouseEnter={() => highlightParentAndChild(blockToEdit.loopBody, linesOfBlocks, setHoverBlockIdList)}
                 onMouseLeave={() => setHoverBlockIdList([])}
-                sx={{
+                style={{
                     boxSizing: 'border-box',
                     display: 'flex',
                     width: '85%',
@@ -72,8 +72,8 @@ const LoopBodyBox = ({loopBodyEditLine, setLoopBodyEditLine, saveChange}) => {
                     alignItems: 'center',
                 }}
             >
-                <Box
-                    sx={{
+                <div
+                    style={{
                         boxSizing: 'border-box',
                         display: 'flex',
                         width: '15%',
@@ -82,17 +82,17 @@ const LoopBodyBox = ({loopBodyEditLine, setLoopBodyEditLine, saveChange}) => {
                     }}
                 >
                     <label>LOOP BODY</label>
-                </Box>
-                <Box
+                </div>
+                <div
                     onClick={(e) => clickForSelectBlockToEdit(blockToEdit.loopBody, linesOfBlocks, setBlockToEdit, setActiveLineToEditIdList, setHoverBlockIdList, e, setAnchorEl, setOpen)}
-                    sx={{
+                    style={{
                         boxSizing: 'border-box',
                         display: 'flex',
                         width: '80%',
                         height: '20%',
                         alignItems: 'center',
                         border: '1px solid',
-                        padding: 2,
+                        padding: '20px',
                         boxShadow: '1px 1px 2px inset',
                     }}
                 >
@@ -105,14 +105,14 @@ const LoopBodyBox = ({loopBodyEditLine, setLoopBodyEditLine, saveChange}) => {
                     >
                         {loopBodyEditLine}
                     </Typography>
-                </Box>
-                <Box
-                    sx={{
+                </div>
+                <div
+                    style={{
                         width: '5%',
                         height: '20%',
                     }}
-                ></Box>
-            </Box>
+                ></div>
+            </div>
             <PopperForSelectStatementType
                 anchorEl={anchorEl}
                 setAnchorEl={setAnchorEl}
@@ -120,8 +120,8 @@ const LoopBodyBox = ({loopBodyEditLine, setLoopBodyEditLine, saveChange}) => {
                 setOpen={setOpen}
                 createStatement={(type) => createLoopBody(type, setLinesOfBlocks, saveChange, setOpen, setBlockToEdit, setActiveLineToEditIdList)}
             />
-            <Box
-                sx={{
+            <div
+                style={{
                     boxSizing: 'border-box',
                     display: 'flex',
                     width: '15%',
@@ -134,8 +134,8 @@ const LoopBodyBox = ({loopBodyEditLine, setLoopBodyEditLine, saveChange}) => {
                     onClick={() => setLoopBodyEditLine([])}
                 >{t(B.F_DELETE)}
                 </Button>
-            </Box>
-        </Box>
+            </div>
+        </div>
     )
 }
 LoopBodyBox.propTypes = {

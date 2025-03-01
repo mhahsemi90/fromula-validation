@@ -1,11 +1,10 @@
-import {Box} from "@mui/material";
 import Operands from "./Operands.jsx";
 import Operators from "./Operators.jsx";
 
 const UpSection = () => {
     return (
-        <Box
-            sx={{
+        <div
+            style={{
                 boxSizing: 'border-box',
                 display: 'flex',
                 flexDirection: 'row',
@@ -16,7 +15,7 @@ const UpSection = () => {
         >
             <Operands/>
             <Operators/>
-        </Box>
+        </div>
     );
 }
 export default UpSection;

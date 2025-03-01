@@ -1,5 +1,5 @@
 import {useContext, useState} from 'react';
-import {Box, Fab, Paper} from '@mui/material';
+import {Fab, Paper} from '@mui/material';
 import {ArrowBack, ArrowDownward, ArrowForward, ArrowUpward, Delete} from '@mui/icons-material';
 import {
     handleAddAfter,
@@ -17,7 +17,7 @@ const CircularMenu = ({actions}) => {
         setIsOpen(!isOpen);
     };
     return (
-        <Box sx={{position: 'relative', width: 100, height: 100}}>
+        <div style={{position: 'relative', width: 100, height: 100}}>
             <Fab onClick={handleToggle} sx={{position: 'absolute', top: 0, left: 0}}>
                 {isOpen ? 'Close' : 'Open'}
             </Fab>
@@ -42,7 +42,7 @@ const CircularMenu = ({actions}) => {
                     </Fab>
                 );
             })}
-        </Box>
+        </div>
     );
 };
 CircularMenu.propTypes = {
