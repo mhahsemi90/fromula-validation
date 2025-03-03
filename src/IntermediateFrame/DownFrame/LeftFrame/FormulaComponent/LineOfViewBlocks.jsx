@@ -28,9 +28,9 @@ const LineOfViewBlocks = ({line}) => {
         setBlinkIndex,
         setType
     } = useContext(IntermediateFrameContext);
-    const width = `${100 - (line.lineLevel * 3)}%`;
-    const bgColor = line.row === activeLineToEditRow ? "#dddddd" : "white";
-    const elevationValue = line.row === activeLineToEditRow ? 'shadow-e-3' : 'shadow-e-1';
+    const width = `w-[${100 - (line.lineLevel * 3)}%]`;
+    const bgColor = line.row === activeLineToEditRow ? 'bg-[#dddddd]' : 'bg-[white]';
+    const elevationValue = line.row === activeLineToEditRow ? 'shadow-e-3 rounded' : 'shadow-e-1 rounded';
     const marginTop = line.row === activeLineToEditRow ? 'mt-0.5' : '';
     const marginBottom = line.row === activeLineToEditRow ? 'mb-0.5' : '';
     const id = useId()
@@ -62,7 +62,7 @@ const LineOfViewBlocks = ({line}) => {
         },
     ]
     return (
-        <div className={`flex flex-wrap ${marginTop} ${marginBottom} ${elevationValue} w-[${width}] bg-[${bgColor}]`}>
+        <div className={`flex flex-wrap ${marginTop} ${marginBottom} ${elevationValue} ${width} ${bgColor}`}>
             <div className={'flex flex-wrap items-center flex-row'}
                  onClick={() => handleLineClick(line, setLineToEdit, setType, setBlinkIndex, setActiveLineToEditRow)}>
                 {generateLine(line, getOperandFromMainList).map((block, index) =>

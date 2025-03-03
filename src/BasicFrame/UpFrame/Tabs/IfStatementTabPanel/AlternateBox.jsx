@@ -1,5 +1,4 @@
-import {Typography} from "@mui/material";
-import {Button} from "antd";
+import {Button, Typography} from "antd";
 import PropTypes from "prop-types";
 import {useContext, useState} from "react";
 import {BasicFrameContext, MainFrameContext} from "../../../../MainContext.jsx";
@@ -16,6 +15,7 @@ import PopperForSelectStatementType from "../PopperForSelectStatementType/Popper
 import Line from "../../../../ProjectObject/Line.js";
 import LineType from "../../../../CommonCode/LineType.js";
 
+const {Paragraph} = Typography;
 const createAlternate = (type, setLinesOfBlocks, saveChange, setOpen, setBlockToEdit, setActiveLineToEditIdList) => {
     const {lineToEdit, linesOfBlocks} = saveChange();
     const blockToEdit = getBlockFromLine(lineToEdit, linesOfBlocks)
@@ -72,15 +72,11 @@ const AlternateBox = ({alternateEditLine, setAlternateEditLine, saveChange}) => 
                     className={'flex items-center box-border w-4/5 h-1/5 border p-5 shadow-inner'}
                     onClick={(e) => clickForSelectBlockToEdit(blockToEdit.alternate, linesOfBlocks, setBlockToEdit, setActiveLineToEditIdList, setHoverBlockIdList, e, setAnchorEl, setOpen)}
                 >
-                    <Typography
-                        sx={{
-                            display: 'flex',
-                            flexDirection: 'row',
-
-                        }}
+                    <Paragraph
+                        className={'flex flex-row'}
                     >
                         {alternateEditLine}
-                    </Typography>
+                    </Paragraph>
                 </div>
                 <div
                     className={'w-[5%] h-1/5'}

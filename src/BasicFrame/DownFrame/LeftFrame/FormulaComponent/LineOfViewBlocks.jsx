@@ -16,14 +16,14 @@ const handleSpeedDialClick = (e, line, linesOfBlocks, setBlockToEdit, setActiveL
 
 const getBgColor = (lineRow, hoverBlockIdList, activeLineToEditIdList) => {
     return hoverBlockIdList.indexOf(lineRow) > -1 ?
-        "#ffdddd" :
+        'bg-[#ffdddd]' :
         activeLineToEditIdList.indexOf(lineRow) > -1 ?
-            "#dddddd" :
-            "white";
+            'bg-[#dddddd]' :
+            'bg-[white]';
 }
 
 function getElevationValue(lineRow, activeLineToEditIdList) {
-    return activeLineToEditIdList.indexOf(lineRow) > -1 ? 'shadow-e-5' : 'shadow-e-3';
+    return activeLineToEditIdList.indexOf(lineRow) > -1 ? 'shadow-e-5 rounded' : 'shadow-e-3 rounded';
 }
 
 function getMarginTop(lineRow, blockToEdit) {
@@ -44,7 +44,7 @@ const LineOfViewBlocks = ({line}) => {
         setBlockToEdit
     } = useContext(BasicFrameContext);
     const lineRow = line.row;
-    const width = `${100 - (line.lineLevel * 3)}%`;
+    const width = `w-[${100 - (line.lineLevel * 3)}%]`;
     const bgColor = getBgColor(lineRow, hoverBlockIdList, activeLineToEditIdList);
     const elevationValue = getElevationValue(lineRow, activeLineToEditIdList);
     const marginTop = getMarginTop(lineRow, blockToEdit);
@@ -69,7 +69,7 @@ const LineOfViewBlocks = ({line}) => {
     ]
     return (
         <div
-            className={`flex flex-wrap ${marginTop} ${marginBottom} w-[${width}] bg-[${bgColor}] ${elevationValue}`}
+            className={`flex flex-wrap ${marginTop} ${marginBottom} ${width} ${bgColor} ${elevationValue}`}
         >
             <div
                 className={'flex flex-row flex-wrap items-center'}

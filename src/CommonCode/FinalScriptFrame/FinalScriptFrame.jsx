@@ -1,5 +1,4 @@
-import {Typography} from "@mui/material";
-import {Button} from "antd";
+import {Button, Typography} from "antd";
 import PropTypes from "prop-types";
 import generateScript from "./generateScript.js";
 import Client from "../../Client.js";
@@ -13,6 +12,7 @@ import {getKeywordFromMainList, getOperatorFromMainList} from "../getElementFrom
 import Block from "../../ProjectObject/Block.js";
 import BlockType from "../BlockType.js";
 
+const {Paragraph} = Typography;
 const verifyScript = (formulaString, setResult, t) => {
     Client
     .query({
@@ -30,23 +30,17 @@ const verifyScript = (formulaString, setResult, t) => {
     });
 };
 const creatReturnResult = (formulaString, row, result, setResult, t) => {
+    const bgColor = result === t(B.F_NOT_VERIFIED) ? 'bg-[#ffff99]' : result === t(B.F_VERIFIED) ? 'bg-[#99ff99]' : 'bg-[#ff9999]';
     return (
-        <div className={'flex flex-col w-1/2 h-full box-border m-1 p-1 elevation-5 rounded'}>
+        <div className={'flex flex-col w-1/2 h-full box-border m-1 p-1 shadow-e-5 rounded'}>
             <div className={'flex justify-center box-border w-full h-[5%]'}>
-                <Typography
-                    sx={{
-                        display: 'flex',
-                        whiteSpace: 'pre-wrap',
-                        width: '100%',
-                        height: '100%',
-                        boxSizing: 'border-box',
-                        justifyContent: 'center',
-                        backgroundColor: result === t(B.F_NOT_VERIFIED) ? '#ffff99' : result === t(B.F_VERIFIED) ? '#99ff99' : '#ff9999',
-                    }}
+                <Paragraph
+                    className={`flex whitespace-pre-wrap justify-center box-border size-full ${bgColor}`}
                 >
                     {result}
-                </Typography>
+                </Paragraph>
                 <Button
+                    className={'h-auto'}
                     type={'primary'}
                     onClick={() => verifyScript(formulaString, setResult, t)}>
                     {t(B.F_VERIFY)}
@@ -54,28 +48,18 @@ const creatReturnResult = (formulaString, row, result, setResult, t) => {
             </div>
             <div className={'flex flex-row-reverse w-full h-[95%] overflow-auto'}>
                 <div className={'w-[95%] whitespace-pre'}>
-                    <Typography
-                        sx={{
-                            display: 'flex',
-                            whiteSpace: 'pre-wrap',
-                            width: '100%',
-                            height: '100%',
-                            boxSizing: 'border-box',
-                        }}
+                    <Paragraph
+                        className={'flex whitespace-pre-wrap box-border size-full'}
                     >
                         {formulaString}
-                    </Typography>
+                    </Paragraph>
                 </div>
                 <div className={'w-[5%] whitespace-pre'}>
-                    <Typography
-                        sx={{
-                            display: 'flex',
-                            whiteSpace: 'pre-wrap',
-                            width: '100%',
-                            height: '100%',
-                            boxSizing: 'border-box',
-                        }}
-                    >{row}</Typography>
+                    <Paragraph
+                        className={'flex whitespace-pre-wrap box-border size-full'}
+                    >
+                        {row}
+                    </Paragraph>
                 </div>
             </div>
         </div>
@@ -147,7 +131,7 @@ const FinalScriptFrame = ({linesOfBlocks}) => {
         });
         setFormulaString(formula);
         setRow(countLine);
-    }, [linesOfBlocks, resultVarNameList, setResult, t]);
+    }, [getOperandFromMainList, linesOfBlocks, resultVarNameList, setResult, t]);
     return creatReturnResult(formulaString, row, result, setResult, t);
 }
 FinalScriptFrame.propTypes = {

@@ -114,10 +114,10 @@ const ForStatementTabPanel = () => {
     }, [blockToEdit, getOperandFromMainList, id]);
     return (
         <div
-            className={'flex flex-col box-border size-full'}
+            className={'flex flex-col box-border size-full p-1'}
         >
             <div
-                className={'flex flex-col justify-between box-border size-full m-1 p-1 shadow-e-5'}
+                className={'flex flex-col justify-between box-border size-full m-1 p-2 shadow-e-5 rounded'}
             >
                 <ParentBox
                     acceptChange={() => acceptChange(

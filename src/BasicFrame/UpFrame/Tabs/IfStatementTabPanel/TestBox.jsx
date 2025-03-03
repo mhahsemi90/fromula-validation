@@ -1,5 +1,4 @@
-import {Typography} from "@mui/material";
-import {Button} from "antd";
+import {Button, Typography} from "antd";
 import EditLineDialog from "../EditLineDialog/EditLineDialog.jsx";
 import {useContext, useEffect, useId, useState} from "react";
 import {BasicFrameContext, MainFrameContext} from "../../../../MainContext.jsx";
@@ -10,6 +9,7 @@ import B from "../../../../BundleConst/B.js";
 import {ComparisonOperatorList, LogicalOperatorList} from "../../../../CommonCode/OperatorsMainList.js";
 import generateBlock from "../../../../CommonCode/GenerateLine/generateBlock.jsx";
 
+const {Paragraph} = Typography;
 const cancel = (blockToEdit, setTestLineToEdit, setOpen) => {
     blockToEdit.test && setTestLineToEdit(blockToEdit.test);
     setOpen(false);
@@ -51,15 +51,11 @@ const TestBox = ({testLineToEdit, setTestLineToEdit}) => {
                 <div
                     className={'flex items-center box-border w-4/5 h-1/5 border p-5 shadow-inner'}
                 >
-                    <Typography
-                        sx={{
-                            display: 'flex',
-                            flexDirection: 'row',
-
-                        }}
+                    <Paragraph
+                        className={'flex flex-row'}
                     >
                         {visualTestLine}
-                    </Typography>
+                    </Paragraph>
                 </div>
                 <div
                     className={'w-[5%] h-1/5'}

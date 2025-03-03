@@ -1,10 +1,9 @@
-import {AppBar, Tab, Tabs} from "@mui/material";
+import {Tabs} from 'antd';
 import B from "../../../BundleConst/B.js";
 import LineType from "../../../CommonCode/LineType.js";
 import Line from "../../../ProjectObject/Line.js";
 import {useContext} from "react";
 import {IntermediateFrameContext, MainFrameContext} from "../../../MainContext.jsx";
-import TabPanel from "../../../CommonCode/TabPanel/TabPanel.jsx";
 import {OperatorsMainList} from "../../../CommonCode/OperatorsMainList.js";
 import StatementTabPanel from "../../../CommonCode/StatementTabPanel/StatementTabPanel.jsx";
 
@@ -48,58 +47,54 @@ const AllTabs = () => {
         setActiveLineToEditRow(-1);
     }
     return (
-        <div className={'flex size-full direction-ltr p-1 shadow-e-1'}>
-            <div className={'border-r border-r-gray-50 h-full position-relative'}>
-                <AppBar position="static"
-                        sx={{height: '100%'}}>
-                    <Tabs
-                        value={type}
-                        onChange={(event, newValue) => setType(newValue)}
-                        orientation="vertical"
-                        sx={{
-                            '& .MuiTab-root': {
-                                color: 'black',
-                                '&:hover': {
-                                    backgroundColor: '#1060a8',
-                                },
-                            },
-                            '& .Mui-selected': {
-                                color: 'white !important',
-                            },
-                        }}>
-                        <Tab label={t(B.F_EXPRESSION_STATEMENT)} value={LineType.EXPRESSION_STATEMENT}/>
-                        <Tab label={t(B.F_IF_STATEMENT)} value={LineType.IF_STATEMENT}/>
-                        <Tab label={t(B.F_FOR_STATEMENT)} value={LineType.FOR_STATEMENT}/>
-                    </Tabs>
-                </AppBar>
-            </div>
-            <TabPanel value={type} label={LineType.EXPRESSION_STATEMENT}>
-                <StatementTabPanel
-                    sendChange={() => sendChange(LineType.EXPRESSION_STATEMENT)}
-                    cancel={() => cancel(LineType.EXPRESSION_STATEMENT)}
-                    editLine={lineToEdit}
-                    setEditLine={setLineToEdit}
-                    operators={OperatorsMainList}
-                />
-            </TabPanel>
-            <TabPanel value={type} label={LineType.IF_STATEMENT}>
-                <StatementTabPanel
-                    sendChange={() => sendChange(LineType.IF_STATEMENT)}
-                    cancel={() => cancel(LineType.IF_STATEMENT)}
-                    editLine={lineToEdit}
-                    setEditLine={setLineToEdit}
-                    operators={OperatorsMainList}
-                />
-            </TabPanel>
-            <TabPanel value={type} label={LineType.FOR_STATEMENT}>
-                <StatementTabPanel
-                    sendChange={() => sendChange(LineType.FOR_STATEMENT)}
-                    cancel={() => cancel(LineType.FOR_STATEMENT)}
-                    editLine={lineToEdit}
-                    setEditLine={setLineToEdit}
-                    operators={OperatorsMainList}
-                />
-            </TabPanel>
+        <div className={'flex box-border size-full direction-ltr p-1 shadow-e-1 rounded'}>
+            <Tabs
+                className={'size-full'}
+                tabPosition='left'
+                activeKey={type}
+                onChange={setType}
+                items={[
+                    {
+                        key: LineType.EXPRESSION_STATEMENT,
+                        label: t(B.F_EXPRESSION_STATEMENT),
+                        className: 'size-full !pl-1.5',
+                        children:
+                            <StatementTabPanel
+                                sendChange={() => sendChange(LineType.EXPRESSION_STATEMENT)}
+                                cancel={() => cancel(LineType.EXPRESSION_STATEMENT)}
+                                editLine={lineToEdit}
+                                setEditLine={setLineToEdit}
+                                operators={OperatorsMainList}
+                            />,
+                    },
+                    {
+                        key: LineType.IF_STATEMENT,
+                        label: t(B.F_IF_STATEMENT),
+                        className: 'size-full !pl-1.5',
+                        children:
+                            <StatementTabPanel
+                                sendChange={() => sendChange(LineType.IF_STATEMENT)}
+                                cancel={() => cancel(LineType.IF_STATEMENT)}
+                                editLine={lineToEdit}
+                                setEditLine={setLineToEdit}
+                                operators={OperatorsMainList}
+                            />,
+                    },
+                    {
+                        key: LineType.FOR_STATEMENT,
+                        label: t(B.F_FOR_STATEMENT),
+                        className: 'size-full !pl-1.5',
+                        children:
+                            <StatementTabPanel
+                                sendChange={() => sendChange(LineType.FOR_STATEMENT)}
+                                cancel={() => cancel(LineType.FOR_STATEMENT)}
+                                editLine={lineToEdit}
+                                setEditLine={setLineToEdit}
+                                operators={OperatorsMainList}
+                            />,
+                    },
+                ]}
+            />
         </div>
     )
 }

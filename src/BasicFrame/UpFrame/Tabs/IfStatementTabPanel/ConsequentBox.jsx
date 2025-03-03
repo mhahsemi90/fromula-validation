@@ -1,5 +1,4 @@
-import {Typography} from "@mui/material";
-import {Button} from "antd";
+import {Button, Typography} from "antd";
 import PropTypes from "prop-types";
 import {
     clickForSelectBlockToEdit,
@@ -15,6 +14,7 @@ import PopperForSelectStatementType from "../PopperForSelectStatementType/Popper
 import LineType from "../../../../CommonCode/LineType.js";
 import Line from "../../../../ProjectObject/Line.js";
 
+const {Paragraph} = Typography;
 const createConsequent = (type, setLinesOfBlocks, saveChange, setOpen, setBlockToEdit, setActiveLineToEditIdList) => {
     const {lineToEdit, linesOfBlocks} = saveChange();
     const blockToEdit = getBlockFromLine(lineToEdit, linesOfBlocks)
@@ -69,15 +69,11 @@ const ConsequentBox = ({consequentEditLine, setConsequentEditLine, saveChange}) 
                     className={'flex items-center box-border w-4/5 h-1/5 border p-5 shadow-inner'}
                     onClick={(e) => clickForSelectBlockToEdit(blockToEdit.consequent, linesOfBlocks, setBlockToEdit, setActiveLineToEditIdList, setHoverBlockIdList, e, setAnchorEl, setOpen)}
                 >
-                    <Typography
-                        sx={{
-                            display: 'flex',
-                            flexDirection: 'row',
-
-                        }}
+                    <Paragraph
+                        className={'flex flex-row'}
                     >
                         {consequentEditLine}
-                    </Typography>
+                    </Paragraph>
                 </div>
                 <div
                     className={'w-[5%] h-1/5'}

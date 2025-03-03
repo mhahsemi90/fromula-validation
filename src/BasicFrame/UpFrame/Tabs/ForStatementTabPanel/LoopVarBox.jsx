@@ -1,6 +1,5 @@
 import {useContext, useEffect, useId, useState} from "react";
-import {Typography} from "@mui/material";
-import {Button} from "antd";
+import {Button, Typography} from "antd";
 import EditLineDialog from "../EditLineDialog/EditLineDialog.jsx";
 import {BasicFrameContext, MainFrameContext} from "../../../../MainContext.jsx";
 import generateLine from "../../../../CommonCode/GenerateLine/generateLine.jsx";
@@ -9,6 +8,7 @@ import PropTypes from "prop-types";
 import B from "../../../../BundleConst/B.js";
 import generateBlock from "../../../../CommonCode/GenerateLine/generateBlock.jsx";
 
+const {Paragraph} = Typography;
 const cancel = (blockToEdit, setLoopVarToEdit, setOpen) => {
     blockToEdit.loopVar && setLoopVarToEdit(blockToEdit.loopVar);
     setOpen(false);
@@ -52,15 +52,11 @@ const LoopVarBox = ({loopVarToEdit, setLoopVarToEdit}) => {
                 <div
                     className={'flex items-center box-border w-4/5 h-1/5 border p-5 shadow-inner'}
                 >
-                    <Typography
-                        sx={{
-                            display: 'flex',
-                            flexDirection: 'row',
-
-                        }}
+                    <Paragraph
+                        className={'flex flex-row'}
                     >
                         {visualLoopVarLine}
-                    </Typography>
+                    </Paragraph>
                 </div>
                 <div
                     className={'w-[5%] h-1/5'}

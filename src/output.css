@@ -8,3 +8,7 @@
 .direction-ltr {
     direction: ltr;
 }
+
+.ant-tabs-content {
+    height: 100%;
+}

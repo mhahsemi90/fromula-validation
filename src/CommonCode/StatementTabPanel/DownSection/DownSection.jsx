@@ -15,7 +15,7 @@ const DownSection = () => {
             className={'flex box-border w-full h-2/5 p-1'}
         >
             <div
-                className={'flex flex-col justify-between box-border size-full m-1 p-1 shadow-e-5'}
+                className={'flex flex-col justify-between box-border size-full m-1 p-1 shadow-e-5 rounded'}
             >
                 <div
                     className={'flex items-center justify-center flex-wrap box-border overflow-auto'}

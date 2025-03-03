@@ -34,7 +34,7 @@ const Operators = () => {
     const id = useId();
     return (
         <div
-            className={'flex items-center justify-center box-border w-1/2 h-full shadow-e-1'}
+            className={'flex items-center justify-center box-border w-1/2 h-full shadow-e-1 rounded'}
         >
             <div
                 className={'box-border size-full p-2.5 overflow-auto'}
