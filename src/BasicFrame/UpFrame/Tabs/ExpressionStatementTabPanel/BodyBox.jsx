@@ -37,48 +37,21 @@ const BodyBox = ({bodyLineToEdit, setBodyLineToEdit}) => {
     }, [bodyLineToEdit, getOperandFromMainList, id]);
     return (
         <div
-            style={{
-                boxSizing: 'border-box',
-                display: 'flex',
-                width: '100%',
-                height: '50%',
-                alignItems: 'center',
-            }}
+            className={'flex items-center box-border w-full h-1/2'}
         >
             <div
+                className={'flex items-center box-border w-[85%] h-[20%]'}
                 onClick={() => handleClickForEditLine(setOpen, setHoverBlockIdList)}
                 onMouseEnter={() => highlightChild(bodyLineToEdit, linesOfBlocks, setHoverBlockIdList)}
                 onMouseLeave={() => setHoverBlockIdList([])}
-                style={{
-                    boxSizing: 'border-box',
-                    display: 'flex',
-                    width: '85%',
-                    height: '20%',
-                    alignItems: 'center',
-                }}
             >
                 <div
-                    style={{
-                        boxSizing: 'border-box',
-                        display: 'flex',
-                        width: '15%',
-                        height: '20%',
-                        alignItems: 'center',
-                    }}
+                    className={'flex items-center box-border w-[15%] h-[20%]'}
                 >
                     <label>BODY</label>
                 </div>
                 <div
-                    style={{
-                        boxSizing: 'border-box',
-                        display: 'flex',
-                        width: '80%',
-                        height: '20%',
-                        alignItems: 'center',
-                        border: '1px solid',
-                        padding: '20px',
-                        boxShadow: '1px 1px 2px inset',
-                    }}
+                    className={'flex items-center box-border w-4/5 h-1/5 border p-5 shadow-inner'}
                 >
                     <Typography
                         sx={{
@@ -94,20 +67,11 @@ const BodyBox = ({bodyLineToEdit, setBodyLineToEdit}) => {
                     </Typography>
                 </div>
                 <div
-                    style={{
-                        width: '5%',
-                        height: '20%',
-                    }}
+                    className={'w-[5%] h-1/5'}
                 ></div>
             </div>
             <div
-                style={{
-                    boxSizing: 'border-box',
-                    display: 'flex',
-                    width: '15%',
-                    height: '20%',
-                    alignItems: 'center',
-                }}
+                className={'flex items-center box-border w-[15%] h-1/5'}
             >
                 <Button
                     type={'primary'}

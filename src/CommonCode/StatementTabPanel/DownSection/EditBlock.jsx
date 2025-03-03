@@ -1,6 +1,5 @@
 import {Chip} from "@mui/material";
 import PropTypes from "prop-types";
-import '../../../../public/keyFrame.css'
 import {useContext} from "react";
 import {MainFrameContext, StatementTabPanelContext} from "../../../MainContext.jsx";
 import Blink from "./Blink.jsx";
@@ -20,11 +19,7 @@ const EditBlock = ({block, index}) => {
     const {editLine, setEditLine, blinkIndex, setBlinkIndex,} = useContext(StatementTabPanelContext);
     return (
         <div
-            style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-            }}
+            className={'inline-flex items-center justify-center'}
         >
             {index === 0 ? <Blink setBlinkIndex={setBlinkIndex} blinkIndex={blinkIndex} index={-1}/> : null}
             <Chip

@@ -8,17 +8,7 @@ import {MainFrameContext} from "../../MainContext.jsx";
 const DownFrame = () => {
     const {linesOfBlocks} = useContext(MainFrameContext);
     return (
-        <div
-            style={{
-                display: 'flex',
-                flexDirection: 'row',
-                width: '100%',
-                height: '47%',
-                boxSizing: 'border-box',
-                margin: '5px',
-                padding: '5px',
-            }}
-        >
+        <div className={'flex box-border flex-row w-full h-[48%] m-1 p-1'}>
             <LeftFrame/>
             <ApolloProvider client={Client}>
                 <FinalScriptFrame linesOfBlocks={linesOfBlocks}/>

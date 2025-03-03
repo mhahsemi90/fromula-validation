@@ -4,14 +4,7 @@ import Operators from "./Operators.jsx";
 const UpSection = () => {
     return (
         <div
-            style={{
-                boxSizing: 'border-box',
-                display: 'flex',
-                flexDirection: 'row',
-                width: '100%',
-                height: '60%',
-                padding: '5px',
-            }}
+            className={'flex flex-row box-border w-full h-3/5 p-1'}
         >
             <Operands/>
             <Operators/>

@@ -9,13 +9,7 @@ const StatementTabPanel = ({sendChange, cancel, editLine, setEditLine, operators
     const [blinkIndex, setBlinkIndex] = useState(blockList ? blockList.length - 1 : -1);
     return (
         <div
-            style={{
-                boxSizing: 'border-box',
-                display: 'flex',
-                flexDirection: 'column',
-                width: '100%',
-                height: '100%',
-            }}
+            className={'flex flex-col box-border size-full'}
         >
             <StatementTabPanelContext.Provider value={{
                 sendChange,

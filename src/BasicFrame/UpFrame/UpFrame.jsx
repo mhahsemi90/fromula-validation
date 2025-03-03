@@ -8,14 +8,7 @@ const UpFrame = () => {
     const {cache, theme} = useContext(MainFrameContext);
     return (
         <div
-            style={{
-                display: 'flex',
-                width: '100%',
-                height: '47%',
-                boxSizing: 'border-box',
-                margin: '5px',
-                padding: '5px',
-            }}
+            className={'flex box-border w-full h-[47%] m-1 p-1'}
         >
             <CacheProvider value={cache}>
                 <ThemeProvider theme={theme}>

@@ -1,4 +1,3 @@
-import {Paper} from "@mui/material";
 import {Button} from "antd";
 import {useContext, useId} from "react";
 import EditBlock from "./EditBlock.jsx";
@@ -13,41 +12,19 @@ const DownSection = () => {
     const id = useId();
     return (
         <div
-            style={{
-                boxSizing: 'border-box',
-                display: 'flex',
-                width: '100%',
-                height: '40%',
-                padding: '5px',
-            }}
+            className={'flex box-border w-full h-2/5 p-1'}
         >
-            <Paper
-                elevation={5}
-                sx={{
-                    boxSizing: 'border-box',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    flexDirection: 'column',
-                    width: '100%',
-                    height: '100%',
-                    padding: '5px',
-                    margin: '5px',
-                }}
+            <div
+                className={'flex flex-col justify-between box-border size-full m-1 p-1 shadow-e-5'}
             >
                 <div
-                    style={{
-                        boxSizing: 'border-box',
-                        display: 'flex',
-                        justifyContent: "center",
-                        alignItems: "center",
-                        flexWrap: 'wrap',
-                        overflowY: 'auto',
-                    }}>
+                    className={'flex items-center justify-center flex-wrap box-border overflow-auto'}
+                >
                     {blockList && blockList.map((block, index) =>
                         (<EditBlock block={block} index={index} key={`${id}-${index}`}/>)
                     )}
                 </div>
-                <div style={{boxSizing: 'border-box', display: 'flex', justifyContent: 'center'}}>
+                <div className={'flex justify-center box-border'}>
                     <Button
                         type={'primary'}
                         icon={<SendOutlined/>}
@@ -59,7 +36,7 @@ const DownSection = () => {
                         onClick={cancel}
                     >{t(B.F_CANCEL)}</Button>
                 </div>
-            </Paper>
+            </div>
         </div>
     );
 }

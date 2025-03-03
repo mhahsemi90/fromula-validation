@@ -1,5 +1,5 @@
 import {useContext, useState} from 'react';
-import {Fab, Paper} from '@mui/material';
+import {Fab} from '@mui/material';
 import {ArrowBack, ArrowDownward, ArrowForward, ArrowUpward, Delete} from '@mui/icons-material';
 import {
     handleAddAfter,
@@ -17,7 +17,7 @@ const CircularMenu = ({actions}) => {
         setIsOpen(!isOpen);
     };
     return (
-        <div style={{position: 'relative', width: 100, height: 100}}>
+        <div className={'relative size-full'}>
             <Fab onClick={handleToggle} sx={{position: 'absolute', top: 0, left: 0}}>
                 {isOpen ? 'Close' : 'Open'}
             </Fab>
@@ -88,9 +88,11 @@ const MyComponent = ({line}) => {
     ];
 
     return (
-        <Paper elevation={4} sx={{padding: 2}}>
+        <div
+            className={'p-0.5 shadow-e-3'}
+        >
             <CircularMenu actions={actions}/>
-        </Paper>
+        </div>
     );
 };
 

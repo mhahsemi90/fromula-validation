@@ -1,4 +1,4 @@
-import {AppBar, Paper, Tab, Tabs} from "@mui/material";
+import {AppBar, Tab, Tabs} from "@mui/material";
 import B from "../../../BundleConst/B.js";
 import LineType from "../../../CommonCode/LineType.js";
 import Line from "../../../ProjectObject/Line.js";
@@ -48,15 +48,8 @@ const AllTabs = () => {
         setActiveLineToEditRow(-1);
     }
     return (
-        <Paper
-            sx={{
-                display: 'flex',
-                height: '100%',
-                width: '100%',
-                direction: 'ltr',
-                padding: '5px'
-            }}>
-            <div style={{borderRight: 1, borderColor: 'divider', height: '100%'}} position="relative">
+        <div className={'flex size-full direction-ltr p-1 shadow-e-1'}>
+            <div className={'border-r border-r-gray-50 h-full position-relative'}>
                 <AppBar position="static"
                         sx={{height: '100%'}}>
                     <Tabs
@@ -107,7 +100,7 @@ const AllTabs = () => {
                     operators={OperatorsMainList}
                 />
             </TabPanel>
-        </Paper>
+        </div>
     )
 }
 export default AllTabs;

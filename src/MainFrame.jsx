@@ -13,6 +13,7 @@ import {
     QueryResultRewritingLinesOfBlockListBaseOnBasicStructure
 } from "./CommonCode/QueryResult/QueryResultRewritingLinesOfBlockListBaseOnBasicStructure.js";
 import "./i18n.js";
+import "./output.css"
 import GetOperandForTest from "./CommonCode/QueryResult/GetOperandForTest.js";
 import BlockType from "./CommonCode/BlockType.js";
 import {GlobalOutlined, SwapOutlined} from "@ant-design/icons";
@@ -79,27 +80,9 @@ const MainFrame = () => {
         ])
     }, [])
     return (
-        <div
-            style={{
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-                width: '100%',
-                height: '100%',
-                boxSizing: 'border-box'
-            }}
+        <div className={'flex box-border flex-col items-center size-full'}
         >
-            <div
-                style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    boxSizing: 'border-box',
-                    height: '6%',
-                }}
-            >
+            <div className={'flex box-border flex-row items-center justify-center h-[4%]'}>
                 <InputLabel htmlFor="my-input">تست</InputLabel>
                 <Input id="my-input" value={value} onChange={(e) => setValue(e.target.value)}/>
                 <Button

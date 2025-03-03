@@ -1,4 +1,3 @@
-import {Paper} from "@mui/material";
 import {useContext, useEffect, useState} from "react";
 import {BasicFrameContext, MainFrameContext} from "../../../../MainContext.jsx";
 import ParentBox from "../ParentBox/ParentBox.jsx";
@@ -98,26 +97,10 @@ const ExpressionStatementTabPanel = () => {
     }, [blockToEdit]);
     return (
         <div
-            style={{
-                boxSizing: 'border-box',
-                display: 'flex',
-                flexDirection: 'column',
-                width: '100%',
-                height: '100%',
-            }}
+            className={'flex flex-col box-border size-full'}
         >
-            <Paper
-                elevation={5}
-                sx={{
-                    boxSizing: 'border-box',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    flexDirection: 'column',
-                    width: '100%',
-                    height: '100%',
-                    padding: '5px',
-                    margin: '5px',
-                }}
+            <div
+                className={'flex flex-col justify-between box-border size-full m-1 p-1 shadow-e-5'}
             >
                 <ParentBox
                     acceptChange={() => acceptChange(
@@ -159,7 +142,7 @@ const ExpressionStatementTabPanel = () => {
                         setResultVarNameList)}
                     cancelChange={() => cancelChange(setBlockToEdit, setActiveLineToEditIdList)}
                 />
-            </Paper>
+            </div>
         </div>
     );
 }

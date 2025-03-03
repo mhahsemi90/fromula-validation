@@ -1,4 +1,4 @@
-import {Paper, SpeedDial, SpeedDialAction} from "@mui/material";
+import {SpeedDial, SpeedDialAction} from "@mui/material";
 import PropTypes from "prop-types";
 import generateBlock from "../../../../CommonCode/GenerateLine/generateBlock.jsx";
 import {ArrowBack, ArrowDownward, ArrowForward, ArrowUpward, Delete} from "@mui/icons-material";
@@ -30,9 +30,9 @@ const LineOfViewBlocks = ({line}) => {
     } = useContext(IntermediateFrameContext);
     const width = `${100 - (line.lineLevel * 3)}%`;
     const bgColor = line.row === activeLineToEditRow ? "#dddddd" : "white";
-    const elevationValue = line.row === activeLineToEditRow ? 4 : 2;
-    const marginTop = line.row === activeLineToEditRow ? '3px' : 0;
-    const marginBottom = line.row === activeLineToEditRow ? '3px' : 0;
+    const elevationValue = line.row === activeLineToEditRow ? 'shadow-e-3' : 'shadow-e-1';
+    const marginTop = line.row === activeLineToEditRow ? 'mt-0.5' : '';
+    const marginBottom = line.row === activeLineToEditRow ? 'mb-0.5' : '';
     const id = useId()
     const actions = [
         {
@@ -62,24 +62,9 @@ const LineOfViewBlocks = ({line}) => {
         },
     ]
     return (
-        <Paper
-            elevation={elevationValue}
-            sx={{
-                marginTop: marginTop,
-                marginBottom: marginBottom,
-                display: 'flex',
-                flexWrap: 'wrap',
-                width: width,
-                backgroundColor: bgColor,
-            }}>
-            <div
-                style={{
-                    display: 'flex',
-                    flexWrap: 'wrap',
-                    alignItems: 'center',
-                    flexDirection: 'row',
-                }}
-                onClick={() => handleLineClick(line, setLineToEdit, setType, setBlinkIndex, setActiveLineToEditRow)}>
+        <div className={`flex flex-wrap ${marginTop} ${marginBottom} ${elevationValue} w-[${width}] bg-[${bgColor}]`}>
+            <div className={'flex flex-wrap items-center flex-row'}
+                 onClick={() => handleLineClick(line, setLineToEdit, setType, setBlinkIndex, setActiveLineToEditRow)}>
                 {generateLine(line, getOperandFromMainList).map((block, index) =>
                     generateBlock(block, `${id}-${index}`)
                 )}
@@ -120,7 +105,7 @@ const LineOfViewBlocks = ({line}) => {
                     />
                 ))}
             </SpeedDial>
-        </Paper>
+        </div>
     )
 }
 LineOfViewBlocks.propTypes = {

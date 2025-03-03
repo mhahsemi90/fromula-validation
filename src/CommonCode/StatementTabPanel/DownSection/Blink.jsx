@@ -1,23 +1,14 @@
 import PropTypes from "prop-types";
 
 const Blink = ({setBlinkIndex, blinkIndex, index}) => {
-    const blink = 'blink 1s step-end infinite';
+    const opacity = index === blinkIndex ? 'opacity-100' : 'opacity-0';
+    const animation = index === blinkIndex ? 'animate-blink' : '';
     return (
         <div
             onClick={() => setBlinkIndex(index)}
-            style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                boxSizing: 'border-box',
-                opacity: index === blinkIndex ? '1' : '0',
-                height: '100%',
-                animation: index === blinkIndex ? blink : 'none',
-                padding: '1px',
-                fontSize: '2vw',
-                color: '#666666',
-            }}
-        >I
+            className={`flex items-center justify-center box-border h-full p-px text-[2vw] text-gray-500 ${opacity} ${animation}`}
+        >
+            I
         </div>
     );
 }

@@ -51,48 +51,20 @@ const ExpressionTypeBox = ({
     }, [assignmentOperator, bodyLineToEdit, expressionType, resultVarName, setBodyLineToEdit]);
     return (
         <div
-            style={{
-                display: "flex",
-                boxSizing: 'border-box',
-                width: '100%',
-                height: '20%',
-                flexDirection: 'row',
-            }}
+            className={'flex flex-row box-border w-full h-1/5'}
         >
             <div
-                style={{
-                    boxSizing: 'border-box',
-                    width: '12%',
-                    height: '100%',
-                }}
+                className={'box-border w-[12%] h-full'}
             >
             </div>
             <div
-                style={{
-                    boxSizing: 'border-box',
-                    width: '70%',
-                    height: '100%',
-                }}
+                className={'box-border w-[70%] h-full'}
             >
-
-
                 <div
-                    style={{
-                        display: "flex",
-                        boxSizing: 'border-box',
-                        width: '100%',
-                        height: '100%',
-                        flexDirection: 'row',
-                    }}
+                    className={'flex flex-row box-border size-full'}
                 >
                     <div
-                        style={{
-                            display: "flex",
-                            boxSizing: 'border-box',
-                            width: '30%',
-                            height: '100%',
-                            flexDirection: 'column',
-                        }}
+                        className={'flex flex-col box-border w-[30%] h-full'}
                     >
                         <RadioGroup value={expressionType} onChange={handleRadioChange}>
                             <FormControlLabel label={'Return value'} control={<Radio/>} value={'return'}/>
@@ -100,22 +72,10 @@ const ExpressionTypeBox = ({
                         </RadioGroup>
                     </div>
                     <div
-                        style={{
-                            display: "flex",
-                            boxSizing: 'border-box',
-                            width: '70%',
-                            height: '100%',
-                            flexDirection: 'row',
-                        }}
+                        className={'flex flex-row box-border w-[70%] h-full'}
                     >
                         <div
-                            style={{
-                                display: "flex",
-                                boxSizing: 'border-box',
-                                width: '50%',
-                                height: '100%',
-                                marginX: '10px',
-                            }}
+                            className={'flex box-border w-1/2 h-full m-2.5'}
                         >
                             <FormControl
                                 sx={{
@@ -141,13 +101,7 @@ const ExpressionTypeBox = ({
                             </FormControl>
                         </div>
                         <div
-                            style={{
-                                display: "flex",
-                                boxSizing: 'border-box',
-                                width: '50%',
-                                height: '100%',
-                                marginX: '10px',
-                            }}
+                            className={'flex box-border w-1/2 h-full m-2.5'}
                         >
                             <FormControl
                                 sx={{
@@ -178,11 +132,7 @@ const ExpressionTypeBox = ({
 
             </div>
             <div
-                style={{
-                    boxSizing: 'border-box',
-                    width: '18%',
-                    height: '100%',
-                }}
+                className={'box-border w-[18%] h-full'}
             >
             </div>
         </div>

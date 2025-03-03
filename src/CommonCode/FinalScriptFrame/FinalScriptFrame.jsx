@@ -1,4 +1,4 @@
-import {Paper, Typography} from "@mui/material";
+import {Typography} from "@mui/material";
 import {Button} from "antd";
 import PropTypes from "prop-types";
 import generateScript from "./generateScript.js";
@@ -31,27 +31,8 @@ const verifyScript = (formulaString, setResult, t) => {
 };
 const creatReturnResult = (formulaString, row, result, setResult, t) => {
     return (
-        <Paper
-            elevation={3}
-            sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                width: '50%',
-                height: '100%',
-                boxSizing: 'border-box',
-                margin: '5px',
-                padding: '5px',
-            }}
-        >
-            <div
-                style={{
-                    display: 'flex',
-                    width: '100%',
-                    height: '5%',
-                    boxSizing: 'border-box',
-                    justifyContent: 'center',
-                }}
-            >
+        <div className={'flex flex-col w-1/2 h-full box-border m-1 p-1 elevation-5 rounded'}>
+            <div className={'flex justify-center box-border w-full h-[5%]'}>
                 <Typography
                     sx={{
                         display: 'flex',
@@ -71,21 +52,8 @@ const creatReturnResult = (formulaString, row, result, setResult, t) => {
                     {t(B.F_VERIFY)}
                 </Button>
             </div>
-            <div
-                style={{
-                    display: 'flex',
-                    flexDirection: 'row-reverse',
-                    width: '100%',
-                    height: '95%',
-                    overflow: 'auto',
-                }}
-            >
-                <div
-                    style={{
-                        width: '95%',
-                        whiteSpace: 'pre',
-                    }}
-                >
+            <div className={'flex flex-row-reverse w-full h-[95%] overflow-auto'}>
+                <div className={'w-[95%] whitespace-pre'}>
                     <Typography
                         sx={{
                             display: 'flex',
@@ -98,12 +66,7 @@ const creatReturnResult = (formulaString, row, result, setResult, t) => {
                         {formulaString}
                     </Typography>
                 </div>
-                <div
-                    style={{
-                        width: '5%',
-                        whiteSpace: 'pre',
-                    }}
-                >
+                <div className={'w-[5%] whitespace-pre'}>
                     <Typography
                         sx={{
                             display: 'flex',
@@ -115,7 +78,7 @@ const creatReturnResult = (formulaString, row, result, setResult, t) => {
                     >{row}</Typography>
                 </div>
             </div>
-        </Paper>
+        </div>
     )
 }
 

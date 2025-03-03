@@ -9,13 +9,8 @@ const ConfirmBox = ({acceptChange, cancelChange}) => {
     const {t} = useContext(MainFrameContext);
     return (
         <div
-            style={{
-                boxSizing: 'border-box',
-                display: 'flex',
-                justifyContent: 'center',
-                width: '100%',
-                height: '10%',
-            }}>
+            className={'flex justify-center box-border w-full h-[10%]'}
+        >
             <Button
                 type={'primary'}
                 icon={<CheckOutlined/>}

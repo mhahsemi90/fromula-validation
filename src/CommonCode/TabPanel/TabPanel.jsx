@@ -5,13 +5,8 @@ const TabPanel = ({children, value, label}) => {
         <div
             role="tabpanel"
             hidden={value !== label}
-            style={{
-                boxSizing: 'border-box',
-                width: '100%',
-                height: '100%',
-                overflowY: 'auto',
-                padding: '2px',
-            }}>
+            className={'box-border size-full overflow-auto p-0.5'}
+        >
             {value === label && children}
         </div>
     );

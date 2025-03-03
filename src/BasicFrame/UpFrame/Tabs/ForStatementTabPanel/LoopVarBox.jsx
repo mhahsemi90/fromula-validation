@@ -36,48 +36,21 @@ const LoopVarBox = ({loopVarToEdit, setLoopVarToEdit}) => {
     }, [loopVarToEdit, id, getOperandFromMainList]);
     return (
         <div
-            style={{
-                boxSizing: 'border-box',
-                display: 'flex',
-                width: '100%',
-                height: '60%',
-                alignItems: 'center',
-            }}
+            className={'flex items-center box-border w-full h-3/5'}
         >
             <div
+                className={'flex items-center box-border w-[85%] h-1/5'}
                 onClick={() => handleClickForEditLine(setOpen, setHoverBlockIdList)}
                 onMouseEnter={() => highlightChild(loopVarToEdit, linesOfBlocks, setHoverBlockIdList)}
                 onMouseLeave={() => setHoverBlockIdList([])}
-                style={{
-                    boxSizing: 'border-box',
-                    display: 'flex',
-                    width: '85%',
-                    height: '20%',
-                    alignItems: 'center',
-                }}
             >
                 <div
-                    style={{
-                        boxSizing: 'border-box',
-                        display: 'flex',
-                        width: '15%',
-                        height: '20%',
-                        alignItems: 'center',
-                    }}
+                    className={'flex items-center box-border w-[15%] h-1/5'}
                 >
                     <label>LOOP VAR</label>
                 </div>
                 <div
-                    style={{
-                        boxSizing: 'border-box',
-                        display: 'flex',
-                        width: '80%',
-                        height: '20%',
-                        alignItems: 'center',
-                        border: '1px solid',
-                        padding: '20px',
-                        boxShadow: '1px 1px 2px inset',
-                    }}
+                    className={'flex items-center box-border w-4/5 h-1/5 border p-5 shadow-inner'}
                 >
                     <Typography
                         sx={{
@@ -90,20 +63,11 @@ const LoopVarBox = ({loopVarToEdit, setLoopVarToEdit}) => {
                     </Typography>
                 </div>
                 <div
-                    style={{
-                        width: '5%',
-                        height: '20%',
-                    }}
+                    className={'w-[5%] h-1/5'}
                 ></div>
             </div>
             <div
-                style={{
-                    boxSizing: 'border-box',
-                    display: 'flex',
-                    width: '15%',
-                    height: '20%',
-                    alignItems: 'center',
-                }}
+                className={'flex items-center box-border w-[15%] h-1/5'}
             >
                 <Button
                     type={'primary'}

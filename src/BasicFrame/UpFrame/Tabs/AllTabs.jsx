@@ -1,4 +1,4 @@
-import {AppBar, Paper, Tab, Tabs} from "@mui/material";
+import {AppBar, Tab, Tabs} from "@mui/material";
 import TabPanel from "../../../CommonCode/TabPanel/TabPanel.jsx";
 import B from "../../../BundleConst/B.js";
 import LineType from "../../../CommonCode/LineType.js";
@@ -26,15 +26,10 @@ const AllTabs = () => {
         }, [blockToEdit]
     );
     return (
-        <Paper
-            sx={{
-                display: 'flex',
-                height: '100%',
-                width: '100%',
-                direction: 'ltr',
-                padding: '5px'
-            }}>
-            <div style={{borderRight: 1, borderColor: 'blue', height: '100%'}}>
+        <div
+            className={'flex box-border size-full direction-ltr p-1'}
+        >
+            <div className={'border-r-blue-100 h-full'}>
                 <AppBar position="static"
                         sx={{height: '100%'}}>
                     <Tabs
@@ -79,7 +74,7 @@ const AllTabs = () => {
             <TabPanel value={type} label={LineType.FOR_STATEMENT}>
                 <ForStatementTabPanel/>
             </TabPanel>
-        </Paper>
+        </div>
     )
 }
 export default AllTabs;

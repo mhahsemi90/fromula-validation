@@ -1,4 +1,4 @@
-import {Paper, SpeedDial, SpeedDialAction} from "@mui/material";
+import {SpeedDial, SpeedDialAction} from "@mui/material";
 import {useContext, useId} from "react";
 import {BasicFrameContext, MainFrameContext} from "../../../../MainContext.jsx";
 import {ArrowDownward, ArrowUpward, Delete} from "@mui/icons-material";
@@ -23,15 +23,15 @@ const getBgColor = (lineRow, hoverBlockIdList, activeLineToEditIdList) => {
 }
 
 function getElevationValue(lineRow, activeLineToEditIdList) {
-    return activeLineToEditIdList.indexOf(lineRow) > -1 ? 4 : 2;
+    return activeLineToEditIdList.indexOf(lineRow) > -1 ? 'shadow-e-5' : 'shadow-e-3';
 }
 
 function getMarginTop(lineRow, blockToEdit) {
-    return blockToEdit.topRow === lineRow ? '3px' : 0;
+    return blockToEdit.topRow === lineRow ? 'mt-0.5' : '';
 }
 
 function getMarginBottom(lineRow, blockToEdit) {
-    return blockToEdit.bottomRow === lineRow ? '3px' : 0;
+    return blockToEdit.bottomRow === lineRow ? 'mb-0.5' : '';
 }
 
 const LineOfViewBlocks = ({line}) => {
@@ -68,24 +68,13 @@ const LineOfViewBlocks = ({line}) => {
         },
     ]
     return (
-        <Paper
-            elevation={elevationValue}
-            sx={{
-                marginTop: marginTop,
-                marginBottom: marginBottom,
-                display: 'flex',
-                flexWrap: 'wrap',
-                width: width,
-                backgroundColor: bgColor,
-            }}>
+        <div
+            className={`flex flex-wrap ${marginTop} ${marginBottom} w-[${width}] bg-[${bgColor}] ${elevationValue}`}
+        >
             <div
-                style={{
-                    display: 'flex',
-                    flexWrap: 'wrap',
-                    alignItems: 'center',
-                    flexDirection: 'row',
-                }}
-                onClick={() => selectBlockToEdit(line, linesOfBlocks, setBlockToEdit, setActiveLineToEditIdList)}>
+                className={'flex flex-row flex-wrap items-center'}
+                onClick={() => selectBlockToEdit(line, linesOfBlocks, setBlockToEdit, setActiveLineToEditIdList)}
+            >
                 {generateLine(line, getOperandFromMainList).map((block, index) =>
                     generateBlock(block, `${id}-${index}`),
                 )}
@@ -129,7 +118,7 @@ const LineOfViewBlocks = ({line}) => {
                         />
                     ))}
             </SpeedDial>
-        </Paper>
+        </div>
     )
 }
 LineOfViewBlocks.propTypes = {

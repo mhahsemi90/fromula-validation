@@ -11,52 +11,22 @@ const ParentBox = ({acceptChange}) => {
     }, [blockToEdit]);
     return (
         <div
-            style={{
-                boxSizing: 'border-box',
-                display: 'flex',
-                width: '100%',
-                height: '20%',
-                alignItems: 'center',
-            }}
+            className={'flex items-center box-border w-full h-1/5'}
         >
             <div
-                style={{
-                    boxSizing: 'border-box',
-                    display: 'flex',
-                    width: '85%',
-                    height: '100%',
-                    alignItems: 'center',
-                }}
+                className={'flex items-center box-border w-[85%] h-full'}
             >
                 <div
-                    style={{
-                        boxSizing: 'border-box',
-                        display: 'flex',
-                        width: '15%',
-                        height: '100%',
-                        alignItems: 'center',
-                    }}
+                    className={'flex items-center box-border w-[15%] h-full'}
                 ><label>PARENT</label>
                 </div>
                 <div
-                    style={{
-                        boxSizing: 'border-box',
-                        display: 'flex',
-                        width: '85%',
-                        height: '100%',
-                        alignItems: 'center',
-                    }}
+                    className={'flex items-center box-border w-[85%] h-full'}
                 ><ParentList parentList={parentList} acceptChange={acceptChange}/>
                 </div>
             </div>
             <div
-                style={{
-                    boxSizing: 'border-box',
-                    display: 'flex',
-                    width: '15%',
-                    height: '100%',
-                    alignItems: 'center',
-                }}
+                className={'flex items-center box-border w-[15%] h-full'}
             >
             </div>
         </div>

@@ -9,15 +9,7 @@ const DownFrame = () => {
     const {linesOfBlocks} = useContext(MainFrameContext);
     return (
         <div
-            style={{
-                display: 'flex',
-                flexDirection: 'row',
-                width: '100%',
-                height: '47%',
-                boxSizing: 'border-box',
-                margin: '5px',
-                padding: '5px',
-            }}
+            className={'flex flex-row box-border w-full h-[47%] m-1 p-1'}
         >
             <LeftFrame/>
             <ApolloProvider client={Client}>
