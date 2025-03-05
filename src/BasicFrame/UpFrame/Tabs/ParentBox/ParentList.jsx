@@ -1,10 +1,10 @@
-import {Breadcrumbs, Link} from "@mui/material";
 import {useContext, useId} from "react";
 import PropTypes from "prop-types";
 import generateLine from "../../../../CommonCode/GenerateLine/generateLine.jsx";
 import {BasicFrameContext, MainFrameContext} from "../../../../MainContext.jsx";
 import {clickForSelectBlockToEdit, highlightParentAndChild} from "../../../CommonBasicFrameMethod.js";
 import generateBlock from "../../../../CommonCode/GenerateLine/generateBlock.jsx";
+import {Breadcrumb} from "antd";
 
 const handleClick = (acceptChange, line, linesOfBlocks, setBlockToEdit, setActiveLineToEditIdList, setHoverBlockIdList) => {
     acceptChange();
@@ -15,31 +15,26 @@ const ParentList = ({parentList, acceptChange}) => {
     const {setBlockToEdit, setActiveLineToEditIdList, setHoverBlockIdList} = useContext(BasicFrameContext);
     const id = useId()
     return (
-        <Breadcrumbs
+        <Breadcrumb
             separator={">"}
-        >
-            {parentList.map((line, index) => {
+            items={parentList.map((line, index) => {
                 return (
-                    <Link
-                        underline={'hover'}
-                        key={`${id}-${index}`}
-                        onClick={() => handleClick(acceptChange, line, linesOfBlocks, setBlockToEdit, setActiveLineToEditIdList, setHoverBlockIdList)}
-                        onMouseEnter={() => highlightParentAndChild(line, linesOfBlocks, setHoverBlockIdList)}
-                        onMouseLeave={() => setHoverBlockIdList([])}
-                        sx={{
-                            display: 'flex',
-                            flexDirection: 'row',
-                            cursor: 'pointer',
-                        }}
-                        variant={'h6'}
-                    >
-                        {generateLine(line, getOperandFromMainList).map((block, index) =>
-                            generateBlock(block, `${id}-${index}`)
-                        )}
-                    </Link>
+                    {
+                        title: <div
+                            className={'flex flex-row cursor-pointer'}
+                            key={`${id}-${index}`}
+                            onClick={() => handleClick(acceptChange, line, linesOfBlocks, setBlockToEdit, setActiveLineToEditIdList, setHoverBlockIdList)}
+                            onMouseEnter={() => highlightParentAndChild(line, linesOfBlocks, setHoverBlockIdList)}
+                            onMouseLeave={() => setHoverBlockIdList([])}
+                        >
+                            {generateLine(line, getOperandFromMainList).map((block, index) =>
+                                generateBlock(block, `${id}-${index}`)
+                            )}
+                        </div>,
+                    }
                 )
             })}
-        </Breadcrumbs>
+        />
     )
 }
 ParentList.propTypes = {

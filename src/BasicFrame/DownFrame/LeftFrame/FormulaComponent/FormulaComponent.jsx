@@ -7,7 +7,7 @@ const FormulaComponent = () => {
     const id = useId();
     return (
         <div
-            className={'direction-ltr flex flex-col items-end w-full'}
+            className={'flex flex-col items-end w-full'}
         >
             {linesOfBlocks.map((line, index) =>
                 (<LineOfViewBlocks line={line} key={`${id}-${index}`}/>)

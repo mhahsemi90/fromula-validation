@@ -47,7 +47,7 @@ const KeywordMainList = [
         type: BlockType.KEYWORD,
         code: "return",
         enTitle: "return",
-        title: "مقدار بازگشتی",
+        title: "مقدار بازگشتی=",
     },
     {
         type: BlockType.KEYWORD,

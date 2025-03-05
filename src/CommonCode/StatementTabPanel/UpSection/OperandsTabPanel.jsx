@@ -7,6 +7,8 @@ import Block from "../../../ProjectObject/Block.js";
 import BlockType from "../../BlockType.js";
 import Line from "../../../ProjectObject/Line.js";
 import {SendOutlined} from "@ant-design/icons";
+import LineType from "../../LineType.js";
+import ChangeValueLine from "../../../ProjectObject/ChangeValueLine.js";
 
 function addOperand(editLine, setEditLine, blinkIndex, setBlinkIndex, value, getOperandFromMainList) {
     const item = getOperandFromMainList(value);
@@ -20,16 +22,25 @@ function addOperand(editLine, setEditLine, blinkIndex, setBlinkIndex, value, get
             [
                 new Block(BlockType.LABEL, item.title, item.enTitle, item.code)
             ];
-    setEditLine(
-        new Line(
+    if (editLine.lineType === LineType.CHANGE_VALUE_STATEMENT)
+        setEditLine(new ChangeValueLine(
+            editLine.row,
+            editLine.lineLevel,
+            blockList,
+            editLine.id,
+            editLine.parentId,
+            editLine.assignmentOperator,
+            editLine.resultVar)
+        );
+    else
+        setEditLine(new Line(
             editLine.row,
             editLine.lineLevel,
             blockList,
             editLine.lineType,
             editLine.id,
-            editLine.parentId
-        )
-    );
+            editLine.parentId)
+        );
     setBlinkIndex(blinkIndex + 1);
 }
 

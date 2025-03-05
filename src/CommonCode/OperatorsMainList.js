@@ -226,16 +226,19 @@ const NotOperatorList = [
         type: BlockType.OPEN_PARENTHESES,
         code: "(",
         title: "(",
+        enTitle: "(",
     },
     {
         type: BlockType.CLOSE_PARENTHESES,
         code: ")",
         title: ")",
+        enTitle: ")",
     },
     {
         type: BlockType.SEPARATOR,
         code: ",",
         title: "و",
+        enTitle: ",",
     },
 ];
 const OperatorsMainList = [

@@ -1,39 +1,32 @@
-import {ButtonGroup, ClickAwayListener, Popper} from "@mui/material";
-import {Button} from "antd";
+import {Button, Modal} from "antd";
 import PropTypes from "prop-types";
 import LineType from "../../../../CommonCode/LineType.js";
 
-const PopperForSelectStatementType = ({anchorEl, setAnchorEl, open, setOpen, createStatement}) => {
+const PopperForSelectStatementType = ({open, setOpen, createStatement}) => {
     return (
-        <Popper
+        <Modal
+            title={null}
+            footer={null}
             open={open}
-            anchorEl={anchorEl}
-            onClose={() => setAnchorEl(null)}
+            onCancel={() => setOpen(false)}
+            closable={false}
         >
-            <ClickAwayListener onClickAway={() => setOpen(false)}>
-                <ButtonGroup variant="outlined">
-                    <Button
-                        onClick={() => createStatement(LineType.EXPRESSION_STATEMENT)}
-                    >One</Button>
-                    <Button
-                        onClick={() => createStatement(LineType.IF_STATEMENT)}
-                    >Two</Button>
-                    <Button
-                        onClick={() => createStatement(LineType.FOR_STATEMENT)}
-                    >Three</Button>
-                </ButtonGroup>
-            </ClickAwayListener>
-        </Popper>
+            <Button
+                onClick={() => createStatement(LineType.EXPRESSION_STATEMENT)}
+            >One</Button>
+            <Button
+                onClick={() => createStatement(LineType.IF_STATEMENT)}
+            >Two</Button>
+            <Button
+                onClick={() => createStatement(LineType.FOR_STATEMENT)}
+            >Three</Button>
+        </Modal>
     );
 }
 
 
 PopperForSelectStatementType.propTypes = {
-    anchorEl: PropTypes.oneOfType([
-        PropTypes.object,
-        PropTypes.oneOf([null])
-    ]),
-    setAnchorEl: PropTypes.func.isRequired,
+    children: PropTypes.node,
     open: PropTypes.bool.isRequired,
     setOpen: PropTypes.func.isRequired,
     createStatement: PropTypes.func.isRequired,

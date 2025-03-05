@@ -9,9 +9,13 @@ import PropTypes from "prop-types";
 import B from "../../../../BundleConst/B.js";
 import generateBlock from "../../../../CommonCode/GenerateLine/generateBlock.jsx";
 
-const {Paragraph} = Typography;
-const cancel = (blockToEdit, setBodyLineToEdit, setOpen) => {
-    blockToEdit.body && setBodyLineToEdit(blockToEdit.body);
+const {Text} = Typography;
+const cancel = (bodyLineToEdit, setModalBodyLine, setOpen) => {
+    setModalBodyLine({...bodyLineToEdit});
+    setOpen(false);
+}
+const sendChange = (modalBodyLine, setBodyLineToEdit, setOpen) => {
+    setBodyLineToEdit({...modalBodyLine});
     setOpen(false);
 }
 
@@ -23,17 +27,19 @@ const deleteBodyLine = (bodyLineToEdit, setBodyLineToEdit) => {
 };
 const BodyBox = ({bodyLineToEdit, setBodyLineToEdit}) => {
     const {linesOfBlocks, getOperandFromMainList, t} = useContext(MainFrameContext);
-    const {blockToEdit, setHoverBlockIdList} = useContext(BasicFrameContext);
+    const {setHoverBlockIdList} = useContext(BasicFrameContext);
     const [open, setOpen] = useState(false);
     const [visualBodyLine, setVisualBodyLine] = useState([]);
+    const [modalBodyLine, setModalBodyLine] = useState({...bodyLineToEdit});
     const id = useId()
     useEffect(() => {
         bodyLineToEdit.blockList ? setVisualBodyLine(
             generateLine(bodyLineToEdit, getOperandFromMainList).map((block, index) =>
-                    generateBlock(block, `${id}-${index}`)
-                /*<GenerateBlock block={block} key={`${id}-${index}`}/>*/
+                generateBlock(block, `${id}-${index}`)
             )
         ) : setVisualBodyLine([]);
+        setModalBodyLine({...bodyLineToEdit});
+        console.log("BodyBox useEffect");
     }, [bodyLineToEdit, getOperandFromMainList, id]);
     return (
         <div
@@ -53,11 +59,11 @@ const BodyBox = ({bodyLineToEdit, setBodyLineToEdit}) => {
                 <div
                     className={'flex items-center box-border w-4/5 h-1/5 border p-5 shadow-inner'}
                 >
-                    <Paragraph
-                        className={'flex flex-row whitespace-nowrap overflow-hidden overflow-ellipsis w-full'}
+                    <Text
+                        className={'flex flex-row items-center whitespace-nowrap overflow-hidden overflow-ellipsis w-full'}
                     >
                         {visualBodyLine}
-                    </Paragraph>
+                    </Text>
                 </div>
                 <div
                     className={'w-[5%] h-1/5'}
@@ -75,10 +81,10 @@ const BodyBox = ({bodyLineToEdit, setBodyLineToEdit}) => {
             <EditLineDialog
                 open={open}
                 setOpen={setOpen}
-                cancel={() => cancel(blockToEdit, setBodyLineToEdit, setOpen)}
-                sendChange={() => setOpen(false)}
-                editLine={bodyLineToEdit}
-                setEditLine={setBodyLineToEdit}
+                cancel={() => cancel(bodyLineToEdit, setModalBodyLine, setOpen)}
+                sendChange={() => sendChange(modalBodyLine, setBodyLineToEdit, setOpen)}
+                editLine={modalBodyLine}
+                setEditLine={setModalBodyLine}
                 operators={ArithmeticOperatorList}
             />
         </div>

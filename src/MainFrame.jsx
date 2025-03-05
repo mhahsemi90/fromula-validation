@@ -1,8 +1,6 @@
 import {useEffect, useState} from "react";
-import {ltrCache, ltrTheme} from "./CommonCode/Theme.js";
 import {useTranslation} from "react-i18next";
-import {Input, InputLabel} from "@mui/material";
-import {Button} from "antd";
+import {Button, Input} from "antd";
 import B from "./BundleConst/B.js";
 import {changeLanguage} from "./CommonCode/Language.js";
 import {MainFrameContext} from "./MainContext.jsx";
@@ -13,16 +11,81 @@ import {
     QueryResultRewritingLinesOfBlockListBaseOnBasicStructure
 } from "./CommonCode/QueryResult/QueryResultRewritingLinesOfBlockListBaseOnBasicStructure.js";
 import "./i18n.js";
-import "./output.css"
+import "./assets/output.css"
 import GetOperandForTest from "./CommonCode/QueryResult/GetOperandForTest.js";
 import BlockType from "./CommonCode/BlockType.js";
 import {GlobalOutlined, SwapOutlined} from "@ant-design/icons";
+import LineType from "./CommonCode/LineType.js";
+import {getKeywordFromMainList, getOperatorFromMainList} from "./CommonCode/getElementFromMainList.js";
+import Line from "./ProjectObject/Line.js";
+import Block from "./ProjectObject/Block.js";
+import {reformatLineRow} from "./BasicFrame/CommonBasicFrameMethod.js";
 
-const changeFrame = (frame, setFrame, linesOfBlocks, setLinesOfBlocks) => {
+const getDeclarationBlockList = (varName, getOperandFromMainList) => {
+    const blockList = [];
+    const operand = getOperandFromMainList(varName);
+    blockList.push(getKeywordFromMainList('let'));
+    blockList.push(operand);
+    blockList.push(getOperatorFromMainList('='));
+    blockList.push(
+        new Block(
+            BlockType.LITERAL,
+            operand.type === BlockType.STRING_VARIABLE ? "''" : '0',
+            operand.type === BlockType.STRING_VARIABLE ? "''" : '0',
+            operand.type === BlockType.STRING_VARIABLE ? "''" : '0',
+        )
+    );
+    return blockList;
+};
+const RewritingLinesOfBlockListBaseOnBasicStructure = (linesOfBlocks, setLinesOfBlocks, setFrame, getOperandFromMainList) => {
+    const newLinesOfBlocks = [];
+    let haveChangeValueLine = false;
+    linesOfBlocks.forEach((line) => {
+        if (line.lineType === LineType.RETURN_STATEMENT) {
+            line.lineType = LineType.EXPRESSION_STATEMENT;
+            line.blockList.unshift(getKeywordFromMainList('return'))
+            newLinesOfBlocks.push(line);
+        } else if (line.lineType === LineType.CHANGE_VALUE_STATEMENT) {
+            haveChangeValueLine = true;
+            line.lineType = LineType.EXPRESSION_STATEMENT;
+            line.blockList.unshift(getOperandFromMainList(line.assignmentOperator.code))
+            line.blockList.unshift(getOperandFromMainList(line.resultVar.code))
+            newLinesOfBlocks.push(line);
+        } else {
+            newLinesOfBlocks.push(line);
+        }
+    })
+    if (haveChangeValueLine) {
+        newLinesOfBlocks.unshift(
+            new Line(
+                1,
+                0,
+                getDeclarationBlockList('_result', getOperandFromMainList),
+                LineType.VARIABLE_DECLARATION_STATEMENT,
+                0,
+                null
+            )
+        )
+        newLinesOfBlocks.push(
+            new Line(
+                1,
+                0,
+                [getOperandFromMainList('_result')],
+                LineType.RETURN_STATEMENT,
+                0,
+                null
+            )
+        );
+    }
+    reformatLineRow(newLinesOfBlocks)
+    setLinesOfBlocks(newLinesOfBlocks);
+    setFrame('Intermediate');
+};
+const changeFrame = (frame, setFrame, linesOfBlocks, setLinesOfBlocks, getOperandFromMainList) => {
     if (frame === 'Intermediate')
         QueryResultRewritingLinesOfBlockListBaseOnBasicStructure(linesOfBlocks, setLinesOfBlocks, setFrame);
     else
-        setFrame('Intermediate');
+        RewritingLinesOfBlockListBaseOnBasicStructure(linesOfBlocks, setLinesOfBlocks, setFrame, getOperandFromMainList);
 };
 
 const getFrame = (frame) => {
@@ -34,8 +97,7 @@ const getFrame = (frame) => {
     }
 };
 const MainFrame = () => {
-    const [cache, setCache] = useState(ltrCache);
-    const [theme, setTheme] = useState(ltrTheme);
+    const [theme, setTheme] = useState('direction-ltr');
     const [lang, setLang] = useState('en');
     const {t, i18n} = useTranslation();
     const [mainOperands, setMainOperands] = useState([]);
@@ -75,7 +137,7 @@ const MainFrame = () => {
                 type: BlockType.NUMBER_VARIABLE,
                 code: '_result',
                 enTitle: 'result',
-                title: 'مقدار بازگشتی'
+                title: 'نتیجه'
             }
         ])
     }, [])
@@ -83,8 +145,7 @@ const MainFrame = () => {
         <div className={'flex box-border flex-col items-center size-full'}
         >
             <div className={'flex box-border flex-row items-center justify-center h-[4%]'}>
-                <InputLabel htmlFor="my-input">تست</InputLabel>
-                <Input id="my-input" value={value} onChange={(e) => setValue(e.target.value)}/>
+                <Input placeholder="تست" value={value} onChange={(e) => setValue(e.target.value)}/>
                 <Button
                     type={'primary'}
                     onClick={() => QueryResultFromStatementList(value, setLinesOfBlocks)}
@@ -92,16 +153,15 @@ const MainFrame = () => {
                 <Button
                     type={'primary'}
                     icon={<GlobalOutlined/>}
-                    onClick={() => changeLanguage(lang, setLang, i18n, setCache, setTheme)}
+                    onClick={() => changeLanguage(lang, setLang, i18n, setTheme)}
                 >{t(B.F_LANGUAGE)}</Button>
                 <Button
                     type={'primary'}
                     icon={<SwapOutlined/>}
-                    onClick={() => changeFrame(frame, setFrame, linesOfBlocks, setLinesOfBlocks)}
+                    onClick={() => changeFrame(frame, setFrame, linesOfBlocks, setLinesOfBlocks, getOperandFromMainList)}
                 ></Button>
             </div>
             <MainFrameContext.Provider value={{
-                cache,
                 theme,
                 lang,
                 t,

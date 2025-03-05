@@ -1,6 +1,5 @@
 import BlockOfLines from "../../../../ProjectObject/BlockOfLines.js";
 import {getAllChildRowList, getBlockFromLine, getLastIdFromList} from "../../../CommonBasicFrameMethod.js";
-import ExpressionLine from "../../../../ProjectObject/ExpressionLine.js";
 import ReturnValueLine from "../../../../ProjectObject/ReturnValueLine.js";
 
 const handleAddBefore = (line, linesOfBlocks, setLinesOfBlocks) => {
@@ -8,7 +7,7 @@ const handleAddBefore = (line, linesOfBlocks, setLinesOfBlocks) => {
     const lastId = getLastIdFromList(linesOfBlocks);
     const newLinesOfBlocks = [
         ...linesOfBlocks.slice(0, row),
-        new ExpressionLine(row, line.lineLevel, [], lastId + 1, null),
+        new ReturnValueLine(row, line.lineLevel, [], lastId + 1, null),
         ...linesOfBlocks.slice(line.row)
     ];
     for (let i = 0; i < newLinesOfBlocks.length; i++) {

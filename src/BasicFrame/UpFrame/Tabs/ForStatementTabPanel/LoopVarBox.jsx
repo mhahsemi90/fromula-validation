@@ -8,9 +8,13 @@ import PropTypes from "prop-types";
 import B from "../../../../BundleConst/B.js";
 import generateBlock from "../../../../CommonCode/GenerateLine/generateBlock.jsx";
 
-const {Paragraph} = Typography;
-const cancel = (blockToEdit, setLoopVarToEdit, setOpen) => {
-    blockToEdit.loopVar && setLoopVarToEdit(blockToEdit.loopVar);
+const {Text} = Typography;
+const cancel = (loopVarToEdit, setModalLoopVarLine, setOpen) => {
+    setModalLoopVarLine({...loopVarToEdit});
+    setOpen(false);
+}
+const sendChange = (modalLoopVarLine, setLoopVarToEdit, setOpen) => {
+    setLoopVarToEdit({...modalLoopVarLine});
     setOpen(false);
 }
 const deleteLoopVarLine = (loopVarToEdit, setLoopVarToEdit) => {
@@ -22,17 +26,18 @@ const deleteLoopVarLine = (loopVarToEdit, setLoopVarToEdit) => {
 
 const LoopVarBox = ({loopVarToEdit, setLoopVarToEdit}) => {
     const {linesOfBlocks, getOperandFromMainList, t} = useContext(MainFrameContext);
-    const {blockToEdit, setHoverBlockIdList} = useContext(BasicFrameContext);
+    const {setHoverBlockIdList} = useContext(BasicFrameContext);
     const [open, setOpen] = useState(false);
     const [visualLoopVarLine, setVisualLoopVarLine] = useState([]);
+    const [modalLoopVarLine, setModalLoopVarLine] = useState({...loopVarToEdit});
     const id = useId()
     useEffect(() => {
         loopVarToEdit.blockList ? setVisualLoopVarLine(
             generateLine(loopVarToEdit, getOperandFromMainList).map((block, index) =>
-                    generateBlock(block, `${id}-${index}`)
-                /*<GenerateBlock block={block} key={`${id}-${index}`}/>*/
+                generateBlock(block, `${id}-${index}`)
             )
         ) : setVisualLoopVarLine([]);
+        setModalLoopVarLine({...loopVarToEdit});
     }, [loopVarToEdit, id, getOperandFromMainList]);
     return (
         <div
@@ -52,11 +57,11 @@ const LoopVarBox = ({loopVarToEdit, setLoopVarToEdit}) => {
                 <div
                     className={'flex items-center box-border w-4/5 h-1/5 border p-5 shadow-inner'}
                 >
-                    <Paragraph
-                        className={'flex flex-row'}
+                    <Text
+                        className={'flex flex-row items-center whitespace-nowrap overflow-hidden overflow-ellipsis w-full'}
                     >
                         {visualLoopVarLine}
-                    </Paragraph>
+                    </Text>
                 </div>
                 <div
                     className={'w-[5%] h-1/5'}
@@ -74,10 +79,10 @@ const LoopVarBox = ({loopVarToEdit, setLoopVarToEdit}) => {
             <EditLineDialog
                 open={open}
                 setOpen={setOpen}
-                cancel={() => cancel(blockToEdit, setLoopVarToEdit, setOpen)}
-                sendChange={() => setOpen(false)}
-                editLine={loopVarToEdit}
-                setEditLine={setLoopVarToEdit}
+                cancel={() => cancel(loopVarToEdit, setModalLoopVarLine, setOpen)}
+                sendChange={() => sendChange(modalLoopVarLine, setLoopVarToEdit, setOpen)}
+                editLine={modalLoopVarLine}
+                setEditLine={setModalLoopVarLine}
                 operators={[]}
             />
         </div>

@@ -8,6 +8,7 @@ const ParentBox = ({acceptChange}) => {
     const [parentList, setParentList] = useState([]);
     useEffect(() => {
         blockToEdit.parentList ? setParentList(blockToEdit.parentList) : setParentList([]);
+        console.log("ParentBox useEffect");
     }, [blockToEdit]);
     return (
         <div

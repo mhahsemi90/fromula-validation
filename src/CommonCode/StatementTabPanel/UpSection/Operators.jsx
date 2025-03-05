@@ -1,8 +1,10 @@
-import {Chip} from "@mui/material";
 import {useContext, useId} from "react";
 import {MainFrameContext, StatementTabPanelContext} from "../../../MainContext.jsx";
 import Line from "../../../ProjectObject/Line.js";
 import Block from "../../../ProjectObject/Block.js";
+import {Button} from "antd";
+import LineType from "../../LineType.js";
+import ChangeValueLine from "../../../ProjectObject/ChangeValueLine.js";
 
 function addOperator(editLine, setEditLine, setBlinkIndex, blinkIndex, operator) {
     const blockList =
@@ -15,16 +17,25 @@ function addOperator(editLine, setEditLine, setBlinkIndex, blinkIndex, operator)
             [
                 new Block(operator.type, operator.title, operator.code, operator.code)
             ];
-    setEditLine(
-        new Line(
+    if (editLine.lineType === LineType.CHANGE_VALUE_STATEMENT)
+        setEditLine(new ChangeValueLine(
+            editLine.row,
+            editLine.lineLevel,
+            blockList,
+            editLine.id,
+            editLine.parentId,
+            editLine.assignmentOperator,
+            editLine.resultVar)
+        );
+    else
+        setEditLine(new Line(
             editLine.row,
             editLine.lineLevel,
             blockList,
             editLine.lineType,
             editLine.id,
-            editLine.parentId
-        )
-    );
+            editLine.parentId)
+        );
     setBlinkIndex(blinkIndex + 1);
 }
 
@@ -41,16 +52,13 @@ const Operators = () => {
             >
                 {
                     operators && operators.map((operator, index) => (
-                        <Chip
-                            label={lang === 'en' ? operator.code : operator.title}
-                            color="primary"
-                            variant="outlined"
+                        <Button
+                            className={'m-1 bg-transparent border-blue-500 rounded-3xl'}
                             key={`${id}-${index}`}
                             onClick={() => addOperator(editLine, setEditLine, setBlinkIndex, blinkIndex, operator)}
-                            sx={{
-                                margin: '5px',
-                            }}
-                        />
+                        >
+                            {lang === 'en' ? operator.enTitle : operator.title}
+                        </Button>
                     ))
                 }</div>
         </div>

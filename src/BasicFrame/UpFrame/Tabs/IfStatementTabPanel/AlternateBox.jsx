@@ -15,7 +15,7 @@ import PopperForSelectStatementType from "../PopperForSelectStatementType/Popper
 import Line from "../../../../ProjectObject/Line.js";
 import LineType from "../../../../CommonCode/LineType.js";
 
-const {Paragraph} = Typography;
+const {Text} = Typography;
 const createAlternate = (type, setLinesOfBlocks, saveChange, setOpen, setBlockToEdit, setActiveLineToEditIdList) => {
     const {lineToEdit, linesOfBlocks} = saveChange();
     const blockToEdit = getBlockFromLine(lineToEdit, linesOfBlocks)
@@ -53,7 +53,6 @@ const AlternateBox = ({alternateEditLine, setAlternateEditLine, saveChange}) => 
     const {linesOfBlocks, setLinesOfBlocks, t} = useContext(MainFrameContext);
     const {blockToEdit, setBlockToEdit, setActiveLineToEditIdList, setHoverBlockIdList} = useContext(BasicFrameContext);
     const [open, setOpen] = useState(false);
-    const [anchorEl, setAnchorEl] = useState(null);
     return (
         <div
             className={'flex items-center box-border w-full h-3/5'}
@@ -70,21 +69,19 @@ const AlternateBox = ({alternateEditLine, setAlternateEditLine, saveChange}) => 
                 </div>
                 <div
                     className={'flex items-center box-border w-4/5 h-1/5 border p-5 shadow-inner'}
-                    onClick={(e) => clickForSelectBlockToEdit(blockToEdit.alternate, linesOfBlocks, setBlockToEdit, setActiveLineToEditIdList, setHoverBlockIdList, e, setAnchorEl, setOpen)}
+                    onClick={() => clickForSelectBlockToEdit(blockToEdit.alternate, linesOfBlocks, setBlockToEdit, setActiveLineToEditIdList, setHoverBlockIdList, setOpen)}
                 >
-                    <Paragraph
-                        className={'flex flex-row'}
+                    <Text
+                        className={'flex flex-row items-center whitespace-nowrap overflow-hidden overflow-ellipsis w-full'}
                     >
                         {alternateEditLine}
-                    </Paragraph>
+                    </Text>
                 </div>
                 <div
                     className={'w-[5%] h-1/5'}
                 ></div>
             </div>
             <PopperForSelectStatementType
-                anchorEl={anchorEl}
-                setAnchorEl={setAnchorEl}
                 open={open}
                 setOpen={setOpen}
                 createStatement={(type) => createAlternate(type, setLinesOfBlocks, saveChange, setOpen, setBlockToEdit, setActiveLineToEditIdList)}

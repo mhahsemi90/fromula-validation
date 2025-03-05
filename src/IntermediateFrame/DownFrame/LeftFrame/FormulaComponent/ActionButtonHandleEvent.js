@@ -53,7 +53,7 @@ const handleChangeLevel = (line, number, linesOfBlocks, setLinesOfBlocks) => {
         setLinesOfBlocks(newLinesOfBlocks);
     }
 };
-const handleDelete = (line, linesOfBlocks, setLinesOfBlocks, setLineToEdit, setType, setBlinkIndex, activeLineToEditRow, setActiveLineToEditRow) => {
+const handleDelete = (line, linesOfBlocks, setLinesOfBlocks, setLineToEdit, setType, activeLineToEditRow, setActiveLineToEditRow) => {
     const row = line.row;
     if (linesOfBlocks.length > 1) {
         linesOfBlocks.splice(line.row, 1);
@@ -67,7 +67,6 @@ const handleDelete = (line, linesOfBlocks, setLinesOfBlocks, setLineToEdit, setT
     }
     if (activeLineToEditRow === row) {
         setLineToEdit(new Line());
-        setBlinkIndex(-1);
     }
     if (activeLineToEditRow > row)
         setActiveLineToEditRow(activeLineToEditRow - 1);

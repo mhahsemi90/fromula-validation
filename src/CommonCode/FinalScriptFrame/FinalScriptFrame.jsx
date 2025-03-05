@@ -29,11 +29,11 @@ const verifyScript = (formulaString, setResult, t) => {
             : []
     });
 };
-const creatReturnResult = (formulaString, row, result, setResult, t) => {
+const creatReturnResult = (formulaString, row, result, setResult, theme, t) => {
     const bgColor = result === t(B.F_NOT_VERIFIED) ? 'bg-[#ffff99]' : result === t(B.F_VERIFIED) ? 'bg-[#99ff99]' : 'bg-[#ff9999]';
     return (
         <div className={'flex flex-col w-1/2 h-full box-border m-1 p-1 shadow-e-5 rounded'}>
-            <div className={'flex justify-center box-border w-full h-[5%]'}>
+            <div className={`flex justify-center box-border w-full h-[5%] ${theme}`}>
                 <Paragraph
                     className={`flex whitespace-pre-wrap justify-center box-border size-full ${bgColor}`}
                 >
@@ -74,9 +74,9 @@ const getDeclarationBlockList = (varName, getOperandFromMainList) => {
     blockList.push(
         new Block(
             BlockType.LITERAL,
-            varName.type === BlockType.STRING_VARIABLE ? '' : 0,
-            varName.type === BlockType.STRING_VARIABLE ? '' : 0,
-            varName.type === BlockType.STRING_VARIABLE ? '' : 0,
+            varName.type === BlockType.STRING_VARIABLE ? "''" : '0',
+            varName.type === BlockType.STRING_VARIABLE ? "''" : '0',
+            varName.type === BlockType.STRING_VARIABLE ? "''" : '0',
         )
     );
     return blockList;
@@ -111,7 +111,7 @@ const getNewLinesOfBlocks = (linesOfBlocks, resultVarNameList, getOperandFromMai
     return newLinesOfBlocks;
 }
 const FinalScriptFrame = ({linesOfBlocks}) => {
-    const {getOperandFromMainList, t} = useContext(MainFrameContext);
+    const {getOperandFromMainList, theme, t} = useContext(MainFrameContext);
     const {resultVarNameList} = useContext(BasicFrameContext);
     const [result, setResult] = useState(t(B.F_NOT_VERIFIED));
     const [formulaString, setFormulaString] = useState('');
@@ -132,7 +132,7 @@ const FinalScriptFrame = ({linesOfBlocks}) => {
         setFormulaString(formula);
         setRow(countLine);
     }, [getOperandFromMainList, linesOfBlocks, resultVarNameList, setResult, t]);
-    return creatReturnResult(formulaString, row, result, setResult, t);
+    return creatReturnResult(formulaString, row, result, setResult, theme, t);
 }
 FinalScriptFrame.propTypes = {
     linesOfBlocks: PropTypes.arrayOf(

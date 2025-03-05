@@ -1,6 +1,4 @@
-import {ltrCache, ltrTheme, rtlCache, rtlTheme} from "./Theme.js";
-
-const changeLanguage = (lang, setLang, i18n, setCache, setTheme) => {
+const changeLanguage = (lang, setLang, i18n, setTheme) => {
     const newLang = lang === 'en' ? 'fa' : 'en';
     i18n.changeLanguage(newLang)
         .then(() => {
@@ -9,7 +7,6 @@ const changeLanguage = (lang, setLang, i18n, setCache, setTheme) => {
         console.error('Error changing language:', error);
     });
     setLang(newLang);
-    setCache(newLang === 'en' ? ltrCache : rtlCache);
-    setTheme(newLang === 'en' ? ltrTheme : rtlTheme);
+    setTheme(newLang === 'en' ? 'direction-ltr' : 'direction-rtl');
 };
 export {changeLanguage};

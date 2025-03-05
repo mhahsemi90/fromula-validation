@@ -3,7 +3,6 @@ import {gql} from "@apollo/client";
 import removeTypename from "./removeTypename.js";
 
 const QueryResultRewritingLinesOfBlockListBaseOnBasicStructure = (linesOfBlocks, setLinesOfBlocks, setFrame) => {
-    //const lineList = removeTypename(linesOfBlocks);
     Client
     .query({
         query: gql`query FormulaRewritingBaseOnBasicStructure( $lineList: [LineInput] ) {

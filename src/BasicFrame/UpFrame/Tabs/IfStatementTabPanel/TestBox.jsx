@@ -9,9 +9,13 @@ import B from "../../../../BundleConst/B.js";
 import {ComparisonOperatorList, LogicalOperatorList} from "../../../../CommonCode/OperatorsMainList.js";
 import generateBlock from "../../../../CommonCode/GenerateLine/generateBlock.jsx";
 
-const {Paragraph} = Typography;
-const cancel = (blockToEdit, setTestLineToEdit, setOpen) => {
-    blockToEdit.test && setTestLineToEdit(blockToEdit.test);
+const {Text} = Typography;
+const cancel = (testLineToEdit, setModalTestLine, setOpen) => {
+    setModalTestLine({...testLineToEdit});
+    setOpen(false);
+}
+const sendChange = (modalTestLine, setTestLineToEdit, setOpen) => {
+    setTestLineToEdit({...modalTestLine});
     setOpen(false);
 }
 const deleteTestLine = (testLineToEdit, setTestLineToEdit) => {
@@ -22,9 +26,10 @@ const deleteTestLine = (testLineToEdit, setTestLineToEdit) => {
 };
 const TestBox = ({testLineToEdit, setTestLineToEdit}) => {
     const {linesOfBlocks, getOperandFromMainList, t} = useContext(MainFrameContext);
-    const {blockToEdit, setHoverBlockIdList} = useContext(BasicFrameContext);
+    const {setHoverBlockIdList} = useContext(BasicFrameContext);
     const [open, setOpen] = useState(false);
     const [visualTestLine, setVisualTestLine] = useState([]);
+    const [modalTestLine, setModalTestLine] = useState({...testLineToEdit});
     const id = useId()
     useEffect(() => {
         testLineToEdit.blockList ? setVisualTestLine(
@@ -32,6 +37,7 @@ const TestBox = ({testLineToEdit, setTestLineToEdit}) => {
                 generateBlock(block, `${id}-${index}`)
             )
         ) : setVisualTestLine([]);
+        setModalTestLine({...testLineToEdit});
     }, [testLineToEdit, id, getOperandFromMainList]);
     return (
         <div
@@ -51,11 +57,11 @@ const TestBox = ({testLineToEdit, setTestLineToEdit}) => {
                 <div
                     className={'flex items-center box-border w-4/5 h-1/5 border p-5 shadow-inner'}
                 >
-                    <Paragraph
-                        className={'flex flex-row'}
+                    <Text
+                        className={'flex flex-row items-center whitespace-nowrap overflow-hidden overflow-ellipsis w-full'}
                     >
                         {visualTestLine}
-                    </Paragraph>
+                    </Text>
                 </div>
                 <div
                     className={'w-[5%] h-1/5'}
@@ -73,10 +79,10 @@ const TestBox = ({testLineToEdit, setTestLineToEdit}) => {
             <EditLineDialog
                 open={open}
                 setOpen={setOpen}
-                cancel={() => cancel(blockToEdit, setTestLineToEdit, setOpen)}
-                sendChange={() => setOpen(false)}
-                editLine={testLineToEdit}
-                setEditLine={setTestLineToEdit}
+                cancel={() => cancel(testLineToEdit, setModalTestLine, setOpen)}
+                sendChange={() => sendChange(modalTestLine, setTestLineToEdit, setOpen)}
+                editLine={modalTestLine}
+                setEditLine={setModalTestLine}
                 operators={[...ComparisonOperatorList, ...LogicalOperatorList]}
             />
         </div>

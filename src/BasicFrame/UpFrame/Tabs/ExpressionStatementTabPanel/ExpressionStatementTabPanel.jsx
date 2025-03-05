@@ -5,10 +5,10 @@ import ConfirmBox from "../ConfirmBox/ConfirmBox.jsx";
 import BodyBox from "./BodyBox.jsx";
 import ExpressionBlockOfLines from "../../../../ProjectObject/ExpressionBlockOfLines.js";
 import {getLastIdFromList} from "../../../CommonBasicFrameMethod.js";
-import ExpressionTypeBox from "./ExpressionTypeBox.jsx";
 import ReturnValueLine from "../../../../ProjectObject/ReturnValueLine.js";
 import LineType from "../../../../CommonCode/LineType.js";
 import {getOperatorFromMainList} from "../../../../CommonCode/getElementFromMainList.js";
+import ExpressionTypeBox from "./ExpressionTypeBox.jsx";
 
 const hasVariable = (resultVarNameList, resultVarName) => {
     let result = false;
@@ -94,6 +94,7 @@ const ExpressionStatementTabPanel = () => {
             setAssignmentOperator(body.assignmentOperator);
             setResultVarName(body.resultVar);
         }
+        console.log("ExpressionStatementTabPanel useEffect");
     }, [blockToEdit]);
     return (
         <div

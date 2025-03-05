@@ -1,11 +1,11 @@
-import {FormControl, FormControlLabel, InputLabel, MenuItem, Radio, RadioGroup, Select} from "@mui/material";
-import {useContext, useEffect, useId, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {MainFrameContext} from "../../../../MainContext.jsx";
 import PropTypes from "prop-types";
 import {getOperatorFromMainList} from "../../../../CommonCode/getElementFromMainList.js";
 import LineType from "../../../../CommonCode/LineType.js";
+import {Radio, Select, Typography} from "antd";
 
-
+const {Title} = Typography;
 const ExpressionTypeBox = ({
                                assignmentOperator,
                                setAssignmentOperator,
@@ -18,12 +18,11 @@ const ExpressionTypeBox = ({
                            }) => {
     const {localOperands, getOperandFromMainList, lang} = useContext(MainFrameContext);
     const [disable, setDisabled] = useState(true);
-    const id = useId();
-    const handleAssignmentChange = (e) => {
-        setAssignmentOperator(getOperatorFromMainList(e.target.value));
+    const handleAssignmentChange = (value) => {
+        setAssignmentOperator(getOperatorFromMainList(value));
     };
-    const handleVariableChange = (e) => {
-        setResultVarName(getOperandFromMainList(e.target.value));
+    const handleVariableChange = (value) => {
+        setResultVarName(getOperandFromMainList(value));
     };
     const handleRadioChange = (e) => {
         setExpressionType(e.target.value);
@@ -48,7 +47,7 @@ const ExpressionTypeBox = ({
             bodyLineToEdit.resultVar = resultVarName;
             setBodyLineToEdit({...bodyLineToEdit});
         }
-    }, [assignmentOperator, bodyLineToEdit, expressionType, resultVarName, setBodyLineToEdit]);
+    }, [assignmentOperator, expressionType, resultVarName, setBodyLineToEdit]);
     return (
         <div
             className={'flex flex-row box-border w-full h-1/5'}
@@ -66,10 +65,21 @@ const ExpressionTypeBox = ({
                     <div
                         className={'flex flex-col box-border w-[30%] h-full'}
                     >
-                        <RadioGroup value={expressionType} onChange={handleRadioChange}>
-                            <FormControlLabel label={'Return value'} control={<Radio/>} value={'return'}/>
-                            <FormControlLabel label={'Change value'} control={<Radio/>} value={'change'}/>
-                        </RadioGroup>
+                        <Radio.Group
+                            className={'flex flex-col gap-5'}
+                            value={expressionType}
+                            onChange={handleRadioChange}
+                            options={[
+                                {
+                                    value: 'return',
+                                    label: 'Return value',
+                                },
+                                {
+                                    value: 'change',
+                                    label: 'Change value',
+                                }
+                            ]}
+                        />
                     </div>
                     <div
                         className={'flex flex-row box-border w-[70%] h-full'}
@@ -77,54 +87,53 @@ const ExpressionTypeBox = ({
                         <div
                             className={'flex box-border w-1/2 h-full m-2.5'}
                         >
-                            <FormControl
-                                sx={{
-                                    display: "flex",
-                                    boxSizing: 'border-box',
-                                    width: '100%',
-                                    height: '100%',
-                                }}
+                            {/*<Title>AssignmentOperator</Title>*/}
+                            <Select
+                                className={'flex box-border w-full'}
+                                value={assignmentOperator.code ? assignmentOperator.code : '+='}
+                                onChange={handleAssignmentChange}
                                 disabled={disable}
-                            >
-                                <InputLabel>AssignmentOperator</InputLabel>
-                                <Select
-                                    value={assignmentOperator.code ? assignmentOperator.code : ''}
-                                    label="Age"
-                                    onChange={handleAssignmentChange}
-                                    variant={'standard'}>
-                                    <MenuItem value={'+='}> += </MenuItem>
-                                    <MenuItem value={'-='}> -= </MenuItem>
-                                    <MenuItem value={'*='}> *= </MenuItem>
-                                    <MenuItem value={'/='}> /= </MenuItem>
-                                    <MenuItem value={'%='}> %= </MenuItem>
-                                </Select>
-                            </FormControl>
+                                options={[
+                                    {
+                                        value: '+=',
+                                        label: '+=',
+                                    },
+                                    {
+                                        value: '-=',
+                                        label: '-=',
+                                    },
+                                    {
+                                        value: '*=',
+                                        label: '*=',
+                                    },
+                                    {
+                                        value: '/=',
+                                        label: '/=',
+                                    },
+                                    {
+                                        value: '%=',
+                                        label: '%=',
+                                    },
+                                ]}
+                            />
                         </div>
                         <div
                             className={'flex box-border w-1/2 h-full m-2.5'}
                         >
-                            <FormControl
-                                sx={{
-                                    display: "flex",
-                                    boxSizing: 'border-box',
-                                    width: '100%',
-                                    height: '100%',
-                                }}
+                            {/*<Title>ResultVarName</Title>*/}
+                            <Select
+                                className={'flex box-border w-full'}
+                                value={resultVarName.code ? resultVarName.code : ''}
+                                onChange={handleVariableChange}
                                 disabled={disable}
-                            >
-                                <InputLabel>ResultVarName</InputLabel>
-                                <Select
-                                    value={resultVarName.code ? resultVarName.code : ''}
-                                    label="Age"
-                                    onChange={handleVariableChange}
-                                    variant={'standard'}>
-                                    {localOperands.map((item, index) =>
-                                        <MenuItem value={item.code} key={`${id}-${index}`}>
-                                            {lang === 'en' ? item.enTitle : item.title}
-                                        </MenuItem>
-                                    )}
-                                </Select>
-                            </FormControl>
+                                options={localOperands.map((item) => {
+                                    return {
+                                        value: item.code,
+                                        label: lang === 'en' ? item.enTitle : item.title,
+                                    }
+                                })
+                                }
+                            />
                         </div>
                     </div>
                 </div>

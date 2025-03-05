@@ -14,12 +14,11 @@ const highlightParentAndChild = (line, linesOfBlocks, setHoverBlockIdList) => {
         getAllChildRowList(line, linesOfBlocks)
     );
 };
-const clickForSelectBlockToEdit = (line, linesOfBlocks, setBlockToEdit, setActiveLineToEditIdList, setHoverBlockIdList, e, setAnchorEl, setOpen) => {
+const clickForSelectBlockToEdit = (line, linesOfBlocks, setBlockToEdit, setActiveLineToEditIdList, setHoverBlockIdList, setOpen) => {
     if (line && (line.id || line.id === 0)) {
         selectBlockToEdit(line, linesOfBlocks, setBlockToEdit, setActiveLineToEditIdList)
         setHoverBlockIdList([]);
-    } else if (setAnchorEl) {
-        setAnchorEl(e.currentTarget);
+    } else if (setOpen) {
         setOpen(true);
     }
 };

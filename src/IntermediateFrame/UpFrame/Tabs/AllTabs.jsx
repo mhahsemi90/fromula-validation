@@ -47,7 +47,7 @@ const AllTabs = () => {
         setActiveLineToEditRow(-1);
     }
     return (
-        <div className={'flex box-border size-full direction-ltr p-1 shadow-e-1 rounded'}>
+        <div className={'flex box-border size-full p-1 shadow-e-1 rounded'}>
             <Tabs
                 className={'size-full'}
                 tabPosition='left'

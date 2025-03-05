@@ -62,6 +62,8 @@ const typeDefs = gql`
         row: Int
         lineLevel: Int
         blockList: [BlockInput]
+        assignmentOperator:BlockInput
+        resultVar:BlockInput
         lineType: LineType
     }
     type ValidationResult{

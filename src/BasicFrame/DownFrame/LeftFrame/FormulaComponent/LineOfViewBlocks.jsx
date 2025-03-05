@@ -1,18 +1,12 @@
-import {SpeedDial, SpeedDialAction} from "@mui/material";
 import {useContext, useId} from "react";
 import {BasicFrameContext, MainFrameContext} from "../../../../MainContext.jsx";
-import {ArrowDownward, ArrowUpward, Delete} from "@mui/icons-material";
 import {handleAddAfter, handleAddBefore, handleDelete} from "./ActionButtonHandleEvent.js";
 import generateBlock from "../../../../CommonCode/GenerateLine/generateBlock.jsx";
 import PropTypes from "prop-types";
 import generateLine from "../../../../CommonCode/GenerateLine/generateLine.jsx";
 import {selectBlockToEdit} from "../../../CommonBasicFrameMethod.js";
-
-const handleSpeedDialClick = (e, line, linesOfBlocks, setBlockToEdit, setActiveLineToEditIdList) => {
-    if (e.target.classList.contains('MuiSpeedDial-fab')) {
-        selectBlockToEdit(line, linesOfBlocks, setBlockToEdit, setActiveLineToEditIdList);
-    }
-}
+import {Dropdown} from "antd";
+import {ArrowDownOutlined, ArrowUpOutlined, DeleteOutlined} from "@ant-design/icons";
 
 const getBgColor = (lineRow, hoverBlockIdList, activeLineToEditIdList) => {
     return hoverBlockIdList.indexOf(lineRow) > -1 ?
@@ -44,42 +38,64 @@ const LineOfViewBlocks = ({line}) => {
         setBlockToEdit
     } = useContext(BasicFrameContext);
     const lineRow = line.row;
-    const width = `w-[${100 - (line.lineLevel * 3)}%]`;
+    const width = `${100 - (line.lineLevel * 3)}%`;
     const bgColor = getBgColor(lineRow, hoverBlockIdList, activeLineToEditIdList);
     const elevationValue = getElevationValue(lineRow, activeLineToEditIdList);
     const marginTop = getMarginTop(lineRow, blockToEdit);
     const marginBottom = getMarginBottom(lineRow, blockToEdit);
     const id = useId();
-    const actions = [
+    const items = [
         {
-            icon: <ArrowUpward/>,
-            name: 'Add Before',
-            onClick: () => handleAddBefore(line, linesOfBlocks, setLinesOfBlocks, setActiveLineToEditIdList),
+            label: '',
+            key: '1',
+            icon: <ArrowUpOutlined/>,
         },
         {
-            icon: <ArrowDownward/>,
-            name: 'Add After',
-            onClick: () => handleAddAfter(line, linesOfBlocks, setLinesOfBlocks, setActiveLineToEditIdList)
+            label: '',
+            key: '2',
+            icon: <ArrowDownOutlined/>,
         },
         {
-            icon: <Delete/>,
-            name: 'Delete line',
-            onClick: () => handleDelete(line, linesOfBlocks, setLinesOfBlocks, setBlockToEdit, activeLineToEditIdList, setActiveLineToEditIdList)
+            label: '',
+            key: '3',
+            icon: <DeleteOutlined/>,
         },
-    ]
+    ];
+    const menuProps = {
+        items,
+        onClick: (e) => {
+            if (e.key === '1') {
+                handleAddBefore(line, linesOfBlocks, setLinesOfBlocks, setActiveLineToEditIdList);
+            }
+            if (e.key === '2') {
+                handleAddAfter(line, linesOfBlocks, setLinesOfBlocks, setActiveLineToEditIdList);
+            }
+            if (e.key === '3') {
+                handleDelete(line, linesOfBlocks, setLinesOfBlocks, setBlockToEdit, activeLineToEditIdList, setActiveLineToEditIdList);
+            }
+        },
+    };
     return (
-        <div
-            className={`flex flex-wrap ${marginTop} ${marginBottom} ${width} ${bgColor} ${elevationValue}`}
-        >
-            <div
-                className={'flex flex-row flex-wrap items-center'}
+        <div style={{
+            width: width,
+        }}>
+            <Dropdown.Button
+                className={`line-of-view flex flex-wrap ${marginTop} ${marginBottom} ${bgColor} ${elevationValue}`}
+                menu={menuProps}
                 onClick={() => selectBlockToEdit(line, linesOfBlocks, setBlockToEdit, setActiveLineToEditIdList)}
             >
+                {/*<div
+                    className={'flex flex-row flex-wrap items-center'}
+                    onClick={() => selectBlockToEdit(line, linesOfBlocks, setBlockToEdit, setActiveLineToEditIdList)}
+                >*/}
                 {generateLine(line, getOperandFromMainList).map((block, index) =>
                     generateBlock(block, `${id}-${index}`),
                 )}
-            </div>
-            <SpeedDial
+                {/*</div>*/}
+            </Dropdown.Button>
+        </div>
+    )
+    /*<SpeedDial
                 ariaLabel="SpeedDial example"
                 direction="right"
                 transitionDuration={0}
@@ -117,9 +133,7 @@ const LineOfViewBlocks = ({line}) => {
                             onClick={action.onClick}
                         />
                     ))}
-            </SpeedDial>
-        </div>
-    )
+            </SpeedDial>*/
 }
 LineOfViewBlocks.propTypes = {
     line: PropTypes.object.isRequired,

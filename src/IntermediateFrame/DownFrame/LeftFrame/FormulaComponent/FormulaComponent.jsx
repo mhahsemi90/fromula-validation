@@ -6,7 +6,7 @@ const FormulaComponent = () => {
     const {linesOfBlocks} = useContext(MainFrameContext);
     const id = useId()
     return (
-        <div className={'flex flex-col items-end w-full direction-rtl'}>
+        <div className={'flex flex-col items-end w-full'}>
             {linesOfBlocks.map((line, index) =>
                 (<LineOfViewBlocks line={line} key={`${id}-${index}`}/>)
             )}

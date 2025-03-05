@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@font-face {
+    font-family: 'B-Titr';
+    src: url('Fonts/B-Titr.ttf') format('woff2'),
+    url('Fonts/B-Titr.ttf') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+*{
+    direction: inherit !important;
+    font-family: inherit !important;
+    font-size: inherit !important;
+}
+.direction-rtl {
+    direction: rtl !important;
+    font-family: 'B-Titr', sans-serif !important;
+    font-size: 15px !important;
+}
+.direction-ltr {
+    direction: ltr !important;
+    font-family: 'Arial', sans-serif !important;
+}
+.ant-tabs-content {
+    height: 100%;
+}
+div[role="dialog"] > div[tabindex="0"] {
+    display: flex;
+    justify-content: center;
+}
+.line-of-view > button {
+    background: transparent;
+}
+.line-of-view > button:hover {
+    background: transparent !important;
+}
